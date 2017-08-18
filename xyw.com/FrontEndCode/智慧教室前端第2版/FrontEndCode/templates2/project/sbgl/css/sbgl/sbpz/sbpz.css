@@ -1,0 +1,139 @@
+.m-sbpz{padding: 30px;padding-top: 0;}
+.m-sbpz li{list-style: none;}
+.m-sbpz ul{margin: 0;}
+.m-sbpz-breadcrumb{border-bottom: solid 1px rgba(255,255,255,0.2);}
+.m-sbpz-breadcrumb .breadcrumb{overflow: hidden;padding: 20px 0 6px 0;margin: 0; background-color: transparent;}
+.m-sbpz-breadcrumb .breadcrumb li{position: relative; float: left;margin-right: 20px; height: 28px; line-height: 28px;}
+.m-sbpz-breadcrumb .breadcrumb li:before{content: ">";position: absolute;right: -18px;top:0px;text-shadow: 0px 2px 4px rgba(0,0,0,0.50);font-size: 18px; color: #fff; }
+.m-sbpz-breadcrumb .breadcrumb li:last-child:before{content: " ";}
+.m-sbpz-breadcrumb .breadcrumb li.active{}
+.m-sbpz-breadcrumb .breadcrumb li,
+.m-sbpz-breadcrumb .breadcrumb li a{text-shadow: 0px 2px 4px rgba(0,0,0,0.50);font-size: 18px; color: #fff;}
+/*/ input标签*/
+.m-sbpz-breadcrumb .tab-input,.g-modal .tab-input{display: block;height: 26px;padding: 0 10px; width: 100%;border: 0;outline: 0;border-radius: 0; background-color:#4771ae;}
+.m-sbpz-breadcrumb .tab-input.none{background-color: transparent;}
+.m-sbpz-breadcrumb .tab-input.cursor{cursor: pointer;}
+.m-sbpz-breadcrumb textarea.tab-input{height: auto;resize: none;}
+.m-sbpz-breadcrumb .kcjh-add-btn{margin: 20px; text-align: right;}
+
+/*树结构*/
+.m-sbpz-tree{background-color: rgba(255,255,255,0.2);overflow: hidden;}
+.m-sbpz-tree ul li a{color: #fff;text-decoration: none;cursor: pointer;}
+.m-sbpz-tree ul li{border-bottom:1px solid #315D9C;}
+.m-sbpz-tree ul li:nth-child(1){background-color: rgba(255,255,255,0.4);}
+.m-sbpz-tree ul.abn-tree li.abn-tree-row a{padding:8px 14px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.m-sbpz-tree ul li a{border-radius: 0;}
+.m-sbpz-tree ul li a:hover{background-color: #58E0E1;color:#fff;}
+.m-sbpz-tree ul.nav-pills > li.active > a{background-color: #58E0E1;}
+.m-sbpz .m-sbgl-sbpz-tree{margin-top:23px;background-color:transparent;padding-bottom:1px;}
+.m-sbpz .m-sbgl-sbpz-h-tree{height:42px;background-color: transparent;}
+
+/*   设备管理    节点型号 /   */
+
+.m-sbgl-sbpz{margin-top: 23px;background-color:rgba(217,238,245,0.2);padding-bottom: 1px;}
+.m-sbgl-sbpz .m-sbgl-sbpz-b{background-color:rgba(217,238,245,0.2);padding-bottom: 1px;}
+.col-xs-9 .m-sbgl-sbpz-h{background-color:rgba(217,238,245,0.4);}
+.m-sbgl-sbpz-h{height: 42px; background-color:rgba(217,238,245,0.2);}
+.m-sbgl-sbpz-h b{  font-size: 16px;margin-left: 6px;color: #fff;}
+.m-sbgl-sbpz-h .title{display: inline-block;margin-left: 15px; line-height: 42px; font-size: 16px;color: #fff;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz,.m-sbgl-sbpz-h-tree .sbpz-filter{float: right; margin-top: 6px;margin-right: 20px;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz > div{display: inline-block; vertical-align: top;margin-left: 20px;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-date{}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-date > span{float: left; display: inline-block;line-height: 30px;font-size: 14px;color: #fff;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-date .ckb-intime{float: left;margin-left: 10px;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-date .ckb-intime input{height: 30px; line-height: 30px;width: 170px;border: 0;border-radius: 0;outline: 0;box-shadow: 0 0 0;background-color:rgba(217,238,245,0.2);font-size: 14px; color: #fff;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-date .ckb-intime span{color: #fff;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-modal{}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-modal input{cursor: pointer;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-key{}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-modal input,
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-key input{padding: 0 10px; height: 30px; line-height: 30px;width: 170px;border: 0;outline: 0;border-radius: 0;box-shadow: 0 0 0;background-color:rgba(217,238,245,0.2);font-size: 14px; color: #fff;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-btn{}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-btn a{display: block;width: 78px;height: 30px;line-height: 30px;text-align: center;border-radius: 5px;font-size: 16px;color: #fff;}
+.m-sbgl-sbpz-h .m-sbgl-sbpz .filter-btn a:last-child{margin-left: 20px;}
+.m-sbgl-sbpz-h .sbpz-filter{float:right;margin:6px 20px 0 0;}
+.m-sbgl-sbpz-h .sbpz-filter .filter-key input,.m-sbgl-sbpz-h .sbpz-filter .filter-modal input{height:30px;line-height:30px;border:none;color:#fff;font-size:14px;padding: 0 30px 0 10px;background-color: rgba(217,238,245,0.2);}
+.m-sbgl-sbpz-h .sbpz-filter > div{  display: inline-block;vertical-align: top;margin-left: 20px;}
+.m-sbgl-sbpz-h .sbpz-filter > div.filter-btn a:nth-child(1){margin: 0 24px 0 6px;}
+/*.m-sbgl-sbpz-h .sbpz-filter > div.filter-btn a:nth-child(1){margin:0 24px 0 6px;}*/
+.m-sbgl-sbpz-tree .m-sbgl-sbpz-table{padding: 20px 15px;}
+.m-sbgl-sbpz-table{padding:30px 15px;padding-bottom: 0; min-height: 600px;}
+.m-sbgl-sbpz-table table{width: 100%;}
+.m-sbgl-sbpz-table table tr{}
+.m-sbgl-sbpz-table table tr th{text-align: center; background-color:rgba(217,238,245,0.2); border: solid 1px #fff; height: 36px;font-weight: normal; font-size: 14px; color: #fff;}
+.m-sbgl-sbpz-table table tr td{text-align: center; border: solid 1px rgba(255,255,255,0.6); height: 36px;font-size: 14px; color: #fff;}
+.m-sbgl-sbpz-table table tr th.text-left,
+.m-sbgl-sbpz-table table tr td.text-left{text-align: left;padding: 0 10px;}
+.m-sbgl-sbpz-table a{ color: #A6BEF8;}
+.m-sbgl-sbpz-table a:hover{ color: #69EDF7;}
+/*节点型号表单控制宽度*/
+.m-sbgl-sbpz-table table.jdxh-table-w tr th:nth-child(2){width:58%;}
+.m-sbgl-sbpz-table table.jdxh-table-w tr td:nth-child(1){text-align: left;padding: 0 4px;}
+
+/*控制命令表单控制宽度*/
+.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(1),.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(2),.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(3),.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(4),.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(11){width:7%;}
+.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(5){width:4%;}
+.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(6),.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(7),.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(8){width:8%;}
+.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(9),.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(10),.m-sbgl-sbpz-table table.kzml-table-w tr th:nth-child(12){width:10%;}
+
+/*状态命令表单控制宽度*/
+.m-sbgl-sbpz-table table.ztml-table-w tr th:nth-child(4){width:6%;}
+.m-sbgl-sbpz-table table.ztml-table-w tr th:nth-child(10){width:10%;}
+
+/*设备管理者表单控制宽度*/
+.m-sbgl-sbpz-table table.sbglz-table-w tr th:nth-child(1),.m-sbgl-sbpz-table table.sbglz-table-w tr th:nth-child(2),.m-sbgl-sbpz-table table.sbglz-table-w tr th:nth-child(3),.m-sbgl-sbpz-table table.sbglz-table-w tr th:nth-child(4),.m-sbgl-sbpz-table table.sbglz-table-w tr th:nth-child(5){width:12%;}
+.m-modal-tab-w table tr td.text-left:first-child{width:28%;}
+
+/*  设备管理-设备配置-状态命令-添加-首页       */
+.m-sbpz{padding: 30px;padding-top: 0;}
+.m-sbpz li{list-style: none;}
+.m-sbpz ul{margin: 0;}
+.m-sbpz-breadcrumb{border-bottom: solid 1px rgba(255,255,255,0.2);}
+.m-sbpz-breadcrumb .breadcrumb{overflow: hidden;padding: 20px 0 6px 0;margin: 0; background-color: transparent;}
+.m-sbpz-breadcrumb .breadcrumb li{position: relative; float: left;margin-right: 20px; height: 28px; line-height: 28px;}
+.m-sbpz-breadcrumb .breadcrumb li:before{content: ">";position: absolute;right: -18px;top:0px;text-shadow: 0px 2px 4px rgba(0,0,0,0.50);font-size: 18px; color: #fff; }
+.m-sbpz-breadcrumb .breadcrumb li:last-child:before{content: " ";}
+.m-sbpz-breadcrumb .breadcrumb li.active{}
+.m-sbpz-breadcrumb .breadcrumb li,
+.m-sbpz-breadcrumb .breadcrumb li a{text-shadow: 0px 2px 4px rgba(0,0,0,0.50);font-size: 18px; color: #fff;}
+
+/*  设备管理-设备配置-状态命令-添加-详情页       */
+.m-sbgl-sbpz{margin-top: 23px;background-color:rgba(217,238,245,0.2);padding-bottom: 1px;}
+.m-sbgl-sbpz-h{height: 42px; background-color:rgba(217,238,245,0.2);}
+.m-sbgl-sbpz-h .title{display: inline-block;margin-left: 15px; line-height: 42px; font-size: 16px;color: #fff;}
+.m-sbgl-sbpz-h .sbpz-filter{float: right; margin-top: 6px;margin-right: 20px;}
+.m-sbgl-sbpz-h .sbpz-filter > div{display: inline-block; vertical-align: top;margin-left: 20px;}
+.m-sbgl-sbpz-h .sbpz-filter .filter-date{}
+.m-sbgl-sbpz-h .sbpz-filter .filter-date > span{float: left; display: inline-block;line-height: 30px;font-size: 14px;color: #fff;}
+.m-sbgl-sbpz-h .sbpz-filter .filter-date .ckb-intime{float: left;margin-left: 10px;}
+.m-sbgl-sbpz-h .sbpz-filter .filter-date .ckb-intime input{height: 30px; cursor: pointer; line-height: 30px;width: 170px;border: 0;border-radius: 0;outline: 0;box-shadow: 0 0 0;background-color:rgba(217,238,245,0.2);font-size: 14px; color: #fff;}
+.m-sbgl-sbpz-h .sbpz-filter .filter-date .ckb-intime span{color: #fff;}
+.m-sbgl-sbpz-h .sbpz-filter .filter-key{}
+.m-sbgl-sbpz-h .sbpz-filter .filter-key input{padding: 0 10px; height: 30px; line-height: 30px;width: 170px;border: 0;outline: 0;border-radius: 0;box-shadow: 0 0 0;background-color:rgba(217,238,245,0.2);font-size: 14px; color: #fff;}
+.m-sbgl-sbpz-h .sbpz-filter .filter-btn{}
+.m-sbgl-sbpz-h .sbpz-filter .filter-btn a{display: block;min-width: 78px;height: 30px;line-height: 30px;text-align: center;border-radius: 5px;font-size: 16px;color: #fff;}
+
+.m-sbgl-sbpz-add-table{padding: 30px 15px;overflow: hidden;}
+.m-sbgl-sbpz-add-table table.sbpz-add-table-w tr th,.m-sbgl-sbpz-add-table table.sbpz-add-table-w tr td:nth-child(1){text-align: left;padding: 0 4px;}
+.m-sbgl-sbpz-add-table table{width: 100%;}
+.m-sbgl-sbpz-add-table table tr{}
+.m-sbgl-sbpz-add-table table tr th{text-align: center; background-color:rgba(217,238,245,0.2); border: solid 1px #fff; height: 36px;font-weight: normal; font-size: 14px; color: #fff;}
+.m-sbgl-sbpz-add-table table tr td{text-align: center; border: solid 1px rgba(255,255,255,0.6); height: 36px;font-size: 14px; color: #fff;}
+.m-sbgl-sbpz-add-table table tr th.text-left,
+.m-sbgl-sbpz-add-table table tr td.text-left{text-align: left;padding: 0 10px;}
+.m-sbgl-sbpz-add-table a{ color: #A6BEF8;}
+.m-sbgl-sbpz-add-table a:hover{ color: #69EDF7;}
+input::-webkit-input-placeholder {
+color: #fff !important;
+}
+input:-moz-placeholder {
+color: #fff !important;
+}
+input::-moz-placeholder {
+color: #fff !important;
+}
+input:-ms-input-placeholder {
+color: #fff !important;
+}
+
+

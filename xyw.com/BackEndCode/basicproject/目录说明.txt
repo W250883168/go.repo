@@ -1,0 +1,9 @@
+action :路由文件
+Controller:控制层文件
+DataAccess:数据访问层文件
+Model:后台模型层文件
+viewmodel:前端模型层文件
+templates:前端文件
+templates2:前端文件
+temporaylog:临时日志和其他处理文件
+

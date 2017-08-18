@@ -1,0 +1,51 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.operation == 'add'">章节信息添加</span>
+		<span ng-if="items.operation == 'edit'">章节信息修改</span>
+		<span ng-if="items.operation == 'details'">章节信息查看</span>
+		<div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+		<div class="m-modal-content">
+			<p class="title">章节信息</p>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>课程名称</span>
+				<input class="form-control" type="text" ng-model="Curriculumsinfo.Curriculumname" readonly="readonly" placeholder="课程名称" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>章节名称</span>
+				<input class="form-control" type="text" ng-model="Chapters.Chaptername" placeholder="请输入章节名称" ng-readonly="purview.details" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>顺序</span>
+				<input class="form-control" type="text" ng-model="Chapters.ChaptersIndex" placeholder="请输入章节顺序" ng-readonly="purview.details" />
+			</div>
+			
+			<div class="content">
+		        <span class="text"><i class="fa f-required off"></i>章节图标</span>
+		        <ul class="add-img-ul upimg">
+		          <li ng-repeat="item in upimglist">
+		            <span><img height="60" width="100"  ng-src="{{item.Result}}" /></span>
+		            <i class="icon-close" ng-click="closePic($index)"></i>
+		          </li>
+		        </ul>
+		        <span class="upimg" up-img="" ng-class="{'hidden':upimglist.length > 0}"><input type="file" name="file" value="" /><span class="btn btn-info m-b-xs w-xs">上传</span></span>
+		    </div>
+			
+			<div class="content">
+		        <span class="text"><i class="fa f-required off"></i>章节详情</span>
+		        <textarea class="form-control" rows="4" ng-model="Chapters.Chapterdetails" ng-readonly="purview.details" placeholder="请输入章节详情"></textarea>
+		    </div>
+			
+		</div>
+	</div>
+	<div class="g-modal-footer" ng-if="purview.add || purview.edit">
+		<button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+		<button class="btn m-b-xs w-xs btn-info" ng-click="ok()" submit-timeout>保存</button>
+	</div>
+</div>
+
+
+
+
+

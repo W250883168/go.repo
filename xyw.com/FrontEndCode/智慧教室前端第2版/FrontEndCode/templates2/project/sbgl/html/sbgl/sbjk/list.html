@@ -1,0 +1,82 @@
+<div ui-view>
+	<div class="m-jdpz">
+		<div class="m-breadcrumb">
+			<!--  w-breadcrumb 面包屑  -->
+			<ul class="breadcrumb">
+	          <li><span>设备管理</span></li>
+	          <li><a ui-sref="app.sbgl.sbjk">设备监控</a></li>
+	          <li class="active">
+	          	<span>{{classRoomItem.Campusname}}</span>
+				<span>{{classRoomItem.Buildingname}}</span>
+				<span>{{classRoomItem.Floorname}}</span>
+				<span>{{classRoomItem.Classroomsname}}</span>
+	          	</li>
+	        </ul>
+		</div>
+		<div class="wrapper-lg m-sbgl-sbjk-list">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					教室设备
+					<span>（
+						<span>{{classRoomItem.Campusname}}</span>
+						<span>{{classRoomItem.Buildingname}}</span>
+						<span>{{classRoomItem.Floorname}}</span>
+						<span>{{classRoomItem.Classroomsname}}</span>）
+					</span>
+					
+					<div class="table-h-location pull-right">
+						<a ui-sref="app.sbgl.sbjk.list.ckb" class="form-control"><i class="fa fa-calendar m-r-sm"></i>查课表</a>
+					</div>
+					<div class="table-h-txt pull-right">
+						课程名称：<span ng-bind="classRoomItem.Curriculumname ? classRoomItem.Curriculumname : '无课程'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						上课老师：<span ng-bind="classRoomItem.Truename ? classRoomItem.Truename : '无老师'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						教室状态：
+						<span ng-if="classRoomItem.Classroomstate == 1">上课中</span>
+						<span ng-if="classRoomItem.Classroomstate == 0">开放中</span>
+						<span ng-if="classRoomItem.Classroomstate == -1">不可用</span>
+					</div>
+				</div>
+				<div>
+					<ul class="sbjk-list clearfix">
+						<li ng-repeat="item in deviceData" ng-click="openDevice(item)">
+							<div class="m-sbgl-sbjk-one" ng-class="{active:item.DeviceSwitch=='on'}">
+								<div class="one-img">
+									<img ng-if="item.DeviceSwitch!='on'" ng-src="{{deviceimg}}{{item.DeviceImg}}" />
+									<img ng-if="item.DeviceSwitch=='on'" ng-src="{{deviceimg}}{{item.DeviceImg2}}" />
+								</div>
+								<div class="one-name">
+									<h3>{{item.DeviceName}}</h3>
+									<div class="one-txt">
+										<div class="one-span">使用时长&nbsp;|&nbsp;{{(item.UseTimeBefore + item.UseTimeAfter) | FormatTime:(DeviceStatus.ServiceTime)}}</div>
+										<div class="one-label">
+											<span class="label bg-success" ng-if="item.NodeSwitch=='offline'">在线</span>
+											<span class="label bg-light dk" ng-if="item.NodeSwitch!='offline'">离线</span>
+											<span class="label bg-danger" ng-if="item.IsCanUse=='0'">停用</span>
+											<span class="label bg-warning" ng-if="item.IsHaveAlert=='1'">预警</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="clear"></div>
+					<div class="sbjk-btn text-center m-b-xl m-t-xl">
+						<a class="btn btn-default" ng-click="fnOpenDevice()" submit-timeout>一键开启</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="btn btn-default" ng-click="fnCloseDevice()" submit-timeout>一键关闭</a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+

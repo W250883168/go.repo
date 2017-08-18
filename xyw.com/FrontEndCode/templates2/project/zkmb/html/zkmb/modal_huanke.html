@@ -1,0 +1,31 @@
+<div class="m-kqjz m-kqtj-modal m-huanke">
+	<div class="kqjz-header">
+		<span>换课操作</span>
+		<div>
+			<i class="icon-close"></i>
+		</div>
+	</div>
+	<div class="kqjz-main huanke-main">
+		<ul class="huanke-list">
+			<li>
+				<span>课程名称</span>
+				<div class="ban">
+					<select class="form-control" ng-modal="huankeItem">
+						<option value="">--课程--</option>
+						<option ng-repeat="item in huankeItems" value="{{item.Curriculumsid}}">{{item.Curriculumname}}</option>
+					</select>
+				</div>
+			</li>
+			<li>
+				<span>班级</span>
+				<div class="ban">
+					<select class="form-control"></select>
+				</div>
+			</li>
+		</ul>
+		<div class="huanke-btn">
+			<a class="btn btn-zkmb-h">取消</a>
+			<a class="btn btn-zkmb-h">确定</a>
+		</div>
+	</div>
+</div>

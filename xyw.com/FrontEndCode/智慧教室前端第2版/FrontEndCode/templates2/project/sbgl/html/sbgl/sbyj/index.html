@@ -1,0 +1,69 @@
+<div ui-view>
+	<div class="m-jdpz">
+		<div class="m-breadcrumb">
+			<!--  w-breadcrumb 面包屑  -->
+			<ul class="breadcrumb" w-breadcrumb></ul>
+		</div>
+		<div class="wrapper-lg">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					预警管理
+					<div class="table-h-search pull-right col-sm-2">
+						<div class="input-group">
+							<input type="text" class="form-control" ng-model="searchData.KeyWord" ng-keyup="sbgzKeyup($event)" placeholder="输入查询关键词">
+							<span class="input-group-btn">
+                  			<button class="btn btn-sm btn-default" type="button" ng-click="searchPost()" submit-timeout>
+                    			<i class="fa fa-search"></i>
+                			</button>
+				       		</span>
+						</div>
+					</div>
+					<div class="table-h-location pull-right location  col-sm-2">
+						<input type="text" class="form-control" ng-model="deviceText" readonly="readonly" placeholder="选择设备型号" ng-click="modalOpenDevice()" />
+					</div>
+					<div class="table-h-location pull-right location  col-sm-2">
+						<input type="text" class="form-control" ng-model="addAdd" readonly="readonly" placeholder="选择安装位置" ng-click="modalOpenClassroom()" />
+					</div>
+				</div>
+				<div>
+					<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+						<thead>
+							<tr>
+								<th data-toggle="true">时间</th>
+								<th>设备名称</th>
+								<th data-hide="phone,tablet">设备ID</th>
+								<th>安装位置</th>
+								<th data-hide="phone,tablet">预警提示</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in allAlertInfoList">
+								<td>{{item.AlertTime}}</td>
+								<td>{{item.DeviceName}}</td>
+								<td>{{item.DeviceId}}</td>
+								<td>{{item.DeviceSite}}</td>
+								<td>{{item.AlertDescription}}</td>
+							</tr>
+							<tr ng-if="allAlertInfoList.length < 1">
+								<td class="text-center" colspan="5">无数据</td>
+							</tr>
+						</tbody>
+						<tfoot class="">
+							<tr>
+								<td colspan="30" class="text-center">
+									<!--分页-->
+									<div class="text-center" foo-pagination></div>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+

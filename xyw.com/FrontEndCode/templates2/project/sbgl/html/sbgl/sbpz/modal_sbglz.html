@@ -1,0 +1,131 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.operate == 'add'">设备添加</span>
+		<span ng-if="items.operate == 'look'">设备查看</span>
+		<span ng-if="items.operate == 'edit'">设备修改</span>
+		<div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+		<div class="m-modal-content">
+			<p class="title">基本信息</p>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>设备名称</span>
+				<input class="form-control" type="text" ng-model="form.Name" ng-readonly="items.operate == 'look'" placeholder="请输入名称" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>资产编码</span>
+				<input class="form-control" type="text" ng-model="form.Code" ng-readonly="items.operate == 'look'" placeholder="请输入设备编码" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>设备序列号</span>
+				<input class="form-control" type="text" ng-model="form.Sn" ng-readonly="items.operate == 'look'" placeholder="请输入设备序列号" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>品牌</span>
+				<input class="form-control" type="text" ng-model="form.Brand" ng-readonly="items.operate == 'look'" placeholder="请输入品牌" />
+			</div>
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required"></i>设备型号</span>
+				<input ng-if="items.operate != 'look'" class="form-control" type="text" ng-model="form.ModelName" placeholder="请选择型号" />
+				<button ng-if="items.operate != 'look'" class="btn m-b-xs w-xs btn-default" ng-click="modalOpenDevice()">选择</button>
+				<input ng-if="items.operate == 'look'" class="form-control" type="text" ng-model="items.item.ModelName" ng-readonly="items.operate != 'add'" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>前使用时间</span>
+				<input class="form-control" type="text" ng-model="form.UseTimeBefore" ng-readonly="items.operate == 'look'" placeholder="输入设备前使用时间（秒）" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>已使用时间</span>
+				<input class="form-control" type="text" ng-model="form.UseTimeAfter" ng-readonly="items.operate == 'look'" placeholder="输入设备已使用时间（秒）" />
+			</div>
+		</div>
+
+		<div class="m-modal-content">
+			<p class="title">节点配置</p>
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required"></i>节点位置</span>
+				<input ng-if="items.operate != 'look'" class="form-control" type="text" ng-model="form.ClassroomName" placeholder="选择位置" />
+				<button ng-if="items.operate != 'look'" class="btn m-b-xs w-xs btn-default" ng-click="modalOpenClassroom()">选择</button>
+				<input ng-if="items.operate == 'look'" class="form-control" type="text" value="{{items.item.Campusname}}-{{items.item.Buildingname}}-{{items.item.Classroomsname}}" readonly="readonly" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>选择节点</span>
+				<div class="form-select">
+		          <ui-select  ng-model="nodeIds.item" ng-disabled="items.operate=='look'?true:false" theme="bootstrap" ng-change="changeNodeItem(nodeIds.item)">
+		            <ui-select-match placeholder="选择节点">{{$select.selected.Name}}</ui-select-match>
+		            <ui-select-choices repeat="item in nodeIds.items | filter: $select.search">
+		              <div ng-bind-html="item.Name | highlight: $select.search"></div>
+		            </ui-select-choices>
+		          </ui-select>
+		        </div>
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>节点编号</span>
+				<input class="form-control" type="text" ng-model="form.PowerNodeId" ng-change="changePowerNodeId(form.PowerNodeId)" ng-readonly="items.operate == 'look'" placeholder="请输入编号" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>电源口编号</span>
+				<input class="form-control" type="text" ng-model="form.PowerSwitchId" ng-readonly="items.operate == 'look'" placeholder="请输入开关编号" />
+			</div>
+			<div class="content hidden">
+				<span class="text"><i class="fa f-required off"></i>开关状态</span>
+				<div class="form-select">
+		          <ui-select  ng-model="form.NodeSwitchStatusItem" ng-disabled="items.operate=='look'?true:false" theme="bootstrap" ng-change="changeNodeSwitchStatusItem(form.NodeSwitchStatusItem)">
+		            <ui-select-match placeholder="选择节点开关状态">{{$select.selected.title}}</ui-select-match>
+		            <ui-select-choices repeat="item in form.NodeSwitchStatusItems | filter: $select.search">
+		              <div ng-bind-html="item.title | highlight: $select.search"></div>
+		            </ui-select-choices>
+		          </ui-select>
+		        </div>
+			</div>
+			<div class="content hidden" ng-if="form.JoinMethod == 'node'">
+				<span class="text"><i class="fa f-required off"></i>节点编号</span>
+				<input class="form-control" type="text" ng-model="form.JoinNodeId" ng-readonly="items.operate == 'look'" placeholder="请输入连接的节点编号" />
+			</div>
+			<div class="content" ng-if="form.JoinMethod == 'node'">
+				<span class="text"><i class="fa f-required off"></i>通讯口编号</span>
+				<input class="form-control" type="text" ng-model="form.JoinSocketId" ng-readonly="items.operate == 'look'" placeholder="请输入连接的节点插口编号" />
+			</div>
+			
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>接入方式</span>
+				<div class="form-select">
+		          <ui-select  ng-model="form.JoinMethodItem" ng-disabled="items.operate=='look'?true:false" theme="bootstrap" ng-change="changeJoinMethodItem(form.JoinMethodItem)">
+		            <ui-select-match placeholder="选择接入方式">{{$select.selected.title}}</ui-select-match>
+		            <ui-select-choices repeat="item in form.JoinMethodItems | filter: $select.search">
+		              <div ng-bind-html="item.title | highlight: $select.search"></div>
+		            </ui-select-choices>
+		          </ui-select>
+		        </div>
+			</div>
+
+			
+			<div class="content" ng-if="form.JoinMethod == 'pjlink'">
+				<span class="text"><i class="fa f-required off"></i>IP地址</span>
+				<input class="form-control" type="text" ng-readonly="items.operate == 'look'" placeholder="请输入IP地址" />
+			</div>
+			<div class="content" ng-if="form.JoinMethod == 'pjlink'">
+				<span class="text"><i class="fa f-required off"></i>端口</span>
+				<input class="form-control" type="text" ng-readonly="items.operate == 'look'" placeholder="请输入端口" />
+			</div>
+			<div class="content" ng-if="form.JoinMethod == 'pjlink'">
+				<span class="text"><i class="fa f-required off"></i>类别</span>
+				<input class="form-control" type="text" ng-readonly="items.operate == 'look'" placeholder="请输入类别" />
+			</div>
+			<div class="content" ng-if="form.JoinMethod == 'pjlink'">
+				<span class="text"><i class="fa f-required off"></i>密码</span>
+				<input class="form-control" type="text" ng-readonly="items.operate == 'look'" placeholder="请输入密码" />
+			</div>
+			
+		</div>
+
+
+	</div>
+
+	<div class="g-modal-footer" ng-if="items.operate != 'look'">
+		<button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+		<button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+	</div>
+</div>
+
+

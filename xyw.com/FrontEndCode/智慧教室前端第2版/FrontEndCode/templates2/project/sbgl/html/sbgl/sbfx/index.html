@@ -1,0 +1,113 @@
+<div ui-view>
+	<div class="m-sbjk">
+		<!--  breadcrumb 面包屑  -->
+		<div class="m-sbjk-breadcrumb">
+	        <ul class="breadcrumb" w-breadcrumb></ul>
+		</div>
+		<!--  main  -->
+    <div class="wrapper-lg sbjk">
+        <div class="title">当前设备数量统计（单位：台）</div>
+        <!--绘图-->
+				<div class="row cvs sbfx-sltj">
+					<div class="col-lg-3" ng-repeat="item in inDeviceItems" style="min-width: 340px;">
+						<div class="panel panel-default bl{{$index}}">
+							<p class="panel-heading">{{item.ModelName}}</p>
+							<div class="text-center" >
+								<div class="sbfx_cvs" e-chart ui-options='{{item.option}}' style="display: inline-block; width: 270px; height: 177px;"></div>
+							</div>
+							<div class="sbfx-sltj-footer">
+								<ul class="m-sbfx-sltj">
+									<li><i style="border-color: {{data_color[0]}};"></i><span>总台数</span></li>
+									<li><i style="border-color: {{data_color[1]}};"></i><span>停用中</span></li>
+									<li><i style="border-color: {{data_color[2]}};"></i><span>预警中</span></li>
+									<li><i style="border-color: {{data_color[3]}};"></i><span>故障中</span></li>
+									<li><i style="border-color: {{data_color[4]}};"></i><span>离线</span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="title m-b-lg">
+					<span>使用时间分析（单位：小时）</span>
+				</div>
+
+				<div class="m-sbgl-sbfx-one bl">
+
+					<div class="panel panel-default bl{{$index}}">
+						<div class="panel-heading">
+							按设备分类
+							<div class="table-h-location pull-right location  col-sm-2">
+								<input type="text" class="form-control" ng-model="deviceText2" ng-click="modalOpenDevice2()" readonly="readonly" placeholder="选择设备分类" />
+							</div>
+							<div class="table-h-location pull-right location  col-sm-2">
+								<input type="text" class="form-control" ng-model="addAdd2" ng-click="modalOpenClassroom2()" readonly="readonly" placeholder="选择位置分类" />
+							</div>
+							<div class="table-h-selct pull-right col-sm-2">
+								<div class="form-select">
+									<ui-select ng-model="searchData2.howMonthItem" theme="bootstrap" ng-change="selectChange2('month')">
+										<ui-select-match placeholder="选择时间">{{$select.selected.title}}</ui-select-match>
+										<ui-select-choices repeat="item in searchData2.howMonthItems | filter: $select.search">
+											<div ng-bind-html="item.title | highlight: $select.search"></div>
+										</ui-select-choices>
+									</ui-select>
+								</div>
+							</div>
+							<div class="table-h-selct pull-right col-sm-2">
+								<div class="form-select">
+									<ui-select ng-model="searchData2.oneAllItem" theme="bootstrap" ng-change="selectChange2('time')">
+										<ui-select-match placeholder="选择条件">{{$select.selected.title}}</ui-select-match>
+										<ui-select-choices repeat="item in searchData2.oneAllItems | filter: $select.search">
+											<div ng-bind-html="item.title | highlight: $select.search"></div>
+										</ui-select-choices>
+									</ui-select>
+								</div>
+							</div>
+						</div>
+						<div>
+							<div class="sbfx_cvs" id="typeTime" e-chart ui-options='{{inDeviceItems2.option}}' style="height: 220px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="m-sbgl-sbfx-one bl3 m-t-lg">
+
+					<div class="panel panel-default bl{{$index}}">
+						<div class="panel-heading">
+							按设备位置
+							<div class="table-h-location pull-right location  col-sm-2">
+								<input type="text" class="form-control" ng-model="deviceText3" ng-click="modalOpenDevice3()" readonly="readonly" placeholder="选择设备分类" />
+							</div>
+							<div class="table-h-location pull-right location  col-sm-2">
+								<input type="text" class="form-control" ng-model="addAdd3" ng-click="modalOpenClassroom3()" readonly="readonly" placeholder="选择位置分类" />
+							</div>
+							<div class="table-h-selct pull-right col-sm-2">
+								<div class="form-select">
+									<ui-select ng-model="searchData3.howMonthItem" theme="bootstrap" ng-change="selectChange3('month')">
+										<ui-select-match placeholder="选择时间">{{$select.selected.title}}</ui-select-match>
+										<ui-select-choices repeat="item in searchData3.howMonthItems | filter: $select.search">
+											<div ng-bind-html="item.title | highlight: $select.search"></div>
+										</ui-select-choices>
+									</ui-select>
+								</div>
+							</div>
+							<div class="table-h-selct pull-right col-sm-2">
+								<div class="form-select">
+									<ui-select ng-model="searchData3.oneAllItem" theme="bootstrap" ng-change="selectChange3('time')">
+										<ui-select-match placeholder="选择条件">{{$select.selected.title}}</ui-select-match>
+										<ui-select-choices repeat="item in searchData3.oneAllItems | filter: $select.search">
+											<div ng-bind-html="item.title | highlight: $select.search"></div>
+										</ui-select-choices>
+									</ui-select>
+								</div>
+							</div>
+
+						</div>
+						<div>
+							<div class="sbfx_cvs" id="typeSite" e-chart ui-options='{{inDeviceItems3.option}}' style="height: 220px;width: 80%;margin-left: auto;margin-right: auto;"></div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>

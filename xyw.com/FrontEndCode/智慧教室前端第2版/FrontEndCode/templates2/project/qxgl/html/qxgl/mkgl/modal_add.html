@@ -1,0 +1,60 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+    <span ng-if="items.str == 'add'">添加模块</span>
+    <span ng-if="items.str == 'details'">查看模块</span>
+    <span ng-if="items.str == 'edit'">修改模块</span>
+    <div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+    <div class="m-modal-content">
+      <p class="title">基本信息</p>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>模块图标</span>
+        <input class="form-control" type="text" ng-model="form.Curriculumicon" ng-readonly="details" placeholder="输入模块图标"/>
+      </div>
+      <div class="content" ng-if="items.str !== 'add'">
+        <span class="text"><i class="fa f-required"></i>模块Id</span>
+        <input class="form-control" type="text" ng-model="form.Id" ng-readonly="items.str !== 'add'" placeholder="输入模块图标"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>模块名称</span>
+        <input class="form-control" type="text" ng-model="form.Modulename" ng-readonly="details" placeholder="输入模块名称"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>模块代码</span>
+        <input class="form-control" type="text" ng-model="form.Modulecode" ng-readonly="details" placeholder="输入模块代码"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>显示名称</span>
+        <input class="form-control" type="text" ng-model="form.Moduledisplayname" ng-readonly="details" placeholder="输入显示名称"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>适用终端</span>
+        <input class="form-control" type="text" ng-model="form.Moduledisplayterminal" ng-readonly="items.str !== 'edit'" placeholder="输入适用终端"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required oof"></i>上级模块</span>
+        <div class="form-select">
+          <ui-select  ng-model="form.mkglList" ng-disabled="items.str=='details'?true:false" theme="bootstrap" ng-change="changeModelItem(form.mkglList)">
+            <ui-select-match placeholder="选择上级模块">{{$select.selected.Modulename}}</ui-select-match>
+            <ui-select-choices repeat="item in form.mkglLists | filter: $select.search">
+              <div ng-bind-html="item.Modulename | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>模块属性</span>
+        <input class="form-control" type="text" ng-model="form.Moduleattribute" ng-readonly="details" placeholder="输入模块属性"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>模块排序</span>
+        <input class="form-control" type="text" ng-model="form.ModuleIndex" ng-readonly="details" placeholder="输入模块排序"/>
+      </div>
+    </div>
+	</div>
+  <div class="g-modal-footer" ng-if="items.str != 'details'">
+    <button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+    <button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+  </div>
+</div>

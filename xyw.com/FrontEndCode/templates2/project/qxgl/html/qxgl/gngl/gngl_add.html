@@ -1,0 +1,66 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span>添加</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+	<div class="g-modal-body m-modal-classroom-body">
+		<table>
+			<tr>
+				<td>功能图标</td>
+				<td>
+					<div class="modal-div-input"><input type="text" class="modal-input none" ng-model="gngl_add.Functionicon" placeholder="输入功能图标" /></div>
+				</td>
+			</tr>
+			<tr>
+				<td>功能名称</td>
+				<td>
+					<div class="modal-div-input"><input type="text" class="modal-input none" ng-model="gngl_add.Functionname" placeholder="输入功能名称" /></div>
+				</td>
+			</tr>
+			<tr>
+				<td>所属模块ID</td>
+				<td>
+					<div class="modal-div-input">
+						<select class="form-control modal-input" ng-model="gngl_add.Systemmoduleid">
+							<option value="">--请选择--</option>
+							<option ng-repeat="item in mkgl_list" value="{{item.Id}}" >{{item.Modulename}}({{item.Id}})</option>
+						</select>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>功能代码</td>
+				<td>
+					<div class="modal-div-input"><input type="text" class="modal-input none" ng-model="gngl_add.Functioncode" placeholder="输入功能代码" /></div>
+				</td>
+			</tr>
+			<tr>
+				<td>功能地址</td>
+				<td>
+					<div class="modal-div-input"><input type="text" class="modal-input none" ng-model="gngl_add.Functionsurl" placeholder="输入功能地址" /></div>
+				</td>
+			</tr>
+			<tr>
+				<td>功能属性</td>
+				<td>
+					<div class="modal-div-input"><input type="text" class="modal-input none" ng-model="gngl_add.Functionsattribute" placeholder="输入功能属性" /></div>
+				</td>
+			</tr>
+			<tr>
+				<td>功能描述</td>
+				<td>
+					<div class="modal-div-input"><input type="text" class="modal-input none" ng-model="gngl_add.FunctionDescribe" placeholder="输入功能描述" /></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="g-modal-footer">
+		<a class="btn" ng-click="cancel()">取消</a>
+		<a class="btn" ng-click="postAdd()" submit-timeout>确定</a>
+	</div>
+</div>
+
+
+
+
+

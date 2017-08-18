@@ -1,0 +1,95 @@
+<div ui-view>
+	<div class="m-jdpz">
+		<div class="m-breadcrumb">
+			<!--  w-breadcrumb 面包屑  -->
+			<ul class="breadcrumb" w-breadcrumb></ul>
+		</div>
+		<div class="wrapper-lg">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					控制命令
+					<div class="table-h-btn pull-right">
+						<button tabindex="2" class="btn b-w-rs w-xs btn-info pull-left" ng-click="openModalAddMl()">添加</button>
+					</div>
+					<div class="table-h-search pull-right col-sm-2">
+						<div class="input-group">
+							<input type="text" class="form-control" ng-model="form.KeyWord" ng-keyup="sbgzKeyup($event)" placeholder="输入查询关键词">
+							<span class="input-group-btn">
+                  			<button class="btn btn-sm btn-default" type="button" ng-click="searchPost()" submit-timeout>
+                    			<i class="fa fa-search"></i>
+                			</button>
+				       		</span>
+						</div>
+					</div>
+					<div class="table-h-location pull-right location  col-sm-2  hidden">
+						<input type="text" class="form-control" ng-model="form.ModelName" readonly="readonly" placeholder="选择设备型号" ng-click="modalOpenDevice()" />
+					</div>
+				</div>
+				<div>
+					<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+						<thead>
+							<tr>
+								<th width="30"></th>
+								<th data-toggle="true">设备型号</th>
+								<th>命令代码</th>
+								<th>命令名称</th>
+								<th data-hide="phone,tablet">命令描述</th>
+								<th data-hide="phone,tablet">请求URI</th>
+								<th data-hide="phone,tablet">URI查询参数</th>
+								<th>请求类型</th>
+								<th data-hide="phone,tablet">负载</th>
+								<th>延时关闭时间(ms)</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in SbpzKzmlItems">
+								<td>{{$index + 1 + (backPage.PageIndex - 1) * backPage.PageSize}}</td>
+								<td>{{item.ModelIdName}}</td>
+								<td>{{item.CmdCode}}</td>
+								<td>{{item.CmdName}}</td>
+								<td>{{item.CmdDescription}}</td>
+								<td>{{item.RequestURI}}</td>
+								<td>{{item.URIQuery}}</td>
+								<td><span class="label bg-info">{{item.RequestType}}</span></td>
+								<td>{{item.Payload}}</td>
+								<td>{{item.DelayMillisecond}}</td>
+								<td>
+									<div class="btn-group dropdown" dropdown="">
+										<button class="btn btn-default" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">操作<span class="caret"></span></button>
+										<ul class="dropdown-menu">
+											<li>
+												<a ng-click="openModalAddMl(item,'see')">查看</a>
+											</li>
+											<li>
+												<a ng-click="openModalAddMl(item,'edit')">修改</a>
+											</li>
+											<li>
+												<a ng-click="deleteItem(item)">删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr ng-if="SbpzKzmlItems.length < 1">
+								<td class="text-center" colspan="30">无数据</td>
+							</tr>
+						</tbody>
+						<tfoot class="">
+							<tr>
+								<td colspan="30" class="text-center">
+									<!--分页-->
+									<div class="text-center" foo-pagination></div>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

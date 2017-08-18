@@ -1,0 +1,91 @@
+<div ui-view>
+	<div class="m-jdpz">
+		<div class="m-breadcrumb">
+			<!--  w-breadcrumb 面包屑  -->
+			<ul class="breadcrumb" w-breadcrumb data-operatetitle="{{operatetitle}}"></ul>
+		</div>
+		<div class="wrapper-lg">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					{{Curriculumname}}
+					<div class="table-h-btn pull-right">
+						<button tabindex="2" class="btn b-w-rs w-xs btn-info pull-left" ng-click="openModalZjpz('add')">添加</button>
+					</div>
+					<div class="table-h-search pull-right col-sm-2 hidden">
+						<div class="input-group">
+							<input type="text" class="form-control" ng-model="form.Seacrchtxt" ng-keyup="sbgzKeyup($event)" placeholder="输入查询关键词">
+							<span class="input-group-btn">
+                  			<button class="btn btn-sm btn-default" type="button" ng-click="searchPost()" submit-timeout>
+                    			<i class="fa fa-search"></i>
+                			</button>
+				       		</span>
+						</div>
+					</div>
+				</div>
+				<div>
+					<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+						<thead>
+							<tr>
+								<th width="30"></th>
+								<th data-toggle="true">章节名称</th>
+								<th>班级</th>
+								<th>日期</th>
+								<th data-hide="phone,tablet">上课时间</th>
+								<th data-hide="phone,tablet">教室</th>
+								<th>上课老师</th>
+								<th data-hide="phone,tablet">是否允许录播</th>
+								<th data-hide="phone,tablet">是否允许直播</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in zjpzItems">
+								<td>{{$index + 1 + (backPage.PageIndex - 1) * backPage.PageSize}}</td>
+								<td>{{item.Chaptername}}</td>
+								<td>{{item.Classesname}}</td>
+								<td>{{item.Begindate.substr(0,10)}}</td>
+								<td>{{item.Begindate.substr(11,5) + '-' + item.Enddate.substr(11,5)}}</td>
+								<td>{{item.Campusname + "-" + item.Buildingname + "-" + item.Classroomsname}}</td>
+								<td>{{item.Truename}}</td>
+								<td><span ng-if="item.Isondomian == 1">是</span><span ng-if="item.Isondomian == 0">否</span></td>
+								<td><span ng-if="item.Islive == 1">是</span><span ng-if="item.Islive == 0">否</span></td>
+								<td>
+									<div class="btn-group dropdown" dropdown="">
+										<button class="btn btn-default" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">操作<span class="caret"></span></button>
+										<ul class="dropdown-menu">
+											<li>
+												<a ng-click="openModalZjpz('edit',item)">配置</a>
+											</li>
+											<li>
+												<a ng-click="deleteItem(item)">删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr ng-if="zjpzItems.length < 1">
+								<td colspan="30" class="text-center">无数据</td>
+							</tr>
+						</tbody>
+						<tfoot class="">
+							<tr>
+								<td colspan="30" class="text-center">
+									<!--分页-->
+									<div class="text-center" foo-pagination></div>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+

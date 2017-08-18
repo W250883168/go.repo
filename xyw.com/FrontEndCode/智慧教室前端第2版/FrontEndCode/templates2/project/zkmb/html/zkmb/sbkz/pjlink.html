@@ -1,0 +1,268 @@
+<script type="text/javascript" src="../project/zkmb/js/zkmb/pjlink.js"></script>
+
+<div class="m-zkmb-sbkz" ng-controller="pjlinkController">
+	<div class="wrapper-lg">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				{{deviceData.DeviceName}}
+			</div>
+			<div class="sbjk-list clearfix">
+				<div class="m-sbgl-sbjk-one" ng-class="{active:deviceData.DeviceSwitch=='on'}">
+					<div class="one-img">
+						<img ng-if="deviceData.DeviceSwitch!='on'" ng-src="{{deviceimg}}{{deviceData.DeviceImg}}" />
+						<img ng-if="deviceData.DeviceSwitch=='on'" ng-src="{{deviceimg}}{{deviceData.DeviceImg2}}" />
+						<div class="one-img-btn">
+							<a class="btn btn-info" ng-click="fnOpenDevice()">开启</a>
+							<a class="btn btn-black" ng-click="fnCloseDevice()">关闭</a>
+						</div>
+					</div>
+					<div class="one-name">
+						<h3>{{deviceData.DeviceName}}</h3>
+						<div class="one-txt">
+							<div class="one-span">使用时长&nbsp;|&nbsp;{{DeviceStatus.ServiceTime | FormatTime:(DeviceStatus.ServiceTime)}}</div>
+							<div class="one-label">
+								<span class="label bg-success" ng-if="deviceData.NodeSwitch=='offline'">在线</span>
+								<span class="label bg-light dk" ng-if="deviceData.NodeSwitch!='offline'">离线</span>
+								<span class="label bg-danger" ng-if="deviceData.IsCanUse=='0'">停用</span>
+								<span class="label bg-warning" ng-if="deviceData.IsHaveAlert=='1'">预警</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		
+		
+		<div class="panel panel-default m-sbjk-nav">
+			<!--  筛选    -->
+			<div class="panel-heading" ng-init="det_tab = 1">
+				<ul class="sbjk-nav">
+					<li ng-click="det_tab = 1" ng-class="{'active':det_tab == 1}">
+						<a>状态</a>
+					</li>
+					<li ng-click="det_tab = 2" ng-class="{'active':det_tab == 2}">
+						<a>预警</a>
+					</li>
+					<li ng-click="det_tab = 3" ng-class="{'active':det_tab == 3}">
+						<a>故障</a>
+					</li>
+					<li ng-click="det_tab = 4" ng-class="{'active':det_tab == 4}">
+						<a>操作日志</a>
+					</li>
+					<li ng-click="det_tab = 5" ng-class="{'active':det_tab == 5}">
+						<a>使用日志</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="det-body">
+				<!--   状态   -->
+				<div class="det-main" ng-class="{'active':det_tab == 1}">
+					<div class="status-table">
+						<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+							<thead>
+								<tr>
+									<th width="20%">状态</th>
+									<th width="80%">描述</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>开关状态</td>
+									<td>
+	                                	<span ng-if="true == (deviceData.DeviceSwitch=='on')">开启</span>
+	                                    <span ng-if="false == (deviceData.DeviceSwitch=='on')">关闭</span>
+	                                </td>
+								</tr>
+								<tr>
+									<td>使用时长</td>
+									<td>{{DeviceStatus.ServiceTime | FormatTime:(DeviceStatus.ServiceTime)}}</td>
+								</tr>
+								<tr ng-repeat="item in DeviceStatus.Status">
+									<td>{{item.StatusName}}</td>
+									<td>{{item.StatusValueName}}</td>
+								</tr>
+							</tbody>
+							<tfoot class="">
+								<tr>
+									<td colspan="30" class="text-center">&nbsp;</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+				
+				<!--   预警   -->
+				<div class="det-main" ng-class="{'active':det_tab == 2}">
+					<div class="status-table">
+						<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+							<thead>
+								<tr>
+									<th width="20%">预警时间</th>
+									<th width="80%">预警提示</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in AlertInfoList">
+									<td>{{item.AlertTime}}</td>
+									<td>{{item.AlertDescription}}</td>
+								</tr>
+	                            <tr ng-if="AlertInfoList.length < 1">
+									<td class="text-center" colspan="2">无数据</td>
+								</tr>
+							</tbody>
+							<tfoot class="">
+								<tr>
+									<td colspan="30" class="text-center">&nbsp;</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+				<div class="det-main" ng-class="{'active':det_tab == 3}">
+					<div class="status-table">
+						<div class="add-btn text-right m-r-lg">
+							<a class="btn btn-info" ng-click="modalOpenAddFault(item,'add')">添加</a>
+						</div>
+						<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+							<thead>
+								<tr>
+									<th width="30"></th>
+									<th>故障时间</th>
+									<th>故障现象</th>
+									<th>是否可用</th>
+									<th>故障状态</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in FaultInfoList">
+									<td>{{$index + 1 + (backPage3.PageIndex - 1) * backPage3.PageSize}}</td>
+									<td>{{item.HappenTime}}</td>
+									<td title="{{item.FaultSummary}}">{{item.FaultSummary | limitTo:15}}<span ng-if="item.FaultSummary.length > 15">...</span></td>
+									<td>
+										<span ng-if="item.IsCanUse == 0">不可使用</span>
+										<span ng-if="item.IsCanUse == 1">可以使用</span>
+									</td>
+									<td>
+										<span ng-if="item.Status == 0">草稿</span>
+										<span ng-if="item.Status == 1">待受理</span>
+										<span ng-if="item.Status == 2">维修中</span>
+										<span ng-if="item.Status == 3">已维修</span>
+									</td>
+									<td>
+										<a ng-click="modalOpenAddFault(item,'details')">查看</a>
+										<a ng-if="item.Status != '3'" ng-click="modalOpenAddFault(item,'edit')">
+											<span ng-if="item.Status == '0'">申报</span>
+											<span ng-if="item.Status == '1'">受理</span>
+											<span ng-if="item.Status == '2'">登记</span>
+										</a>
+										<a ng-if="item.Status == '0'" ng-click="modalOpenAddFault(item,'delete')" ng-if="item.Status == 0">删除</a>
+									</td>
+								</tr>
+                                <tr ng-if="FaultInfoList.length < 1">
+									<td class="text-center" colspan="30">无数据</td>
+								</tr>
+							</tbody>
+							<tfoot class="">
+								<tr>
+									<td colspan="30" class="text-center">
+										<!--分页-->
+										<div class="text-center" scope="backPage3" foo-pagination></div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+
+					</div>
+				</div>
+				
+				<!--    操作日志     -->
+				
+				<div class="det-main" ng-class="{'active':det_tab == 4}">
+					<div class="status-table">
+						<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+							<thead>
+								<tr>
+									<th width="30"></th>
+									<th>操作时间</th>
+									<th>操作人</th>
+									<th>操作类型</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in OperateLogList">
+									<td>{{$index + 1 + (backPage4.PageIndex - 1) * backPage4.PageSize}}</td>
+									<td>{{item.OperateTime}}</td>
+									<td class="text-center">{{item.UserName}}</td>
+									<td class="text-center">{{item.CmdName}}</td>
+								</tr>
+                                <tr ng-if="OperateLogList.length < 1">
+									<td class="text-center" colspan="3">无数据</td>
+								</tr>
+							</tbody>
+							<tfoot class="">
+								<tr>
+									<td colspan="30" class="text-center">
+										<!--分页-->
+										<div class="text-center" scope="backPage4" foo-pagination></div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+						
+					</div>
+				</div>
+				
+				
+				<!--   使用日志    -->
+				<div class="det-main" ng-class="{'active':det_tab == 5}">
+					<div class="status-table">
+						<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+							<thead>
+								<tr>
+									<th width="30"></th>
+									<th>开始时间</th>
+									<th>结束时间</th>
+									<th>时长</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in UseLogList">
+									<td>{{$index + 1 + (backPage5.PageIndex - 1) * backPage5.PageSize}}</td>
+									<td>{{item.OnTime}}</td>
+									<td>{{item.OffTime}}</td>
+									<td class="text-center">{{item.timeLength}}</td>
+								</tr>
+                                <tr ng-if="UseLogList.length < 1">
+									<td class="text-center" colspan="3">无数据</td>
+								</tr>
+							</tbody>
+							<tfoot class="">
+								<tr>
+									<td colspan="30" class="text-center">
+										<!--分页-->
+										<div class="text-center" scope="backPage5" foo-pagination></div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+						
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+	
+		</div>
+		
+		
+		
+	</div>
+	
+	
+	
+</div>

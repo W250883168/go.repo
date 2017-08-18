@@ -1,0 +1,77 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.operate == 'add'">联动场景添加</span>
+		<span ng-if="items.operate == 'edit'">联动场景修改</span>
+		<span ng-if="items.operate == 'details'">联动场景查看</span>
+		<div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+		<div class="m-modal-content">
+			<p class="title">基本信息</p>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>场景名称</span>
+				<input class="form-control" type="text" ng-model="form.TaskName" ng-readonly="items.operate == 'details'" placeholder="输入场景名称" />
+			</div>
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required"></i>设置位置</span>
+				<input ng-if="items.operate != 'details'" class="form-control" type="text" ng-model="form.postionName" placeholder="请选择安装位置" />
+				<button ng-if="items.operate != 'details'" class="btn m-b-xs w-xs btn-default" ng-click="modalOpenClassroom()">选择</button>
+				<input ng-if="items.operate == 'details'" class="form-control" type="text" value="{{items.item.Campusname}}-{{items.item.BuildingName}}-{{items.item.Floorname}}" readonly="readonly" />
+			</div>
+			
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>响应事件</span>
+				<div class="form-select">
+					<ui-select ng-model="XysjItem" ng-disabled="items.operate=='details'?true:false" theme="bootstrap" ng-change="changeXysjItem(XysjItem)">
+						<ui-select-match placeholder="选择响应事件">{{$select.selected.EventName}}</ui-select-match>
+						<ui-select-choices repeat="item in XysjItems | filter: $select.search">
+							<div ng-bind-html="item.EventName | highlight: $select.search"></div>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+			
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required"></i>触发条件</span>
+				<input ng-if="items.operate != 'details'" class="form-control" type="text" ng-model="form.repeatText" placeholder="触发条件" />
+				<button ng-if="items.operate != 'details'" class="btn m-b-xs w-xs btn-default" ng-click="openModalAddMlAddTJ(form,items.operate)">选择</button>
+				<input ng-if="items.operate == 'details'" class="form-control" type="text" ng-model="form.repeatText" readonly="readonly" />
+			</div>
+			
+			
+			<div class="content" ng-if="items.operate != 'add'">
+				<span class="text"><i class="fa f-required"></i>创建人</span>
+				<input class="form-control" type="text" ng-model="form.MakeUsersname" placeholder="输入创建人" ng-readonly="items.operate != 'add'" />
+			</div>
+			
+			<div class="content" ng-if="items.operate != 'add'">
+				<span class="text"><i class="fa f-required"></i>创建时间</span>
+				<input class="form-control" type="text" ng-model="form.MakeDate" placeholder="选择时间" ng-readonly="items.operate != 'add'" />
+			</div>
+			
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>定时开关</span>
+				<div class="form-select">
+					<ui-select ng-model="form.IsOpenItem" ng-disabled="items.operate=='details'?true:false" theme="bootstrap" ng-change="changeIsOpenItem(form.IsOpenItem)">
+						<ui-select-match placeholder="选择定时开关">{{$select.selected.title}}</ui-select-match>
+						<ui-select-choices repeat="item in form.IsOpenItems | filter: $select.search">
+							<div ng-bind-html="item.title | highlight: $select.search"></div>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		
+		
+	</div>
+	<div class="g-modal-footer" ng-if="items.operate == 'edit' || items.operate == 'add'">
+		<button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+		<button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+	</div>
+</div>
+
+
+

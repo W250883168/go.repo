@@ -1,0 +1,13 @@
+coap.cmd.node#smart_switch/rs232/broadcast/infor/power_meter
+coap.cmd.device#projector/multiplexer/fan/air_condition/camera/computer/curtain
+coap.cmd.location#room/floor/building
+coap.cmd.timer
+coap.cmd.scene
+coap.cmd.trigger
+
+ffmpeg.cmd.capture.camera#run/stop/pause
+ffmpeg.cmd.capture.screen#run/stop/pause
+
+windows.cmd.shutdown
+windows.cmd.logout
+

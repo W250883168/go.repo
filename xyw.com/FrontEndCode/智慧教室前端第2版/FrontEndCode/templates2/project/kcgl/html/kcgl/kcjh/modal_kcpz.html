@@ -1,0 +1,69 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.operate != 'edit'">课程配置添加</span>
+		<span ng-if="items.operate == 'edit'">课程配置</span>
+		<div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+		<div class="m-modal-content">
+			<p class="title">关联课程</p>
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required"></i>课程名称</span>
+				<input class="form-control" type="text" ng-model="form.Curriculumsname" placeholder="请选择课程" />
+				<button class="btn m-b-xs w-xs btn-default" ng-click="modalOpenClassroom()">选择</button>
+			</div>
+		</div>
+		<div class="m-modal-content">
+			<p class="title">基本配置</p>
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required off"></i>班级</span>
+				<input class="form-control" type="text" ng-model="form.Classesname" placeholder="请选择班级" />
+				<button class="btn m-b-xs w-xs btn-default" ng-click="modalOpenClass()">选择</button>
+			</div>
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required off"></i>上课老师</span>
+				<input class="form-control" type="text" ng-model="form.Teachername" placeholder="请选择老师" />
+				<button class="btn m-b-xs w-xs btn-default" ng-click="modalOpenTeacher()">选择</button>
+			</div>
+		</div>
+		<div class="m-modal-content">
+			<p class="title">视频是否允许配置</p>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>是否录播</span>
+				<div class="form-select">
+					<ui-select ng-model="form.IsondemandItem" theme="bootstrap" ng-change="changeIsondemandItem(form.IsondemandItem)">
+						<ui-select-match placeholder="选择是否允许录播">{{$select.selected.title}}</ui-select-match>
+						<ui-select-choices repeat="item in form.IsondemandItems | filter: $select.search">
+							<div ng-bind-html="item.title | highlight: $select.search"></div>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>是否直播</span>
+				<div class="form-select">
+					<ui-select ng-model="form.IsliveItem" theme="bootstrap" ng-change="changeIsliveItem(form.IsliveItem)">
+						<ui-select-match placeholder="选择是否允许直播">{{$select.selected.title}}</ui-select-match>
+						<ui-select-choices repeat="item in form.IsliveItems | filter: $select.search">
+							<div ng-bind-html="item.title | highlight: $select.search"></div>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="g-modal-footer">
+		<button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+		<button class="btn m-b-xs w-xs btn-info" ng-click="ok('submit','12')">保存</button>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+

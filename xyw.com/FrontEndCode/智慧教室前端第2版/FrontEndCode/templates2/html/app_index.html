@@ -1,0 +1,187 @@
+<div class="m-index col-lg-12" ui-view>
+	<div class="col-lg-12">
+		<div class="panel panel-default col-lg-6" style="padding: 0;">
+			<div class="panel-heading">
+				系统基本信息
+			</div>
+			<div>
+				<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+					<tbody>
+						<tr>
+							<td>程序版本</td>
+							<td>新云网智慧教室后台管理系统{{app.version}}</td>
+						</tr>
+						<tr>
+							<td>操作系统</td>
+							<td>Windows Server 2008</td>
+						</tr>
+						<tr>
+							<td>服务器软件</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>数据库</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>发布时间</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="image">
+				<img width="100%" height="317px" src="../img/c5.jpg" alt="" />
+				<div class="bulletin-wrapper">
+					<span class="text">{{Hours}}!今天是 {{NowDate}} 您上次登录时间是 2017年03月22日11:01:40</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="geiappcode =='qxgl'" class="col-lg-8">
+      <div class="m-sbgl-sbfx-one bl col-lg-0">
+        <div class="panel panel-default bl1" ng-init="htmlReady1($last)">
+          <div class="panel-heading">
+			整体出勤率
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt1" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="m-sbgl-sbfx-one bl col-lg-0">
+        <div class="panel panel-default bl1" ng-init="htmlReady2($last)">
+          	<div class="panel-heading">
+            	学院出勤率
+	          <div>
+	            <div class="sbfx_cvs" id="sbfx_kt2" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+	          </div>
+    		</div>
+      	</div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one bl col-lg-0">
+        <div class="panel panel-default bl1" ng-init="htmlReady3($last)">
+          <div class="panel-heading">
+            	专业出勤率
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt3" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one bl col-lg-0">
+        <div class="panel panel-default bl1" ng-init="htmlReady4($last)">
+          <div class="panel-heading">
+            	班级出勤率
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt4" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="m-sbgl-sbfx-one bl col-lg-0">
+        <div class="panel panel-default bl1" ng-init="htmlReady5($last)">
+          <div class="panel-heading">
+            	课程出勤率
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt5" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+	</div>
+	<div ng-if="geiappcode =='jcsj.yhgl.jsgl'" class="col-lg-12">
+      <div class="m-sbgl-sbfx-one bl col-lg-6">
+        <div class="panel panel-default bl1" ng-init="htmlReady1($last)">
+          <div class="panel-heading">
+			整体出勤率
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt1" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="m-sbgl-sbfx-one bl col-lg-6">
+        <div class="panel panel-default bl1" ng-init="htmlReady2($last)">
+          	<div class="panel-heading">
+            	学院出勤率
+	          <div>
+	            <div class="sbfx_cvs" id="sbfx_kt2" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+	          </div>
+    		</div>
+      	</div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one bl col-lg-6">
+        <div class="panel panel-default bl1" ng-init="htmlReady3($last)">
+          <div class="panel-heading">
+            	专业出勤率
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt3" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one bl col-lg-6">
+        <div class="panel panel-default bl1" ng-init="htmlReady4($last)">
+          <div class="panel-heading">
+            	班级出勤率
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt4" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="m-sbgl-sbfx-one bl col-lg-6">
+        <div class="panel panel-default bl1" ng-init="htmlReady5($last)">
+          <div class="panel-heading">
+            	课程出勤率
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt5" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+	</div>
+	<div ng-if="geiappcode =='qxgl'" class="col-lg-4">
+		<div class="index-right col-lg-0" ng-repeat="item in inDeviceItems">
+			<div class="panel panel-default bl{{$index}}">
+				<p class="panel-heading">{{item.ModelName}}</p>
+				<div class="text-center">
+					<ul class="m-sbfx-sltj">
+						<li><span>总台数</span></li>
+						<li><span>停用中</span></li>
+						<li><span>预警中</span></li>
+						<li><span>故障中</span></li>
+						<li><span>离线</span></li>
+					</ul>
+					<div class="sbfx_cvs" e-chart ui-options='{{item.option}}' style="display: inline-block; width: 70%; height: 225px; "></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="geiappcode =='sbgl'" class="col-lg-12">
+		<div class="index-right col-lg-4" ng-repeat="item in inDeviceItems">
+			<div class="panel panel-default bl{{$index}}">
+				<p class="panel-heading">{{item.ModelName}}</p>
+				<div class="text-center">
+					<ul class="m-sbfx-sltj">
+						<li><span>总台数</span></li>
+						<li><span>停用中</span></li>
+						<li><span>预警中</span></li>
+						<li><span>故障中</span></li>
+						<li><span>离线</span></li>
+					</ul>
+					<div class="sbfx_cvs" e-chart ui-options='{{item.option}}' style="display: inline-block; width: 70%; height: 225px; "></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

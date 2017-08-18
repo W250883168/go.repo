@@ -1,0 +1,32 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.operate != 'edit'">故障分类添加</span>
+		<span ng-if="items.operate == 'edit'">故障分类修改</span>
+    <div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+    <div class="m-modal-content">
+      <p class="title">基本信息</p>
+      <div class="content hidden">
+        <span class="text"><i class="fa f-required"></i>分类Id</span>
+        <input class="form-control" type="text" ng-model="form.Id" readonly="readonly" placeholder="输入分类Id"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>设备型号</span>
+        <input class="form-control" type="text" ng-model="form.ModelName" placeholder="输入设备型号" readonly="readonly"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>分类名称</span>
+        <input class="form-control" type="text" ng-model="form.Name" placeholder="输入分类名称"/>
+      </div>
+      <div class="content hidden">
+        <span class="text"><i class="fa f-required"></i>设备型号Id</span>
+        <input class="form-control" type="text" ng-model="form.ModelId" placeholder="输入设备型号Id" readonly="readonly"/>
+      </div>
+    </div>
+	</div>
+  <div class="g-modal-footer">
+    <button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+    <button class="btn m-b-xs w-xs btn-info" ng-click="ok('submit','12')">保存</button>
+  </div>
+</div>

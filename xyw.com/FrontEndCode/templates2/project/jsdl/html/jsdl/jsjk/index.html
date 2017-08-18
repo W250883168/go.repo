@@ -1,0 +1,63 @@
+<div ui-view>
+	<div class="m-jdpz">
+		<div class="m-breadcrumb">
+			<!--  w-breadcrumb 面包屑  -->
+			<ul class="breadcrumb" w-breadcrumb></ul>
+		</div>
+		<div class="wrapper-lg sbjk">
+			<div class="panel panel-default m-sbjk-nav">
+				<!--  筛选    -->
+
+				<div class="panel-heading">
+					<ul class="sbjk-nav">
+						<li ng-repeat="item in schoolItems" ng-click="school_tab(item)" ng-class="{'active':item.checkbox}"><a>{{item.Campusname}}</a></li>
+					</ul>
+					<div class="sbjk-nav-main">
+						<div class="nav-floor clearfix">
+							<ul>
+								<li ng-repeat="item in floorItems"><label class="i-checks"><span>{{item.Buildingname}}</span><input type="checkbox" name="post[]" ng-click="floor_checkbox(item)" ng-model="item.checkbox"><i class="fa fa-check"></i></label></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+
+				<!--  楼层    -->
+				<div class="sbjk-room">
+					<div class="m-sbjk-room-one" ng-repeat="item in classroomItems">
+						<p class="one-title">{{item.BuildingName}}</p>
+						<div class="one-main">
+							<div class="media" ng-repeat="item2 in item.data">
+								<div class="media-left" ng-click="openPic(item2)">
+									<span>{{item2.FloorName}}</span>
+								</div>
+								<div class="media-body">
+									<ul>
+										<li ng-if="item3.ClassroomId != -1" ng-repeat="item3 in item2.data" ng-click="openSref(item3)" ng-class="{'null':(item3.ClassroomId == -1 || item3.Percentage == -1 || item3.Percentage == 0),'in50-80':item3.Percentage == 1,'gt80':item3.Percentage == 2,'it50':item3.Percentage == 3}">
+											<a popover="{{item3.ClassroomName}} {{(item3.Percentage == 1)?'人少':''}}{{(item3.Percentage == 2)?'正常':''}}{{(item3.Percentage == 3)?'拥挤':''}}{{(item3.ClassroomId == -1 || item3.Percentage == -1 || item3.Percentage == 0)?'上课中':''}}" popover-trigger="mouseenter">{{item3.ClassroomName}}</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="room-ts hidden">
+						<span class="bl">正常</span>
+						<span class="ye">异常</span>
+						<span class="fei hidden">空</span>
+					</div>
+				</div>
+				<div class="clear"></div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+

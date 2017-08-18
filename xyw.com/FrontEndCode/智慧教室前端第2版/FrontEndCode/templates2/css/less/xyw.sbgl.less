@@ -1,0 +1,626 @@
+//   设备管理样式
+.m-sbjk-nav{
+    .sbjk-nav{
+        margin: -15px -15px 0 -15px;
+        padding-left:20px;
+        overflow: hidden;
+        border-bottom: solid 1px @border-color-blck;
+        li{
+            float: left;
+            margin: 0 12px;
+            list-style: none;
+            a{
+                display: block;
+                border-bottom: solid 3px transparent;
+                height: 57px;
+                line-height: 57px;
+                font-size: 16px;
+                color: @text-color;
+                &:hover{
+                    border-color: @brand-black-blue;
+                }
+            }
+            &.active{
+                a{
+                    border-color: @brand-black-blue;
+                }
+            }
+        }
+    }
+    .sbjk-nav-main{
+        .nav-floor{
+            position: relative;
+            padding-right: 130px;
+            > ul{
+                overflow: hidden;
+                margin: 10px 0;
+                padding-left: 15px;
+                li{
+                    float: left;
+                    margin-right: 15px;
+                    list-style: none;
+                    padding-left: 20px;
+                }
+            }
+            .nav-yichang{
+                position: absolute;
+                top: 10px;
+                right: 0;
+                .title{
+                    background-color: lighten(@brand-black,-2%);
+                    border:solid 1px @border-color-blck;
+                    padding: 0 10px 0 20px;
+                    line-height: 34px;
+                    font-size: 14px;
+                    i.fa{
+                        margin-left: 6px;
+                    }
+                }
+                .list{
+                    display: none;
+                    padding-left: 40px;
+                    margin-bottom: 0;
+                    margin-top: -1px;
+                    background-color: lighten(@brand-black,-2%);
+                    border:solid 1px @border-color-blck;
+                    li{
+                        list-style: none;
+                        label{
+                            color: #fff;
+                        }
+                    }
+                }
+                &:hover{
+                    .list{
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+    //
+    .sbjk-room{
+        margin: 15px;
+        margin-top: 0;
+        margin-bottom: 50px;
+        .m-sbjk-room-one{
+            margin: 15px 0;
+        }
+    }
+}
+
+
+//
+.m-sbjk-room-one{
+    display: table;
+    .one-title{
+        display: table-cell;
+        vertical-align: middle;
+        width: 80px;
+        text-align: center;
+        color: @text-color;
+    }
+    .one-main{
+        display: table-cell;
+        .media{
+            margin-top: 0;
+            .media-left{
+                span{
+                    display: block;
+                    width: 60px;
+                    height: 40px;
+                    border-radius: 40px;
+                    line-height: 38px;
+                    border: solid 1px @text-color;
+                    text-align: center;
+                    color: @text-color;
+                    cursor: pointer;
+                }
+            }
+        }
+        .media-body{
+            ul{
+                overflow: hidden;
+                padding-left: 0;
+                margin-bottom: 0;
+                li{
+                    float: left;
+                    list-style: none;
+                    margin: 0 10px;
+                    margin-bottom: 15px;
+                    a{
+                        display: block;
+                        width: 70px;
+                        height: 40px;
+                        border-radius: 40px;
+                        line-height: 38px;
+                        border: solid 1px @text-color;
+                        text-align: center;
+                        span{
+                            
+                        }
+                        i{
+                            
+                        }
+                    }
+                    //   设备监控
+                    &.ok a{color: #6BCF48;border-color: #6BCF48;}
+                    &.error a{color: #F0382F;border-color: #F0382F;}
+                    &.null a{color: #8B8B8B;border-color: #8B8B8B;}
+                    //   出勤管理 - 实时出勤
+                    &.it50 a{color: #f17373;border-color: #f17373;}
+                    &.in50-80 a{color: #ecd876;border-color: #ecd876;}
+                    &.gt80 a{color: #69e688;border-color: #69e688;}
+                }
+            }
+        }
+        //
+        .media-right{
+            .right-btn{
+                a{
+                    margin-top: 2px;
+                    line-height: 16px;
+                    border-radius: 36px;
+                    border:solid 2px #fff;
+                }
+            }
+        }
+    }
+    
+}
+
+
+/*  设备管理弹窗显示楼层图      */
+/*    查看楼层平面图      */
+.m-sbjk-modal{margin-top: 8%;}
+.m-sbjk-modal .modal-dialog{width: 90%;}
+.m-sbjk-modal .modal-dialog > .modal-content{box-shadow:0 0 0;background-color: transparent;border: 0;}
+.m-sbjk-modal .modal-dialog .sbjk-pic{padding: 10px;background-color: #fff;}
+.m-sbjk-modal .modal-dialog .sbjk-pic > div{text-align: center;max-height: 600px; overflow: auto;padding: 10px;}
+.m-sbjk-modal .modal-dialog .sbjk-pic > div img{}
+.m-sbjk-modal .sbjk-pic-btn{text-align: center; margin-top: 20px; cursor: pointer;}
+.m-sbjk-modal .sbjk-pic-btn a{font-size: 50px; color: #fff;}
+
+
+
+////
+.m-sbgl-sbfx{
+    .sbfx-sltj{
+        .panel-heading{
+            padding-top: 10px;
+        }
+    }
+    .sbfx-sltj-footer{
+        padding-bottom: 10px;
+    }
+}
+
+
+//   设备分析  - 数量统计
+.m-sbfx-sltj{
+    padding-left: 0;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+    > li{
+        display: inline-block;
+        list-style: none;
+        margin:0 2px;
+        > i{
+            display:block;
+            margin-top: 4px;
+            margin-right: 3px;
+            float: left;
+            width: 12px;
+            height: 12px;
+            border: solid 3px #00A8F3;
+            border-radius: 50%;
+        }
+        > span{
+            display: block;
+            float: left;
+            color: @text-color;
+        }
+    } 
+}
+
+
+//    设备管理 列表
+.m-sbgl-sbjk-list{
+    .sbjk-list{
+        padding: 25px 0 0 0;
+        border-top: solid 1px @border-color-blck;
+        > li{
+            float: left;
+            list-style: none;
+            margin:10px;
+            .m-sbgl-sbjk-one{
+                
+            }
+        }
+    }
+    .sbjk-btn{
+        a.btn-default{
+            background-image: linear-gradient(-180deg, #506072 3%, #485668 96%);
+            border-radius: 4px;
+            color: #fff !important;
+            border:0;
+        }
+    }
+}
+//
+.m-sbgl-sbjk-one{
+    cursor: pointer;
+    width: 300px;
+    border-radius: 4px;
+    .one-img{
+        position: relative;
+        z-index: 1;
+        height: 190px;
+        text-align: center;
+        padding-top: 40px;
+        border: 1px solid @border-color-blck;
+        border-radius: 4px 4px 0 0;
+        background-color: lighten(@brand-black-main, 4%);
+        img{
+            width: 110px;
+            height: 110px;
+        }
+    }
+    &.active .one-img{
+        background-image: linear-gradient(-1deg, rgba(25, 145, 235, 0.4) 2%, rgba(45, 161, 248, 0.4) 98%);
+        border: 1px solid #1991EB;
+    }
+    .one-name{
+        height: 80px;
+        padding: 0 10px 0 20px;
+        background-color: lighten(@brand-black-main, 4%);
+        border: 1px solid @border-color-blck;
+        border-radius:0 0 4px 4px;
+        margin-top: -1px;
+        h3{
+            padding: 19px 0 8px 0;
+            margin: 0;
+            font-size: 16px;
+            color: lighten(@text-color, 60%);
+        }
+        .one-txt{
+            overflow: hidden;
+            .one-span{
+                float: left;
+                font-size: 11px;
+                color: @text-color;    
+            }
+            .one-label{
+                float: right;
+                width: 118px;
+                span{
+                    display: inline-block;
+                    vertical-align: top;
+                    font-size: 11px;
+                    font-weight: normal;
+                    padding: 0 3px;
+                    margin: 0 3px;
+                    height: 18px;
+                    line-height: 18px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    
+}
+
+//   设备监控， 课程表
+.m-sbjk-ckb-tab{
+    padding: 10px 30px 30px 30px;
+    > table{
+        width: 100%;
+        tr{
+           th{
+               height: 50px;
+               font-size: 14px;
+               font-weight: bold;
+               text-align: center;
+               border: solid 1px #ccc;
+           } 
+           td{
+               height: 46px;
+               border: solid 1px #ccc;
+               font-size: 14px;
+               text-align: center;
+           }
+        }
+    }
+}
+
+//   设备监控面板
+.m-zkmb-sbkz{
+    .sbjk-list{
+        border-top: solid 1px @border-color-blck;
+        padding: 30px 30px 30px 30px;
+        display:flex;
+        > li{
+            list-style: none;
+        }
+        .m-sbgl-sbjk-one{flex: 0 0 378px;}
+        .m-sbgl-sbjk-kz{flex: 1;}
+    }
+    .m-sbgl-sbjk-one{
+        width: 378px;
+        .one-img{
+            .one-img-btn{
+                float: right;
+                margin-right: 40px;
+                margin-top: 20px;
+                width: 86px;
+                a.btn{
+                    display: block;
+                }
+                a:first-child{
+                    margin-bottom: 20px;
+                }
+                a.btn-black{
+                    background-image: linear-gradient(-180deg, #506072 3%, #485668 96%);
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+    //   设备状态等
+    .det-body{
+        .det-main{
+            display: none;
+            &.active{
+                display: block;
+            }
+        }
+    }
+}
+
+//   设备监控  -  控制按钮
+.m-sbgl-sbjk-kz{
+    margin-left: 20px;
+    > div{
+        overflow: hidden;
+        padding: 40px 30px;
+        padding-left: 15px;
+        border-radius: 4px;
+        background-color: lighten(@brand-black-main, 4%);
+        border: solid 1px #313d4f;
+    }
+    
+    
+    //   VGA切换器
+    .kz-vagtoggle{
+        .list{
+            overflow: hidden;
+            margin-top: 20px;
+            > span{
+                float: left;
+                line-height: 36px;
+                margin: 0 20px;
+            }
+            ul{
+                padding: 0;
+                margin: 0;
+                li{
+                    float: left;
+                    list-style: none;
+                    margin-left: -1px;
+                    a{
+                        display: block;
+                        text-align: center;
+                        width: 100px;
+                        height: 36px;
+                        line-height: 36px;
+                        background: #273142;
+                        border: 1px solid #313D4F;
+                        border-radius: 0;
+                    }
+                    &.active a{
+                        position: relative;
+                        z-index: 1;
+                        background-image: linear-gradient(-1deg, rgba(25, 145, 235, 0.4) 2%, rgba(45, 161, 248, 0.4) 98%);
+                        border: 1px solid #1A91EB;
+                        color: lighten(@text-color, 60%);
+                    }
+                    &:first-child a{
+                        border-radius: 4px 0 0 4px;
+                    }
+                    &:last-child a{
+                        border-radius: 0 4px 4px 0;
+                    }
+                }
+            }
+            &:first-child{
+                margin-top: 0;
+            }
+        }
+        
+    }
+    //    空调
+    .kz-vagtoggle.kz-kt{
+        padding-top: 32px !important;
+        padding-bottom: 32px !important;
+        .kt-slider{
+            > span{
+                float: left;
+                line-height: 36px;
+                margin: 0 20px;
+            }
+            .sl{
+                float: left;
+                margin-top: 6px;
+                > span{
+                    margin: 0 10px;
+                    line-height: 22px;
+                    vertical-align: top;
+                }
+                input{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+//   升级
+.m-sbgl-sbjk-up{
+    padding: 30px 30px 30px 15px;
+    .up-all{
+        overflow: hidden;
+        > span{
+            float: left;
+            line-height: 36px;
+            margin: 0 20px;
+        }
+        ul{
+            padding: 0;
+            margin: 0;
+            li{
+                float: left;
+                list-style: none;
+                margin-left: -1px;
+                a{
+                    display: block;
+                    text-align: center;
+                    width: 100px;
+                    height: 36px;
+                    line-height: 36px;
+                    background: #273142;
+                    border: 1px solid #313D4F;
+                    border-radius: 0;
+                }
+                &.active a{
+                    position: relative;
+                    z-index: 1;
+                    background-image: linear-gradient(-1deg, rgba(25, 145, 235, 0.4) 2%, rgba(45, 161, 248, 0.4) 98%);
+                    border: 1px solid #1A91EB;
+                    color: lighten(@text-color, 60%);
+                }
+                &:first-child a{
+                    border-radius: 4px 0 0 4px;
+                }
+                &:last-child a{
+                    border-radius: 0 4px 4px 0;
+                }
+            }
+        }
+        &:first-child{
+            margin-top: 0;
+        }
+    }
+}
+
+
+//     设备故障
+//    故障添加
+.m-modal-device-tab{
+    border-bottom: solid 1px #45556e;
+    margin-bottom: 15px;
+    > li{
+        float: left;
+        > a{
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            width: 80px;
+            border-radius: 0;
+            padding: 0;
+            background-color: lighten(@brand-black-main, 20%);
+            color:@text-color;
+            border-left: solid 1px lighten(@brand-black-main, 18%);
+            &.disabled:hover{
+                background-color: lighten(@brand-black-main, 20%);
+                color: @text-color;
+            }
+            &:hover{
+                background-color: lighten(@brand-black-main, 30%);
+                color: #fff;
+            }
+        }
+        &:first-child a{
+            border-top-left-radius: 4px;
+            border-left:none;
+        }
+        &:last-child a{
+            border-top-right-radius: 4px;
+        }
+        &.active{
+            > a , > a:hover{
+                background-color: lighten(@brand-black-main, 30%);
+                color: #fff;
+            }
+        }
+    }
+}
+.m-modal-tab-main{
+    display: none;
+    &.active{
+        display: block;
+    }
+}
+//
+.m-modal-tab-btn{
+    display: none;
+    &.active{
+        display: block;
+    }
+    a{
+        margin: 0 20px;
+    }
+}
+
+.g-modal-footer.details{
+    display: none;
+}
+
+
+//    版本切换 升级
+.m-modal-alert3 .modal-dialog{
+    width: 260px;
+    height: 240px;
+    margin-top: 25%;
+}
+.m-modal-alert3 .g-modal-header{padding-top: 17px;}
+.m-modal-alert3 .g-modal-header span{font-size: 16px;font-weight: normal;}
+
+.animation-rotateIn{
+-webkit-animation:rotateIn 1.8s 0s ease infinite forwards;
+-moz-animation:rotateIn 1.8s 0s ease infinite forwards;}
+@-webkit-keyframes rotateIn{
+0%{-webkit-transform-origin:center center;
+-webkit-transform:rotate(-360deg);
+opacity:0.5}
+100%{-webkit-transform-origin:center center;
+-webkit-transform:rotate(0);
+opacity:1}
+}
+@-moz-keyframes rotateIn{
+0%{-moz-transform-origin:center center;
+-moz-transform:rotate(-360deg);
+opacity:0.5}
+100%{-moz-transform-origin:center center;
+-moz-transform:rotate(0);
+opacity:1}
+}
+.vup{position: relative;}
+.vup .vtt{position: absolute;width: 100%;height: 70px;line-height: 70px; text-align: center;font-size: 16px;}
+.vup .fk{
+    display: inline-block;
+    border: solid 3px #fff;
+    width: 70px;
+    height: 70px;
+}
+
+
+
+
+
+
+
+
+
+

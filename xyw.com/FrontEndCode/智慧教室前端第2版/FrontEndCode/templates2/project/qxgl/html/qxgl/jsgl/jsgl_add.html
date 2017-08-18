@@ -1,0 +1,21 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span>添加</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+	<div class="g-modal-body m-modal-classroom-body">
+		<table>
+			<tr>
+				<td>角色名称</td>
+				<td>
+					<div class="modal-div-input"><input type="text" class="modal-input none" ng-model="jsgl_add.name" placeholder="输入角色名称" /></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="g-modal-footer">
+		<a class="btn" ng-click="cancel()">取消</a>
+		<a class="btn" ng-click="postAdd()" submit-timeout>确定</a>
+	</div>
+</div>
+

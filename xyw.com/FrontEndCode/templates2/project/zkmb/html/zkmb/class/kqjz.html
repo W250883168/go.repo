@@ -1,0 +1,45 @@
+<div class="m-kqjz">
+	<div class="kqjz-header">
+		<span>考勤纠正</span>
+		<div>
+			<a ng-click="refresh()"><i class="icon-refresh"></i></a>
+			<a ng-click="kqjz_sort()"><i class="glyphicon glyphicon-sort"></i></a>
+		</div>
+	</div>
+	<div class="kqjz-main">
+		<ul class="kqjz-list clearfix">
+			<li ng-repeat="item in pointtos | orderBy:stateSort" ng-click="btn_Pointtos(item)">
+				<a><img ng-src="{{item.Userheadimg}}" /></a>
+				<p>{{item.Truename}}</p>
+				<i ng-class="{true:'icon-actok',false:'icon-act'}[item.State == 1]"></i>
+				<div class="click-btn hidden" ng-class="{true:'block',false:'none'}[item.show]">
+					<a ng-click="postPointtos(item)">已到</a>
+					<a ng-click="postPointtosClose(item)">未到</a>
+					<i></i>
+				</div>
+			</li>
+		</ul>
+		<div class="kqjz-page hidden">
+			<ul class="pagination">
+				<li class="footable-page-arrow">
+					<a data-page="first" href="#first">«</a>
+				</li>
+				<li class="footable-page-arrow">
+					<a data-page="prev" href="#prev">‹</a>
+				</li>
+				<li class="footable-page active">
+					<a data-page="0" href="#">1</a>
+				</li>
+				<li class="footable-page">
+					<a data-page="1" href="#">2</a>
+				</li>
+				<li class="footable-page-arrow">
+					<a data-page="next" href="#next">›</a>
+				</li>
+				<li class="footable-page-arrow">
+					<a data-page="last" href="#last">»</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

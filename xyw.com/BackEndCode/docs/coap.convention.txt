@@ -1,0 +1,14 @@
+JSON/UTF8
+请求/响应头格式
+节点上报数据通用头格式
+URI操作方式(GET/POST/PUT/DELETE)/请求响应格式与内容
+
+
+// 节点类型
+// 节点名称
+3ceb03b19aa82669cd41c4e62a11c770
+d41d8cd98f00b204e9800998ecf8427e
+d41d8cd98f00b204e9800998ecf8427e
+
+signType=MD5&key=jkdfsjklfsdl
+D029A3E7E3DF3C1F2D1CFE3B7C9207E7

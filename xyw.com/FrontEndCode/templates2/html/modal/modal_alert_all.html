@@ -1,0 +1,27 @@
+<div class="g-modal m-modal-alert2" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.type == 'info'">提示：</span>
+		<span ng-if="items.type == 'success'">成功：</span>
+		<span ng-if="items.type == 'warning'">警告：</span>
+		<span ng-if="items.type == 'danger'">错误：</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+	<div class="g-modal-body">
+		<table>
+			<tr>
+				<td class="text-center">
+					<div class="modal-warning" ng-class="{'info':items.type == 'info','success':items.type == 'success','warning':items.type == 'warning','danger':items.type == 'danger'}"></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="text-center padder-vt">
+          <div class="modal-text" ng-bind-html="items.msg"></div>
+        </td>
+			</tr>
+		</table>
+	</div>
+	<div class="g-modal-footer">
+		<button ng-if="items.type == 'warning'" class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+		<button class="btn m-b-xs w-xs btn-info" ng-click="ok()">确定</button>
+	</div>
+</div>

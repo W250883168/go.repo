@@ -1,0 +1,48 @@
+coap://192.168.0.147:20005/infor?eui=00124b0006153cbb
+METHOD: GET
+PAYLOAD: {
+    "n_infor": {
+        "s_addr": "192.168.0.201",
+        "s_path": "/hello",
+        "p_time": "10",
+        "u_baud": "9600"
+    },
+    "d_infor": [
+        {
+            "d0_id": "12345678",
+            "d0_sn": "87654321",
+            "d0_name": "prjector",
+            "d0_brand": "CASIO",
+            "d0_model": "XJ-H1750"
+        }
+    ]
+}
+
+coap://192.168.0.147:20005/smart_switch/switch_[index]?eui=00124b0006153cbb
+METHOD: GET
+PAYLOAD: { on/off }
+
+coap://192.168.0.147:20005/smart_switch/switch_[index]?eui=00124b0006153cbb
+METHOD: POST
+PAYLOAD: { SWITCH ON/OFF }
+
+
+coap://192.168.0.147:20005/rs232/rs232_1?eui=00124b0006153cbb
+METHOD: GET
+PAYLOAD:　{
+    "cmd0_res": "",
+    "cmd1_res": "",
+    "cmd2_res": "",
+    "cmd3_res": ""
+}
+
+
+coap://192.168.0.147:20000/eui_broadcast?eui=00124b000cd54e02
+METHOD: POST
+PAYLOAD: { "STOP" }
+
+coap://192.168.0.147:20000/infor?eui=00124b000cd54e02&param=s_addr
+METHOD: POST
+PAYLOAD: { IPAddr }
+
+

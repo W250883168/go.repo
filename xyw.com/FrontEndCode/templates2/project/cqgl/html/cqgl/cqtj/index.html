@@ -1,0 +1,194 @@
+<div ui-view>
+	<div class="m-sbjk">
+		<!--  breadcrumb 面包屑  -->
+		<div class="m-sbjk-breadcrumb">
+			<ul class="breadcrumb" w-breadcrumb></ul>
+		</div>
+		<!--  main  -->
+    <div class="wrapper-lg sbjk">
+      <div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default bl1" ng-init="htmlReady1($last)">
+          <div class="panel-heading">
+			整体出勤率
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="selectdatac" theme="bootstrap" ng-change="Load_ValChart1(selectdatac)">
+                  <ui-select-match placeholder="选择时间">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in selectdata | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt1" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default bl1" ng-init="htmlReady2($last)">
+          <div class="panel-heading">
+            学院出勤率
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="selectdatac" theme="bootstrap" ng-change="Load_ValChart2('date',selectdatac)">
+                  <ui-select-match placeholder="选择时间">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in selectdata | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="gradelists" theme="bootstrap" ng-change="Load_ValChart2('grade',gradelists)">
+                  <ui-select-match placeholder="选择条件">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in gradelist | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt2" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default bl1" ng-init="htmlReady3($last)">
+          <div class="panel-heading">
+            专业出勤率
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="selectdatac" theme="bootstrap" ng-change="Load_ValChart3('date',selectdatac)">
+                  <ui-select-match placeholder="选择时间">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in selectdata | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="gradelists" theme="bootstrap" ng-change="Load_ValChart3('grade',gradelists)">
+                  <ui-select-match placeholder="选择条件">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in gradelist | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt3" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default bl1" ng-init="htmlReady4($last)">
+          <div class="panel-heading">
+            班级出勤率
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="Major.Majorlistsc" theme="bootstrap" ng-change="Load_ValChart4(0,Major.Majorlistsc)">
+                  <ui-select-match placeholder="选择科系">{{$select.selected.Majorname}}</ui-select-match>
+                  <ui-select-choices repeat="item in Major.Majorlist | filter: $select.search">
+                    <div ng-bind-html="item.Majorname | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="College.Collegelistsc" theme="bootstrap" ng-change="Load_ValChart4(0,College.Collegelistsc)">
+                  <ui-select-match placeholder="选择学院">{{$select.selected.Collegename}}</ui-select-match>
+                  <ui-select-choices repeat="item in College.Collegelist | filter: $select.search">
+                    <div ng-bind-html="item.Collegename | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="selectdatac" theme="bootstrap" ng-change="Load_ValChart4('date',selectdatac)">
+                  <ui-select-match placeholder="选择时间">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in selectdata | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="gradelists" theme="bootstrap" ng-change="Load_ValChart4('grade',gradelists)">
+                  <ui-select-match placeholder="选择条件">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in gradelist | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt4" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default bl1" ng-init="htmlReady5($last)">
+          <div class="panel-heading">
+            课程出勤率
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="Major.Majorlists" theme="bootstrap" ng-change="Load_ValChart5(0,Major.Majorlists)">
+                  <ui-select-match placeholder="选择科系">{{$select.selected.Majorname}}</ui-select-match>
+                  <ui-select-choices repeat="item in Major.Majorlist | filter: $select.search">
+                    <div ng-bind-html="item.Majorname | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="College.Collegelists" theme="bootstrap" ng-change="Load_ValChart5(1,College.Collegelists)">
+                  <ui-select-match placeholder="选择学院">{{$select.selected.Collegename}}</ui-select-match>
+                  <ui-select-choices repeat="item in College.Collegelist | filter: $select.search">
+                    <div ng-bind-html="item.Collegename | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="selectdatac" theme="bootstrap" ng-change="Load_ValChart5('date',selectdatac)">
+                  <ui-select-match placeholder="选择时间">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in selectdata | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="gradelists" theme="bootstrap" ng-change="Load_ValChart5('grade',gradelists)">
+                  <ui-select-match placeholder="选择条件">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="item in gradelist | filter: $select.search">
+                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="sbfx_kt5" style="height: 240px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+		</div>
+	</div>
+</div>

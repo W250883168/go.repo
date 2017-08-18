@@ -1,0 +1,60 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span>课程选择</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+  <div class="g-modal-body">
+    <div class="m-modal-content">
+      <div class="content">
+        <span class="text">一级学科</span>
+        <div class="form-select">
+          <ui-select  ng-model="course1.courseItem" theme="bootstrap" ng-change="changeSelect(course1.courseItem,'0')">
+            <ui-select-match placeholder="选择学科">{{$select.selected.Subjectname}}</ui-select-match>
+            <ui-select-choices repeat="item in course1.courseItems | filter: $select.search">
+              <div ng-bind-html="item.Subjectname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text">二级学科</span>
+        <div class="form-select">
+          <ui-select  ng-model="course2.courseItem" theme="bootstrap" ng-change="changeSelect(course2.courseItem,'1')">
+            <ui-select-match placeholder="选择学科">{{$select.selected.Subjectname}}</ui-select-match>
+            <ui-select-choices repeat="item in course2.courseItems | filter: $select.search">
+              <div ng-bind-html="item.Subjectname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text">三级学科</span>
+        <div class="form-select">
+          <ui-select  ng-model="course3.courseItem" theme="bootstrap" ng-change="changeSelect(course3.courseItem,'2')">
+            <ui-select-match placeholder="选择学科">{{$select.selected.Subjectname}}</ui-select-match>
+            <ui-select-choices repeat="item in course3.courseItems | filter: $select.search">
+              <div ng-bind-html="item.Subjectname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+    <div class="m-modal-content">
+      <div class="content">
+        <span class="text">课程</span>
+        <div class="form-select">
+          <ui-select  ng-model="course.selected" theme="bootstrap" ng-change="changeSelect(course1.selected,'group')">
+            <ui-select-match placeholder="选择课程">{{$select.selected.Curriculumname}}</ui-select-match>
+            <ui-select-choices repeat="item in course.items | filter: $select.search">
+              <div ng-bind-html="item.Curriculumname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="g-modal-footer">
+    <button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+    <button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+  </div>
+</div>

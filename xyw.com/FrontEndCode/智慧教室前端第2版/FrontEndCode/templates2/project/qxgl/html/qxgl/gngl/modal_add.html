@@ -1,0 +1,52 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+    <span ng-if="items.str == 'add'">添加功能</span>
+    <span ng-if="items.str == 'details'">查看功能</span>
+    <span ng-if="items.str == 'edit'">修改功能</span>
+    <div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+    <div class="m-modal-content">
+      <p class="title">基本信息</p>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>功能图标</span>
+        <input class="form-control" type="text" ng-model="form.Functionicon" ng-readonly="details" placeholder="输入模块图标"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>功能名称</span>
+        <input class="form-control" type="text" ng-model="form.Functionname" ng-readonly="details" placeholder="输入功能名称"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>功能代码</span>
+        <input class="form-control" type="text" ng-model="form.Functioncode" ng-readonly="details" placeholder="输入功能代码"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>功能地址</span>
+        <input class="form-control" type="text" ng-model="form.Functionsurl" ng-readonly="details" placeholder="输入功能地址"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required oof"></i>模块ID</span>
+        <div class="form-select">
+          <ui-select  ng-model="form.mkglList" ng-disabled="items.str=='details'?true:false" theme="bootstrap" ng-change="changeModelItem(form.mkglList)">
+            <ui-select-match placeholder="选择上级模块">{{$select.selected.Modulename}}</ui-select-match>
+            <ui-select-choices repeat="item in form.mkglLists | filter: $select.search">
+              <div ng-bind-html="item.Modulename | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>功能属性</span>
+        <input class="form-control" type="text" ng-model="form.Functionsattribute" ng-readonly="details" placeholder="输入功能属性"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>功能描述</span>
+        <textarea class="form-control" rows="2" ng-model="form.FunctionDescribe" ng-readonly="details" placeholder="输入功能描述"></textarea>
+      </div>
+    </div>
+	</div>
+  <div class="g-modal-footer" ng-if="items.str != 'details'">
+    <button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+    <button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+  </div>
+</div>

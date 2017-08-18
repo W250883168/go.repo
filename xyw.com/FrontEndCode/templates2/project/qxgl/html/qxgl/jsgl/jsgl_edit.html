@@ -1,0 +1,31 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span>编辑</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+	<div class="g-modal-body m-modal-classroom-body">
+		<table>
+			<tr>
+				<td>角色ID</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-xs ng-binding">{{jsgl_details.Id}}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>角色名称</td>
+				<td>
+					<div class="modal-div-input"><input type="text" class="modal-input none" ng-model="jsgl_details.Rolesname" placeholder="输入角色名称" /></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="g-modal-footer">
+		<a class="btn" ng-click="cancel()">取消</a>
+		<a class="btn" ng-click="postEdit()" submit-timeout>确定</a>
+	</div>
+</div>
+
+
+
+
+

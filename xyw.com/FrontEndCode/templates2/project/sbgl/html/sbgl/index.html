@@ -1,0 +1,398 @@
+<div ui-view>
+	<ul w-breadcrumb></ul>
+	<div class="wrapper-md b-b m-sbgl-header">
+		<div class="hidden-sm hidden-lg hidden-md m-sbgl-header-caret b-b btn-group dropdown" dropdown>
+			<a type="button" class="h4" dropdown-toggle>
+	            		筛选设备
+	            <span class="caret"></span>
+	          </a>
+			<ul class="dropdown-menu">
+				<li>
+					<a ng-click="tab_sbgl=1">筛选设备</a>
+				</li>
+				<li class="hidden">
+					<a ng-click="tab_sbgl=2">全局查询</a>
+				</li>
+				<li>
+					<a ng-click="tab_sbgl=3">添加设备</a>
+				</li>
+			</ul>
+		</div>
+		<ul class="hidden-xs bg-light lter b-b nav nav-tabs" ng-init="tab_sbgl=1">
+			<li class="font-thin h3" ng-class="{active:tab_sbgl==1}">
+				<a ng-click="tab_sbgl=1">筛选设备</a>
+			</li>
+			<li class="font-thin h3 hidden" ng-class="{active:tab_sbgl==2}">
+				<a ng-click="tab_sbgl=2">全局查询</a>
+			</li>
+			<li class="font-thin h3" ng-class="{active:tab_sbgl==3}">
+				<a ng-click="tab_sbgl=3">添加设备</a>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="wrapper-md m-sbgl-table">
+		<div class="panel panel-default">
+			<div class="tab-content tab-content">
+				<div class="panel-heading tab-pane fade" ng-class="{active:tab_sbgl==1,in:tab_sbgl==1}">
+					<table class="table m-b-none m-sbgl-table-1">
+						<tr>
+							<td class="col">校区：</td>
+							<td class="col">
+								<select ng-model="campus_list_item" ng-change="changeselect(0)" class="form-control">
+									<option value="">--请选择--</option>
+									<option ng-repeat="item in campus_list" value="{{item.Campusid}}">{{item.Campusname}}</option>
+		                        </select>
+							</td>
+						</tr>
+						<tr>
+							<td class="col">教学楼：</td>
+							<td class="col">
+								<select ng-model="building_list_item" ng-change="changeselect(1)" class="form-control">
+									<option value="">--请选择--</option>
+									<option ng-repeat="item in building_list" value="{{item.Buildingid}}">{{item.Buildingname}}</option>
+		                        </select>
+							</td>
+						</tr>
+						<tr>
+							<td class="col">教室：</td>
+							<td class="col">
+								<select ng-model="floors_list_item" ng-change="changeselect(2)" class="form-control">
+									<option value="">--请选择--</option>
+									<option ng-repeat="item in floors_list" value="{{item.Floorsid}}">{{item.Floorname}}</option>
+		                        </select>
+							</td>
+						</tr>
+						<tr>
+							<td>高级筛选：</td>
+							<td class="displayB row">
+								<div class="sbgl-t-1-s col-md-3 m-b-sm hidden">
+									<select class="form-control">
+										<option value="option 1">数层</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="sbgl-t-1-s col-md-3 m-b-sm">
+									<select class="form-control">
+										<option value="option 1">设备类型</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="sbgl-t-1-s col-md-3 m-b-sm">
+									<select class="form-control">
+										<option value="option 1">设备状态</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="text-right">
+								<!--<button ng-click="searchpost()">查找</button>-->
+								<button class="btn m-b-xs col-md-2 col-sm-12 col-xs-12 pull-right btn-success">查找</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+	
+				<div class="panel-heading tab-pane fade hidden" ng-class="{active:tab_sbgl==2,in:tab_sbgl==2}">
+					<table class="table m-b-none">
+						<tr>
+							<div class="input-group col-sm-8 wrapper-md">
+								<input type="text" class="form-control ng-pristine ng-valid ng-touched" ng-model="userSearchText" placeholder="教学楼/教室/设备名/ID">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-success" ng-click="getLocations()">查&nbsp;&nbsp;&nbsp;询</button>
+								</div>
+							</div>
+						</tr>
+					</table>
+				</div>
+	
+				<div class="m-sbgl-table-3 panel-heading tab-pane fade" ng-class="{active:tab_sbgl==3,in:tab_sbgl==3}">
+					<ul class="nav nav-tabs clearfix" ng-init="tab_sbg2=1">
+						<li ng-class="{active:tab_sbg2==1}">
+							<a ng-click="tab_sbg2=1">手工添加</a>
+						</li>
+						<li ng-class="{active:tab_sbg2==2}">
+							<a ng-click="tab_sbg2=2">批量导入</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade" ng-class="{active:tab_sbg2==1,in:tab_sbg2==1}">
+							<p><span>设备信息</span></p>
+							<div class="row">
+								<div class="col-sm-6 char-before m-b-sm">
+									<select name="account" class="form-control">
+										<option value="option 1">类型</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+	
+								<div class="col-sm-6 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">编号</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+							</div>
+							<p><span>扩展属性</span></p>
+							<div class="row">
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">品牌</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">型号</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-beforeN m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">颜色</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">分辨率</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">亮度</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">光源</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-beforeN m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">设备特性</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">灯泡寿命</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-beforeN m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">画面尺寸</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4 char-beforeN m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">对比度</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-beforeN m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">投影镜头</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-beforeN m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">投影方式</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+							</div>
+							<p><span>位置信息</span></p>
+							<div class="row">
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">新校区</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">A区</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">A-1010</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+							</div>
+							<p><span>管理信息</span></p>
+							<div class="row">
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">电教中心/王侃</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">采购日期</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+								<div class="col-sm-4 char-before m-b-md">
+									<select name="account" class="form-control">
+										<option value="option 1">投入时间</option>
+										<option value="option 2">option 2</option>
+										<option value="option 3">option 3</option>
+										<option value="option 4">option 4</option>
+									</select>
+								</div>
+							</div>
+							<div class="sbgl-t-3-b text-right clearfix">
+								<button class="btn m-b-xs pull-none col-md-2 col-xs-5 btn-success">重置</button>
+								<button class="btn m-b-xs pull-none col-md-2 col-md-offset-1 col-xs-5 col-xs-offset-2 btn-success">提交</button>
+							</div>
+						</div>
+						<div class="tab-pane fade" ng-class="{active:tab_sbg2==2,in:tab_sbg2==2}">
+							<button class="btn m-b-xs btn-default">上传设备表格，支持excle格式</button>
+							<button class="btn m-b-xs btn-default">下载设备表格</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--<div class="panel-body b-b b-light">-->
+			<!--Search: <input id="filter" type="text" class="form-control input-sm w-sm inline m-r"/>-->
+			<!--</div>-->
+			<p class="m-sbgl-table-header panel-heading"><span>设备列表</span></p>
+			<div>
+				<table class="table m-b-none" id="showtable" ui-jq="footable" data-filter="#filter" data-page-size="{{tableSize}}">
+					<thead>
+						<tr>
+							<th>
+								<label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label>
+							</th>
+							<th data-toggle="true">
+								设备ID
+							</th>
+							<th data-hide="phone">
+								设备类型
+							</th>
+							<th>
+								校区
+							</th>
+							<th data-hide="phone,tablet" data-name="地点">
+								教学楼
+							</th>
+							<th data-hide="phone,tablet">
+								教室
+							</th>
+							<th data-hide="phone,tablet">
+								状态
+							</th>
+							<th class="text-center">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in list">
+							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+							<td>
+								<a ng-click="Openskdd(item.Curriculumclassroomchaptercentreid)">2332323</a>
+							</td>
+							<td>
+								<a ng-click="Openskdd(item.Curriculumclassroomchaptercentreid)">投影仪</a>
+							</td>
+							<td>新校区</td>
+							<td>A区</td>
+							<td>A-1010</td>
+							<td>
+								<a>开启</a>
+							</td>
+							<td>
+								<a>查看</a>
+								<a>控制</a>
+								<a>删除</a>
+								<a>日志</a>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+							<td>2332323</td>
+							<td>投影仪</td>
+							<td>新校区</td>
+							<td>A区</td>
+							<td>A-1010</td>
+							<td>
+								<a>开启</a>
+							</td>
+							<td class="text-center">
+								<a>查看</a>
+								<a>控制</a>
+								<a>删除</a>
+								<a>日志</a>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot class="hide-if-no-paging">
+						<tr>
+							<td colspan="7" class="text-center">
+								<ul class="pagination"></ul>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,24 @@
+users模块开始初始化
+systemmodule模块开始初始化
+attentionrecord模块开始初始化
+campus模块开始初始化
+attentionrecord模块开始初始化
+campus模块开始初始化
+lives模块开始初始化
+初始化： dev.project/BackEndCode/devserver/viewmodel/videoview.init.1 /141
+users模块开始初始化
+systemmodule模块开始初始化
+初始化： dev.project/BackEndCode/devserver/Controllers/LiveControllers/vodControl.init.1 /215
+lives模块开始初始化
+初始化： dev.project/BackEndCode/devserver/videosrv.init.2 /157
+{"Loginuser":"admin","Loginpwd":"123456","Os":"PcWEB"}
+{Loginuser:admin Loginpwd:123456 Usersid:0 Rolestype:0 Truename: Nickname: Userheadimg: Userphone: Userstate:0 Usersex:0 Usermac: Birthday: Token: ThirdPartyId: Os:PcWEB} 
+admin|1|1
+<nil>
+select Id as Buildingid,Campusid,Buildingname,Buildingicon,Floorsnumber,Classroomsnumber,Buildingcode from building where 1=1  order by Campusid limit 0,10000;;
+select Id as Floorsid,Floorscode,Buildingid,Floorname,Classroomnumber,Sumnumber from floors where 1=1  order by Buildingid limit 0,10000;;
+select * from major where 1=1  order by Collegeid limit 0,10000;;
+select * from classes where 1=1  order by Majorid limit 0,10000;;
+select t.Id as Usersid,us.Loginuser,us.Nickname,t.Collegeid,ifnull(t.Majorid,0)as Majorid from teacher as t inner join users as us on t.Id=us.Id  where 1=1  group by t.Id,us.Loginuser,us.Nickname limit 0,10000;;
+{"Auth":{"Usersid":1,"Rolestype":1,"Token":"admin|1|1","Os":"WEB"},"Para":{"Id":"0a6e191c0eebc4f332dc0b1d24445574","Name":"不送风","ModelName":"格力","ModelId":"12c6871b6d14c34f25de6270d12c2e82"}}
+{"Auth":{"Usersid":1,"Rolestype":1,"Token":"admin|1|1","Os":"WEB"},"Para":{"Id":0,"Name":"不上电","ModelId":"12c6871b6d14c34f25de6270d12c2e82"}}

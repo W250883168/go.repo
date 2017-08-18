@@ -1,0 +1,115 @@
+<div ui-view>
+	<div class="m-jdpz">
+		<div class="m-breadcrumb">
+			<!--  breadcrumb 面包屑  -->
+			<div class="m-sbjk-breadcrumb">
+				<ul class="breadcrumb">
+		          <li><span>出勤管理</span></li>
+		          <li><a ui-sref="app.cqgl.sscq">实时出勤</a></li>
+		          <li class="active">
+		          	<span>{{classRoomItem.Campusname}}</span>
+					<span>{{classRoomItem.Buildingname}}</span>
+					<span>{{classRoomItem.Floorname}}</span>
+					<span>{{classRoomItem.Classroomsname}}</span>
+		          	</li>
+		        </ul>
+			</div>
+			
+		</div>
+		<div class="wrapper-lg">
+			
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					课堂概况
+					<div class="table-h-btn pull-right">
+						<button class="btn b-w-rs w-xs btn-info pull-left" ui-sref="app.cqgl.sscq.details_list({'ClassroomId':form.classroomid,'be':form.date_begin,'end':form.date_end})">查看</button>
+					</div>
+					
+					<div class="table-h-date pull-right">
+						<span>查询日期</span>
+						<input type="text" ng-model="form.date_begin" ng-click="getBeginDate()" id="sscq_d_begin" class="form-control" readonly="readonly" placeholder="开始时间" />
+						<span>-</span>
+						<input type="text" ng-model="form.date_end" ng-click="getEndDate()" id="sscq_d_end" class="form-control" readonly="readonly" placeholder="结束时间" />
+					</div>
+				</div>
+				<div>
+					<table class="details-table">
+						<tr>
+							<td>
+								<h4>上课日期</h4>
+								<span>{{form.day}}</span>
+							</td>
+							<td>
+								<h4>上课时间</h4>
+								<span>{{form.time}}</span>
+							</td>
+							<td>
+								<h4>教室</h4>
+								<span>{{form.room}}</span>
+							</td>
+							<td>
+								<h4>上课老师</h4>
+								<span>{{form.teacher}}</span>
+							</td>
+							<td>
+								<h4>课程</h4>
+								<span>{{form.lesson}}</span>
+							</td>
+						</tr>
+					</table>
+					<div class="clear"></div>
+				</div>
+			</div>
+			
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					出勤数据统计
+				</div>
+				<div>
+					<table class="details-table">
+						<tr>
+							<td>
+								<h4>上课班级</h4>
+								<span>{{form.class_room}}</span>
+							</td>
+							<td>
+								<h4>应到人数</h4>
+								<span>{{form.due_people}}</span>
+							</td>
+							<td>
+								<h4>实到人数</h4>
+								<span>{{form.actual_people}}</span>
+							</td>
+							<td>
+								<h4>缺勤人数</h4>
+								<span>{{form.lack_people}}</span>
+							</td>
+							<td>
+								<h4>出勤率</h4>
+								<span>{{form.cq_people}}</span>
+							</td>
+						</tr>
+					</table>
+					<div class="clear"></div>
+				</div>
+				
+				<ul class="m-details-user clearfix">
+					<li ng-repeat="item in pointtos">
+						<a><img ng-src="{{item.Userheadimg}}"></a>
+						<p class="ng-binding">{{item.Truename}}</p>
+						<i ng-class="{true:'icon-actok',false:'icon-act'}[item.State == 1]" class="icon-act"></i>
+					</li>
+				</ul>
+				
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+
+
+

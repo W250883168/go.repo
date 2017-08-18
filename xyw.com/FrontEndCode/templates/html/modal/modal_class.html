@@ -1,0 +1,41 @@
+<div class="g-modal m-modal-classroom">
+	<div class="g-modal-header">
+		<span>班级选择</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+	<div class="g-modal-body m-modal-classroom-body">
+		<table>
+			<tr>
+				<td>学院</td>
+				<td>
+					<select class="modal-select" ng-model="college.collegeList" ng-change="changeSelect('college')">
+						<option value="" selected="selected">选择校区</option>
+						<option value="{{item.Id}}" ng-repeat="item in college.collegeItems">{{item.Collegename}}</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>科系/专业</td>
+				<td>
+					<select class="modal-select" ng-model="major.majorList" ng-change="changeSelect('major')">
+						<option value="" selected="selected">选择科系/专业</option>
+						<option value="{{item.Id}}" ng-repeat="item in major.majorItems">{{item.Majorname}}</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>班级</td>
+				<td>
+					<select class="modal-select" ng-model="class.classList" ng-change="changeSelect('class')">
+						<option value="" selected="selected">选择班级</option>
+						<option value="{{item.Id}}" ng-repeat="item in class.classItems">{{item.Classesname}}</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="g-modal-footer">
+		<a class="btn" ng-click="cancel()">取消</a>
+		<a class="btn" ng-click="ok()">确定</a>
+	</div>
+</div>

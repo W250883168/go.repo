@@ -1,0 +1,374 @@
+package timingservice
+
+import (
+	"database/sql"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
+	"time"
+	. "xutils/xconfig"
+	"xutils/xerr"
+	"xutils/xhttp"
+	"xutils/xtext"
+	"xutils/xtime"
+	"zndx2/model/core"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
+	"gopkg.in/gorp.v1"
+)
+
+var GlobalConfig Config
+
+var cmdch = make(chan TTScanDevice) //发送命令消息队列
+
+func Start(r *gin.Engine) {
+	GlobalConfig.InitConfig("./config.ini")
+	zndxdb := InitZNDXDb()
+	defer zndxdb.Db.Close()
+
+	go RunBackgroundServer() //后台运行的定时检测服务
+	//利用web方式来接收发给客户端信息
+	go RunExecCmd()                           //命令执行队列
+	r.POST("/AddTask", func(c *gin.Context) { //添加任务
+		//参数[校区Id,楼栋Id,楼层Id,教室Id,任务名称,事件ID,任务类型{0:单次任务,2:多次任务,3:每天,4:自定义值{星期一至星期天},执行的时间点}]
+		defer xerr.CatchPanic()
+		//		doHeaderConfig(c) // 设置参数，允许跨域调用
+
+		var rd = core.Returndata{Rcode: gResponseMsgs.DATA_MALFORMED.CodeText(), Reason: gResponseMsgs.DATA_MALFORMED.Text}
+		defer func() { c.JSON(http.StatusOK, rd) }()
+
+		//获得查询参数
+		var requestData devmodel.RequestRegisterFaultData
+		data, _ := ioutil.ReadAll(c.Request.Body)
+		err := json.Unmarshal(data, &requestData)
+		xerr.ThrowPanic(err)
+
+		//校验数据
+		xtext.RequireNonBlank(requestData.Para.Id)
+		xtext.RequireNonBlank(requestData.Para.DeviceId)
+		xtext.RequireNonBlank(requestData.Para.FaultSummary)
+		xtext.RequireNonBlank(requestData.Para.HappenTime)
+		requestData.Para.DataValidate()
+
+		//校验权限
+		TAG := "RegisterFault"
+		dbmap := core.InitDb()
+		defer dbmap.Db.Close()
+		if ok := doAuthValidate(TAG, requestData.Auth.Rolestype, requestData.Auth.Usersid, dbmap); !ok {
+			rd.Rcode = gResponseMsgs.AUTH_LIMITED.CodeText()
+			rd.Reason = gResponseMsgs.AUTH_LIMITED.Text
+			return
+		}
+
+		//查询故障表信息
+		rd.Rcode = gResponseMsgs.EXE_CMD_FAIL.CodeText()
+		rd.Reason = gResponseMsgs.EXE_CMD_FAIL.Text
+		ft, err := devdao.QueryFaultTableInfo(requestData.Para.Id, dbmap)
+		xerr.ThrowPanic(err)
+
+		//如果故障已经提交，则不能再更改或添加
+		if ft.Id != "" && ft.Status != "0" {
+			rd.Rcode = "1002"
+			rd.Reason = "故障已经被提交，不能再修改"
+			return
+		}
+
+		//开启事务
+		trans, err := dbmap.Begin()
+		xerr.ThrowPanic(err)
+		tNow := xtime.NowString()
+		defer func() {
+			if err != nil {
+				trans.Rollback()
+			}
+		}()
+
+		if ft.Id == "" { //故障添加
+			err = devdao.RegisterFault_Add(tNow, requestData, ft, trans)
+			xerr.ThrowPanic(err)
+		} else { //故障编辑
+			if ft.Status == "0" { //草稿状态时，才能被编辑
+				err = devdao.RegisterFault_Edit(requestData, ft, trans)
+				xerr.ThrowPanic(err)
+			}
+		}
+
+		//故障提交
+		if requestData.Para.OT == "submit" {
+			err = devdao.RegisterFault_Submit(tNow, requestData.Para.DeviceId, requestData.Para.Id, requestData.Para.IsCanUse, requestData.Auth.Usersid, trans)
+			xerr.ThrowPanic(err)
+		}
+
+		//提交事务
+		err = trans.Commit()
+		xerr.ThrowPanic(err)
+
+		// OK
+		rd.Rcode = gResponseMsgs.SUCCESS.CodeText()
+		rd.Reason = gResponseMsgs.SUCCESS.Text
+	})
+	r.POST("/StopTask", func(c *gin.Context) { //停止任务
+
+	})
+	r.POST("/DelTask", func(c *gin.Context) { //删除任务
+
+	})
+	r.POST("/ChangeTask", func(c *gin.Context) { //变更任务
+
+	})
+	r.POST("/ListTask", func(c *gin.Context) { //任务列表
+
+	})
+}
+
+//命令执行队列
+func RunExecCmd() {
+	//所有的命令执行都是在此方法中
+	for {
+		ssh := <-cmdch
+		fmt.Println("ssh:", ssh)
+		bte, _ := json.Marshal(&ssh.SSW)
+		fmt.Println("string(bte):", string(bte))
+		fmt.Println("TTUrl:", ssh.TTUrl)
+		resp, err := http.Post(ssh.TTUrl, "application/json", strings.NewReader(string(bte)))
+		if err == nil {
+			respdata, resperr := ioutil.ReadAll(resp.Body)
+			core.CheckErr(resperr, "BeginVideo|接受发送udp服务器响应回来的数据")
+			fmt.Println(string(respdata))
+		} else {
+			core.CheckErr(err, "BeginVideo|commandsendlog|发送udp请求")
+		}
+	}
+}
+
+//后台运行的定时检测服务
+func RunBackgroundServer() {
+
+	zndxdb := InitZNDXDb()
+	defer zndxdb.Db.Close()
+	Ticker := time.NewTicker(time.Second * (60)) //定时60秒执行一下
+	for {
+		select {
+		case <-Ticker.C:
+			//需要处理的事物
+			//一、查询定时任务表，看看是否有需要处理的定时任务--例如[定时关灯/定时开灯]
+			var ttlist []TimedTask //未处理的定时任务列表
+			_, listerr := zndxdb.Select(&ttlist, "select * from TimedTask where TaskState=0")
+			if listerr == nil {
+				if len(ttlist) > 0 {
+					for _, v := range ttlist {
+						go func() {
+							switch v.TaskType {
+							case 0: //单次任务
+								fmt.Println("单次任务")
+								NowTime := time.Now()
+								nunix := NowTime.Unix()
+								if v.ExecEndDate != "" {
+									ExecEndDate, _ := time.ParseInLocation("2006-01-02 15:04:05", v.ExecEndDate, time.Local) //获取任务结束的时间
+									if (nunix - ExecEndDate.Unix()) >= 0 {
+										return
+									}
+								}
+								ExecBeginDate, _ := time.ParseInLocation("2006-01-02 15:04:05", v.ExecBeginDate, time.Local) //获取任务开始的时间
+								unt := (nunix - ExecBeginDate.Unix())
+								if unt < 0 {
+									fmt.Println("unt <= 0 return")
+									return
+								} else {
+									if unt > 0 {
+										unt = 1
+									}
+									v.TaskState = 1
+									zndxdb.Update(&v)
+									EBDTicker := time.NewTicker(time.Second * time.Duration(unt))
+								P:
+									for {
+										select {
+										case <-EBDTicker.C:
+											var ttsd TTScanDevice
+											data := []byte(v.TaskContent)
+											errs1 := json.Unmarshal(data, &ttsd)
+											fmt.Println(ttsd, errs1)
+											go func() {
+												cmdch <- ttsd //将值放到通道中
+											}()
+											zndxdbs1 := InitZNDXDb()
+											defer zndxdbs1.Db.Close()
+											v.TaskState = 2
+											v.TaskExecNum = 0
+											zndxdbs1.Update(&v)
+											break P
+										}
+									}
+								}
+							case 1: //多次任务
+								fmt.Println("多次任务")
+								if (v.TaskExecNum) <= 0 {
+									return
+								} else {
+									//									NowTime2 := time.Now()
+									EBDTicker := time.NewTicker((time.Second * time.Duration(v.TimeLong)))
+								Q:
+									for {
+										select {
+										case <-EBDTicker.C:
+											var ttsd TTScanDevice
+											data := []byte(v.TaskContent)
+											errs1 := json.Unmarshal(data, &ttsd)
+											fmt.Println(ttsd, errs1)
+											go func() {
+												cmdch <- ttsd //将值放到通道中
+												zndxdbs1 := InitZNDXDb()
+												defer zndxdbs1.Db.Close()
+												if v.TaskExecNum <= 0 {
+													v.TaskState = 2
+													zndxdbs1.Update(&v)
+												} else {
+													v.TaskState = 0
+													zndxdbs1.Update(&v)
+												}
+											}()
+											zndxdbs1 := InitZNDXDb()
+											defer zndxdbs1.Db.Close()
+											v.TaskState = 1
+											v.TaskExecNum = v.TaskExecNum - 1
+											timestr := time.Now().Format("2006-01-02") + v.TimePoint
+											fmt.Println("timestr:", timestr)
+											//											timeobj, _ := time.ParseInLocation("2006-01-02 15:04:05", timestr, time.Local)
+											//											v.TimeLong = int((NowTime2.Unix() - timeobj.Unix()) - 60) //更新等待的时长
+											zndxdbs1.Update(&v)
+											break Q
+										}
+									}
+								}
+
+							case 2: //循环任务
+								fmt.Println("循环任务")
+								if v.TaskExecNum == -1 {
+									NowTime3 := time.Now()
+									EBDTicker := time.NewTicker((time.Second * time.Duration(v.TimeLong)))
+								W:
+									for {
+										select {
+										case <-EBDTicker.C:
+											var ttsd TTScanDevice
+											data := []byte(v.TaskContent)
+											errs1 := json.Unmarshal(data, &ttsd.SSW)
+											fmt.Println(ttsd, errs1)
+											go func() {
+												cmdch <- ttsd //将值放到通道中
+											}()
+											zndxdbs1 := InitZNDXDb()
+											defer zndxdbs1.Db.Close()
+											timestr := time.Now().Format("2006-01-02") + v.TimePoint
+											fmt.Println(timestr)
+											timeobj, _ := time.ParseInLocation("2006-01-02 15:04:05", timestr, time.Local)
+											v.TimeLong = int((NowTime3.Unix() - timeobj.Unix()) - 60) //更新等待的时长
+											v.TaskState = 0
+											zndxdbs1.Update(&v)
+											break W
+										}
+									}
+								}
+							}
+						}()
+						//						v.TaskState = 1
+						//						zndxdb.Update(&v)
+					}
+				}
+			}
+			/*
+				1、设计定时任务表
+					[
+						Id:自动增长主键
+						state:定时任务的状态[0:未启动,1:已启动,2:已结束]
+						type:任务类型[0:单次任务,1:循环任务,2:多次任务]
+						ExecNum:执行次数[多次任务时:填写执行的次数，执行一次-1，循环任务时：默认-1，单次任务时：1]
+						MakeUsersId:制定任务人Id
+						MakeDate:任务制定时间
+						ExecBeginDate:任务开始的时间[精确到时分秒]
+						ExecEndDate:任务结束的时间[精确到时分秒]
+						Name:任务的名称
+						Content:任务的内容
+						TimeLong:任务定的时长[示例：定10分钟后执行]
+						TimePoint:任务定的时间触发的[示例：每天的下午2点]
+					]
+				2、需要考虑节点和设备是不同的流程
+				3、将命令都反正到执行命令队列中
+				[
+				定时的场景情况
+					1:定时执行设备命令[http://192.168.0.201:8090/device/controlother
+					{"UId":"29","DeviceId":"4","UseWhoseCmd":"self","CmdCode":"model","Para":"\"p1\":\"hex0502080807\"","IsSave":"yes","SaveValue":"2","IsCreateLog":"yes","AddLogInfo":"除湿"}
+					{"UId":"29","DeviceId":"4","UseWhoseCmd":"self","CmdCode":"initbegin","Para":"","IsCreateLog":"no"}
+					{"UId":"29","DeviceId":"4","UseWhoseCmd":"self","CmdCode":"model","Para":"\"p1\":\"hex0502080807\"","IsSave":"yes","SaveValue":"2","IsCreateLog":"no","AddLogInfo":"除湿"}
+					{"UId":"29","DeviceId":"4","UseWhoseCmd":"self","CmdCode":"initend","Para":"","IsCreateLog":"no"}
+					{"UId":"29","DeviceId":"4","UseWhoseCmd":"self","CmdCode":"temp","Para":"\"p1\":\"hex061908081f\"","IsSave":"yes","SaveValue":"25","IsCreateLog":"yes","AddLogInfo":"25"}
+					{"UId":"29","DeviceId":"4","UseWhoseCmd":"self","CmdCode":"initbegin","Para":"","IsCreateLog":"no"}]
+					2:定时执行节点命令[http://192.168.0.201:8090/device/controlswitch
+					{"UId":"29","Id":"2","Type":"device","CmdCode":"on","Para":""}]
+					3:定时关闭教室内所有的设备{http://192.168.0.201:8090/device/controlswitch
+					{"UId":"29","Id":"343","Type":"classroom","CmdCode":"off","Para":""}}
+					4:定时打开教室内所有的设备[http://192.168.0.201:8090/device/controlswitch
+					{"UId":"29","Id":"343","Type":"classroom","CmdCode":"on","Para":""}]
+					5:定时关闭一层楼所有的设备[http://192.168.0.201:8090/device/controlswitch
+					{"UId":"29","Type":"floor","Id":"101","CmdCode":"off","Para":""}]
+				]
+			*/
+		}
+	}
+}
+
+type TTScanDevice struct {
+	TTUrl string
+	SSW   SendSwitch
+	TTK   TimedTask
+}
+type SendSwitch struct {
+	UId     string
+	Id      string
+	Type    string
+	CmdCode string
+	Para    string
+}
+type TimedTask struct { //定时任务
+	TaskId          int
+	TaskState       int    //:定时任务的状态[0:未启动,1:已启动,2:已结束]
+	TaskIsOpen      int    //任务的开启状态[0:未开启，1:已开启]
+	TaskType        int    //:任务类型[0:单次任务,1:循环任务,2:多次任务]
+	TaskExecNum     int    //:执行次数[多次任务时:填写执行的次数，执行一次-1，循环任务时：默认-1，单次任务时：1]
+	MakeUsersId     int    //:制定任务人Id
+	MakeDate        string //:任务制定时间
+	ExecBeginDate   string //:任务开始的时间[精确到时分秒]
+	ExecEndDate     string //:任务结束的时间[精确到时分秒]
+	TaskName        string //:任务的名称
+	TaskContent     string //:任务的内容[执行的代码]
+	TimeLong        int    //:任务定的时长[示例：定10分钟后执行]
+	TimePoint       string //:任务定的时间触发的[示例：每天的下午2点 ,存储特定的时间格式数据]
+	RepeatType      string //:重复类型[执行一次、每天、工作日、周末、自定义]
+	RepeatValue     string //:重复类型的值
+	EventSetTableId int    //事件定义Id
+	ClassRoomId     int    //教室Id
+	BuildingId      int    //楼栋Id[必填]
+	FloorsId        int    //楼层Id
+	CampusId        int    //校区Id[必填]
+}
+type EventSetTable struct { //事件设置表
+	EventSetTableId int    //事件定义Id
+	EventName       string //事件名称
+	EventContent    string //事件执行的内容
+}
+type PostSumbitTask struct { //任务提交对象
+	Auth core.BasicsToken  //身份认证
+	Para RegisterFaultData //故障注册数据
+}
+
+func InitZNDXDb() *gorp.DbMap {
+	db, _ := sql.Open("mysql", GlobalConfig.Read("Data", "datastr2"))
+	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"MyISAM", "UTF8"}}
+	//	dbmap.AddTableWithName(TimedTask{}, "timedtask").SetKeys(true, "TaskId")
+	dbmap.CreateTablesIfNotExists()
+	return dbmap
+}

@@ -1,0 +1,196 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span>{{form.add.title}}</span>
+		<div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+		
+		<ul class="m-modal-device-tab clearfix">
+			<li ng-class="{active:modal_tab == 1}"><a class="btn" ng-click="modal_tab = 1">故障申报</a></li>
+			<li ng-class="{active:modal_tab == 2}" ng-hide="showSL"><a ng-click="modal_tab = 2" class="btn" ng-disabled="form.add.Status < 1">故障受理</a></li>
+			<li ng-class="{active:modal_tab == 3}" ng-hide="showDJ"><a ng-click="modal_tab = 3" class="btn" ng-disabled="form.add.Status < 2">维修登记</a></li>
+		</ul>
+		
+		<!--      1      -->
+		<div class="m-modal-tab-main" ng-class="{active:modal_tab == 1}">
+			<div class="m-modal-content">
+				<div class="content modal-classroom">
+					<span class="text"><i class="fa f-required"></i>设备位置</span>
+					<input ng-if="fault1[0]" class="form-control" type="text" ng-model="form.add.DeviceSite" placeholder="选择设备位置" />
+					<button ng-if="fault1[0]" class="btn m-b-xs w-xs btn-default" ng-click="modalOpenClassroom()">选择</button>
+					<input ng-if="fault1[1]" class="form-control" type="text" ng-model="form.add.DeviceSite" readonly="readonly" />
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required"></i>故障设备</span>
+					<div class="form-select">
+						<ui-select ng-model="form.add.DeviceItem" ng-disabled="fault1[1]" theme="bootstrap" ng-change="changeDeviceItem(form.add.DeviceItem)">
+							<ui-select-match placeholder="选择故障设备">{{$select.selected.DeviceName}}</ui-select-match>
+							<ui-select-choices repeat="item in form.add.DeviceItems | filter: $select.search">
+								<div ng-bind-html="item.DeviceName | highlight: $select.search"></div>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+				</div>
+				<div class="content modal-classroom">
+					<span class="text"><i class="fa f-required"></i>故障现象</span>
+					<input ng-if="fault1[0]" class="form-control" type="text" ng-model="form.add.FaultSummary" placeholder="输入故障现象" />
+					<div ng-if="fault1[0]" class="input-group-btn dropdown btn" dropdown="">
+		                <button type="button" class="btn btn-default" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">现象&nbsp;&nbsp;&nbsp;<span class="caret"></span></button>
+		                <ul class="dropdown-menu pull-right">
+		                	<li ng-click="FaultSummaryClick(item)" ng-repeat="item in form.add.FaultSummaryItems"><a>{{item.Name}}</a></li>
+		                </ul>
+	              	</div>
+					<input ng-if="fault1[1]" class="form-control" type="text" ng-model="form.add.FaultSummary" readonly="readonly" />
+				</div>
+				<div class="content">
+			        <span class="text"><i class="fa f-required off"></i>故障描述</span>
+			        <textarea class="form-control" rows="4" ng-model="form.add.FaultDescription" ng-readonly="fault1[1] == true" placeholder="输入故障描述"></textarea>
+			    </div>
+				<div class="content">
+					<span class="text"><i class="fa f-required off"></i>是否可用</span>
+					<div class="form-select">
+						<ui-select ng-model="form.add.IsCanUseItem" ng-disabled="fault1[1]" theme="bootstrap" ng-change="changeIsCanUseItem(form.add.IsCanUseItem)">
+							<ui-select-match placeholder="选择设备是否可用">{{$select.selected.title}}</ui-select-match>
+							<ui-select-choices repeat="item in form.add.IsCanUseItems | filter: $select.search">
+								<div ng-bind-html="item.title | highlight: $select.search"></div>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required off"></i>发生时间</span>
+					<input class="form-control" type="text" ng-model="form.add.HappenTime" id="happentime" ng-click="showDate()" ng-if="fault1[0]" placeholder="选择故障发生时间" />
+					<input class="form-control" type="text" ng-model="form.add.HappenTime" ng-if="fault1[1]" readonly="readonly" placeholder="选择故障发生时间" />
+				</div>
+				<div class="content" ng-if="addStatus">
+					<span class="text"><i class="fa f-required off"></i>申报时间</span>
+					<input class="form-control" type="text" ng-model="form.add.InputTime" id="inputtime" ng-click="showDate2()" ng-if="0" placeholder="选择申报时间" />
+					<input class="form-control" type="text" ng-model="form.add.InputTime" ng-if="1" readonly="readonly" placeholder="选择申报时间" />
+				</div>
+				<div class="content" ng-if="addStatus">
+					<span class="text"><i class="fa f-required off"></i>申报人</span>
+					<input class="form-control" type="text" ng-model="form.add.InputUserName" readonly="readonly" placeholder="选择申报人" />
+				</div>
+				<div class="content" ng-if="addStatus">
+					<span class="text"><i class="fa f-required off"></i>提交时间</span>
+					<input class="form-control" type="text" ng-model="form.add.SubmitTime" readonly="readonly" placeholder="提交时间" />
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required off"></i>故障状态</span>
+					<div>
+						<span ng-if="form.add.Status == 0">草稿</span>
+						<span ng-if="form.add.Status == 1">待受理</span>
+						<span ng-if="form.add.Status == 2">维修中</span>
+						<span ng-if="form.add.Status == 3">已维修</span>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		
+		<!--    2     -->
+		<div class="m-modal-tab-main" ng-class="{active:modal_tab == 2}">
+			<div class="m-modal-content">
+				<div class="content">
+					<span class="text"><i class="fa f-required off"></i>受理时间</span>
+					<input class="form-control" type="text" ng-model="form.add.AcceptanceTime" readonly="readonly" placeholder="< 提交后系统自动生成 >" />
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required off"></i>受理人</span>
+					<input class="form-control" type="text" ng-model="form.add.AcceptanceUserNameHTML" readonly="readonly" placeholder="受理人" />
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required"></i>指定维修人</span>
+					<input class="form-control" type="text" ng-model="form.add.AcceptanceRepairPerson" ng-readonly="fault2[1]" placeholder="输入维修人" />
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required"></i>维修人电话</span>
+					<input class="form-control" type="text" ng-model="form.add.AcceptanceRepairPersonTel" ng-readonly="fault2[1]" placeholder="输入维修人联系电话" />
+				</div>
+			</div>
+		</div>
+		
+		<!--     3     -->
+		<div class="m-modal-tab-main" ng-class="{active:modal_tab == 3}">
+			<div class="m-modal-content">
+				<div class="content">
+					<span class="text"><i class="fa f-required"></i>完成时间</span>
+					<input class="form-control" type="text" ng-model="form.add.RepairFinishTime" id="repairfinishtime" ng-click="showDate3()" ng-if="fault3[0]" ng-readonly="fault3[1]" placeholder="选择维修完成时间" />
+					<input class="form-control" type="text" ng-model="form.add.RepairFinishTime" ng-if="fault3[1]" ng-readonly="1" placeholder="选择维修完成时间" />
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required off"></i>维修登记人</span>
+					<input class="form-control" type="text" ng-model="form.add.RepairInputUserNameHTML" ng-readonly="1" placeholder="维修登记人" />
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required"></i>维修人</span>
+					<input class="form-control" type="text" ng-model="form.add.RepairPerson" ng-readonly="fault3[1]" placeholder="输入维修人" />
+				</div>
+				<div class="content">
+					<span class="text"><i class="fa f-required"></i>故障分类</span>
+					<div class="form-select" ng-class="{'disabled':fault3[1]}">
+						<ui-select multiple ng-model="form.add.RepairFaultTypeItem" theme="bootstrap" ng-readonly="fault3[1]" ng-change="changeRepairFaultTypeItem(form.add.RepairFaultTypeItem)">
+                            <ui-select-match placeholder="请选故障分类">{{$item.FaultTypeName}}</ui-select-match>
+                            <ui-select-choices repeat="item in form.add.RepairFaultTypeItems | propsFilter: {FaultTypeName: $select.search}">
+                                <div ng-bind-html="item.FaultTypeName | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+					</div>
+				</div>
+				<div class="content">
+			        <span class="text"><i class="fa f-required off"></i>维修描述</span>
+			        <textarea class="form-control" rows="4" ng-model="form.add.RepairDescription" ng-readonly="fault3[1]" placeholder="输入维修描述"></textarea>
+			    </div>
+				<div class="content">
+					<span class="text"><i class="fa f-required off"></i>维修结果</span>
+					<div class="form-select">
+						<ui-select ng-model="form.add.RepairResultItem" ng-disabled="fault3[1]" theme="bootstrap" ng-change="changeRepairResultItem(form.add.RepairResultItem)">
+							<ui-select-match placeholder="选择维修结果">{{$select.selected.title}}</ui-select-match>
+							<ui-select-choices repeat="item in form.add.RepairResultItems | filter: $select.search">
+								<div ng-bind-html="item.title | highlight: $select.search"></div>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+				</div>
+				
+				<div class="content">
+					<span class="text"><i class="fa f-required off"></i>是否可用</span>
+					<div class="form-select">
+						<ui-select ng-model="form.add.RepairIsCanUseItem" ng-disabled="fault3[1]" theme="bootstrap" ng-change="changeRepairIsCanUseItem(form.add.RepairIsCanUseItem)">
+							<ui-select-match placeholder="选择设备是否可用">{{$select.selected.title}}</ui-select-match>
+							<ui-select-choices repeat="item in form.add.RepairIsCanUseItems | filter: $select.search">
+								<div ng-bind-html="item.title | highlight: $select.search"></div>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	
+	<div class="g-modal-footer" ng-class="{'details':details}">
+		<div class="m-modal-tab-btn" ng-class="{active:modal_tab == 1}" ng-if="addStatus == false || items[0].Status == 0">
+			<a class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</a>
+			<a class="btn m-b-xs w-xs btn-info" ng-click="ok('save','11')" submit-timeout>暂存</a>
+			<a class="btn m-b-xs w-xs btn-info" ng-click="ok('submit','12')" submit-timeout>提交</a>
+		</div>
+		<div class="m-modal-tab-btn" ng-class="{active:modal_tab == 2}" ng-if="items[0].Status == 1">
+			<a class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</a>
+			<a class="btn m-b-xs w-xs btn-info" ng-click="ok('acceptance','21')" submit-timeout>受理</a>
+		</div>
+		<div class="m-modal-tab-btn" ng-class="{active:modal_tab == 3}" ng-if="items[0].Status == 2">
+			<a class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</a>
+			<a class="btn m-b-xs w-xs btn-info" ng-click="ok('save','31')" submit-timeout>暂存</a>
+			<a class="btn m-b-xs w-xs btn-info" ng-click="ok('submit','32')" submit-timeout>提交</a>
+		</div>
+	</div>
+	
+	
+</div>
+
+

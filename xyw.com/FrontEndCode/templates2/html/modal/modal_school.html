@@ -1,0 +1,58 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span>教室/设备位置选择</span>
+    <div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+  <div class="g-modal-body">
+    <div class="m-modal-content">
+      <div class="content">
+        <span class="text">校区</span>
+        <div class="form-select">
+          <ui-select  ng-model="school.schoolItem" theme="bootstrap" ng-change="changeSelect(school.schoolItem,'school')">
+            <ui-select-match placeholder="选择校区">{{$select.selected.Campusname}}</ui-select-match>
+            <ui-select-choices repeat="item in school.schoolItems | filter: $select.search">
+              <div ng-bind-html="item.Campusname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text">教学楼</span>
+        <div class="form-select">
+          <ui-select  ng-model="building.buildingItem" theme="bootstrap" ng-change="changeSelect(building.buildingItem,'building')">
+            <ui-select-match placeholder="选择教学楼">{{$select.selected.Buildingname}}</ui-select-match>
+            <ui-select-choices repeat="item in building.buildingItems | filter: $select.search">
+              <div ng-bind-html="item.Buildingname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text">楼层</span>
+        <div class="form-select">
+          <ui-select  ng-model="floors.floorsItem" theme="bootstrap" ng-change="changeSelect(floors.floorsItem,'floor')">
+            <ui-select-match placeholder="选择楼层">{{$select.selected.Floorname}}</ui-select-match>
+            <ui-select-choices repeat="item in floors.floorsItems | filter: $select.search">
+              <div ng-bind-html="item.Floorname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text">教室</span>
+        <div class="form-select">
+          <ui-select  ng-model="classroom.classroomItem" theme="bootstrap" ng-change="changeSelect(classroom.classroomItem,'room')">
+            <ui-select-match placeholder="选择教室">{{$select.selected.Classroomsname}}</ui-select-match>
+            <ui-select-choices repeat="item in classroom.classroomItems | filter: $select.search">
+              <div ng-bind-html="item.Classroomsname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+	</div>
+  <div class="g-modal-footer">
+    <button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+    <button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+  </div>
+</div>

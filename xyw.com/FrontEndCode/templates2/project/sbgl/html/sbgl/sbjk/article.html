@@ -1,0 +1,26 @@
+<div class="m-sbjk">
+	<!--  breadcrumb 面包屑  -->
+	<div class="m-sbjk-breadcrumb">
+		<ul class="breadcrumb">
+			<li>
+				<span>设备管理</span>
+			</li>
+			<li>
+				<a ui-sref="app.sbgl.sbjk">设备监控</a>
+			</li>
+			<li>
+				<a ui-sref="app.sbgl.sbjk.list({'classroomid':classroomid})">
+					<span>{{classRoomItem.Campusname}}</span>
+					<span>{{classRoomItem.Buildingname}}</span>
+					<span>{{classRoomItem.Floorname}}</span>
+					<span>{{classRoomItem.Classroomsname}}</span>
+				</a>
+			</li>
+			<li class="active"><span>{{deviceItemName}}</span></li>
+		</ul>
+	</div>
+	<!--  main  -->
+	<div class="m-sbjk-article">
+		<div ng-include="page"></div>
+	</div>
+</div>

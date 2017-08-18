@@ -1,0 +1,78 @@
+<div class="g-modal m-modal-classroom" modal-move>
+  <div class="g-modal-header">
+    <span ng-if="items.str == 'add'">添加用户</span>
+    <span ng-if="items.str == 'details'">查看用户</span>
+    <span ng-if="items.str == 'edit'">修改用户</span>
+    <div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+  </div>
+  <div class="g-modal-body">
+    <div class="m-modal-content">
+      <p class="title">用户信息</p>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>用户账号</span>
+        <input class="form-control" type="text" ng-model="form.Loginuser" ng-readonly="details" placeholder="输入账号"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>账号密码</span>
+        <input class="form-control" type="password" ng-model="form.Loginpwd" ng-readonly="details" placeholder="输入密码"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>用户角色</span>
+        <div class="form-select">
+          <ui-select  ng-model="form.RolesListV" ng-disabled="items.str=='details'?true:false" theme="bootstrap" ng-change="changeModelItem(form.RolesListV)">
+            <ui-select-match placeholder="选择用户角色">{{$select.selected.Rolesname}}</ui-select-match>
+            <ui-select-choices repeat="item in form.RolesList | filter: $select.search">
+              <div ng-bind-html="item.Rolesname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>姓名</span>
+        <input class="form-control" type="text" ng-model="form.Truename" ng-readonly="details" placeholder="输入真实姓名"/>
+      </div>
+      <div class="content" ng-class="{'modal-classroom':items.str !== 'details'}">
+        <span class="text"><i class="fa f-required"></i>属所学院</span>
+        <input class="form-control" type="text" ng-model="form.CollegeMajorName" ng-readonly="details" placeholder="选择学院/科系"/>
+        <button ng-if="items.str !== 'details'" class="btn m-b-xs w-xs btn-default" ng-click="modalOpenClass()">选择</button>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>头像</span>
+        <ul class="add-img-ul upimg">
+          <li ng-repeat="item in upimglist">
+            <span><img height="64" width="64"  ng-src="{{item.Result}}" /></span>
+            <i class="icon-close" ng-if="items.str != 'details'" ng-click="closePic($index)"></i>
+          </li>
+        </ul>
+        <span class="upimg" up-img="" ng-class="{'hidden':upimglist.length > 0}"><input type="file" name="file" value="" /><span class="btn btn-info m-b-xs w-xs">上传</span></span>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>昵称</span>
+        <input class="form-control" type="text" ng-model="form.Nickname" ng-readonly="details" placeholder="输入昵称"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>手机</span>
+        <input class="form-control" type="text" ng-model="form.Userphone" ng-readonly="details" placeholder="输入手机号码"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>性别</span>
+        <div class="form-select">
+          <ui-select  ng-model="form.UsersexList" ng-disabled="items.str=='details'?true:false" theme="bootstrap" ng-change="changeUsersexList(form.UsersexList)">
+            <ui-select-match placeholder="选择用户性别">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="item in form.UsersexLists | filter: $select.search">
+              <div ng-bind-html="item.name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>出生日期</span>
+        <input class="form-control" type="text" ng-model="form.Birthday" ng-readonly="items.str == 'details'" id="jcsj_yhgl_data" ng-click="showDate()" placeholder="选择出生日期"/>
+      </div>
+    </div>
+  </div>
+  <div class="g-modal-footer" ng-if="items.str != 'details'">
+    <button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+    <button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+  </div>
+</div>

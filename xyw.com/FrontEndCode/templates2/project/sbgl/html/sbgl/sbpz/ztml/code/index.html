@@ -1,0 +1,96 @@
+<div ui-view>
+	<div class="m-jdpz">
+		<div class="m-breadcrumb">
+			<!--  w-breadcrumb 面包屑  -->
+			<ul class="breadcrumb" w-breadcrumb data-operatetitle="{{operatetitle}}"></ul>
+		</div>
+		<div class="wrapper-lg">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					设备型号状态值编码
+				</div>
+				<div>
+					<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+						<thead>
+							<tr>
+								<th colspan="2">设备型号状态</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td width="20%">状态名称</td>
+								<td>
+									{{statusItem.StatusName}}
+								</td>
+							</tr>
+							<tr>
+								<td>状态编码</td>
+								<td>
+									{{statusItem.StatusCode}}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="clear"></div>
+				</div>
+			</div>
+			
+			<!--         -->
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					状态值编码
+					<div class="table-h-btn pull-right">
+						<button tabindex="2" class="btn b-w-rs w-xs btn-info pull-left" ng-click="modalOpenCode()">添加</button>
+					</div>
+				</div>
+				<div>
+					<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+						<thead>
+							<tr>
+								<th width="30"></th>
+								<th>状态值编码</th>
+								<th>状态值名称</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in CodeList">
+								<td>{{$index + 1 + (backPage.PageIndex - 1) * backPage.PageSize}}</td>
+								<td>{{item.StatusValueCode}}</td>
+								<td>{{item.StatusValueName}}</td>
+								<td>
+									<div class="btn-group dropdown" dropdown="">
+										<button class="btn btn-default" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">操作<span class="caret"></span></button>
+										<ul class="dropdown-menu">
+											<li>
+												<a ng-click="deleteItem(item)">删除</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr ng-if="CodeList.length < 1">
+								<td colspan="3" class="text-center">无数据</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="3">
+									<span>&nbsp;</span>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+

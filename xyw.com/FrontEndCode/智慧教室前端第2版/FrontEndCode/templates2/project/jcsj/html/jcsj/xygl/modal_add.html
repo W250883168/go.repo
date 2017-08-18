@@ -1,0 +1,92 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.active.level == 0"><span ng-if="items.str == 'add'">学院添加</span><span ng-if="items.str == 'edit'">学院修改</span></span>
+		<span ng-if="items.active.level == 1"><span ng-if="items.str == 'add'">系列添加</span><span ng-if="items.str == 'edit'">系列修改</span></span>
+		<span ng-if="items.active.level == 2"><span ng-if="items.str == 'add'">班级添加</span><span ng-if="items.str == 'edit'">班级修改</span></span>
+    <div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+    <div class="m-modal-content" ng-if="items.active.level == 0">
+      <p class="title">学院信息</p>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>选择校区</span>
+        <div class="form-select">
+          <ui-select  ng-model="form.CampusItem" theme="bootstrap" ng-change="changeCampusItem(form.CampusItem)">
+            <ui-select-match placeholder="选择校区">{{$select.selected.Campusname}}</ui-select-match>
+            <ui-select-choices repeat="item in form.college.CampusItems | filter: $select.search">
+              <div ng-bind-html="item.Campusname | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>学院代码</span>
+        <input class="form-control" type="text" ng-model="form.college.Collegecode" ng-change="changeSubjectcode()" placeholder="输入4位以内学院代码"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>学院名称</span>
+        <input class="form-control" type="text" ng-model="form.college.Collegename" placeholder="输入学院名称"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>显示图片</span>
+        <ul class="add-img-ul upimg">
+          <li ng-repeat="item in upimglist">
+            <span><img height="60" width="100"  ng-src="{{item.Result}}" /></span>
+            <i class="icon-close" ng-click="closePic($index)"></i>
+          </li>
+        </ul>
+        <span class="upimg" up-img="" ng-class="{'hidden':upimglist.length > 0}"><input type="file" name="file" value="" /><span class="btn btn-info m-b-xs w-xs">上传</span></span>
+      </div>
+    </div>
+    <div class="m-modal-content" ng-if="items.active.level == 1">
+      <p class="title">系列信息</p>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>系列代码</span>
+        <input class="form-control" type="text" ng-model="form.major.Majorcode" ng-change="changeSubjectcode()" placeholder="输入上级代码加4位以内系列代码"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>系列名称</span>
+        <input class="form-control" type="text" ng-model="form.major.Majorname" placeholder="输入系列名称"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>显示图片</span>
+        <ul class="add-img-ul upimg">
+          <li ng-repeat="item in upimglist">
+            <span><img height="60" width="100"  ng-src="{{item.Result}}" /></span>
+            <i class="icon-close" ng-click="closePic($index)"></i>
+          </li>
+        </ul>
+        <span class="upimg" up-img="" ng-class="{'hidden':upimglist.length > 0}"><input type="file" name="file" value="" /><span class="btn btn-info m-b-xs w-xs">上传</span></span>
+      </div>
+    </div>
+    <div class="m-modal-content" ng-if="items.active.level == 2">
+      <p class="title">班级信息</p>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>班级代码</span>
+        <input class="form-control" type="text" ng-model="form.classes.Classescode" ng-change="changeSubjectcode()" placeholder="输入上级代码加4位以内班级代码"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>班级名称</span>
+        <input class="form-control" type="text" ng-model="form.classes.Classesname" placeholder="输入班级名称"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required"></i>入学年份</span>
+        <input class="form-control" type="text" ng-model="form.classes.Enrollmentyear" ng-click="showDate()" id="jd_begindate" placeholder="选择入学年份"/>
+      </div>
+      <div class="content">
+        <span class="text"><i class="fa f-required off"></i>显示图片</span>
+        <ul class="add-img-ul upimg">
+          <li ng-repeat="item in upimglist">
+            <span><img height="60"  ng-src="{{item.Result}}" /></span>
+            <i class="icon-close" ng-click="closePic($index)"></i>
+          </li>
+        </ul>
+        <span class="upimg" up-img="" ng-class="{'hidden':upimglist.length > 0}"><input type="file" name="file" value="" /><span class="btn btn-info m-b-xs w-xs">上传</span></span>
+      </div>
+    </div>
+	</div>
+  <div class="g-modal-footer">
+    <button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+    <button class="btn m-b-xs w-xs btn-info" ng-click="ok('submit','12')">保存</button>
+  </div>
+</div>

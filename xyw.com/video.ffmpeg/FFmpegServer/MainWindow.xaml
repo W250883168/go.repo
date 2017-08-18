@@ -1,0 +1,11 @@
+﻿<Window x:Class="FFmpegServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.CacheMode>
+        <BitmapCache SnapsToDevicePixels="True" EnableClearType="True" RenderAtScale="{DynamicResource {x:Static SystemParameters.CursorHeightKey}}"/>
+    </Window.CacheMode>
+    <Grid>
+        
+    </Grid>
+</Window>

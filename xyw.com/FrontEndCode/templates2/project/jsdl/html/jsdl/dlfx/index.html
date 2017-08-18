@@ -1,0 +1,114 @@
+<div ui-view>
+	<div class="m-sbjk">
+		<!--  breadcrumb 面包屑  -->
+		<div class="m-sbjk-breadcrumb">
+			<ul class="breadcrumb" w-breadcrumb></ul>
+		</div>
+		<!--  main  -->
+		<div class="wrapper-lg sbjk">
+			<div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            选择条件
+            <div class="table-h-btn pull-right">
+              <button tabindex="1" class="btn b-w-rs w-xs btn-info pull-left" ng-click="queryfuncbut()" submit-timeout>查看</button>
+            </div>
+
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="floors.floorslists" theme="bootstrap" ng-change="Load_ValChart2(2,floors.floorslists)">
+                  <ui-select-match placeholder="选择楼层">{{$select.selected.Floorname}}</ui-select-match>
+                  <ui-select-choices repeat="item in floors.floorslist | filter: $select.search">
+                    <div ng-bind-html="item.Floorname | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="building.buildinglists" theme="bootstrap" ng-change="Load_ValChart2(1,building.buildinglists)">
+                  <ui-select-match placeholder="选择教学楼">{{$select.selected.Buildingname}}</ui-select-match>
+                  <ui-select-choices repeat="item in building.buildinglist | filter: $select.search">
+                    <div ng-bind-html="item.Buildingname | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+
+            <div class="table-h-selct pull-right col-sm-2">
+              <div class="form-select">
+                <ui-select ng-model="Campus.Campuslists" theme="bootstrap" ng-change="Load_ValChart2(0,Campus.Campuslists)">
+                  <ui-select-match placeholder="选择校区">{{$select.selected.Campusname}}</ui-select-match>
+                  <ui-select-choices repeat="item in Campus.Campuslist | filter: $select.search">
+                    <div ng-bind-html="item.Campusname | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+
+            <div class="panel-heading table-h-date table-h-date-dlfx" >
+              <input class="datainp form-control col-md-2 col-xs-12" ng-click="showFromDate()" id="begindate" type="text" value="{{Begindatestr}}" placeholder="请选择"  readonly>
+              <span>—</span>
+              <input class="datainp form-control col-md-2 col-xs-12" ng-click="showToDate()" id="enddate" type="text" value="{{Enddatestr}}" placeholder="请选择"  readonly>
+            </div>
+          </div>
+        </div>
+			</div>
+      <div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default bl1">
+          <div class="panel-heading">
+            热力图
+          </div>
+          <div class="m-jsdl-dlfx-rlt">
+            <div class="cvs">
+              <div class="rlt">
+                <div class="img" style="height: 500px;padding: 0;"><img src="../project/jsdl/img/jsdl/dlfx/18lou.png" /></div>
+                <div class="map" style="width: 518px; height: 500px;" top-map ui-scopename="jsdl_dlfx_rlt_option" >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default bl1">
+          <div class="panel-heading">
+            定位图
+          </div>
+          <div class="m-jsdl-dlfx-rlt">
+            <div class="cvs">
+              <div class="rlt">
+                <div class="img" style="height: 500px;padding: 0;"><img src="../project/jsdl/img/jsdl/dlfx/18lou.png" /></div>
+                <div class="map" style="width: 518px; height: 500px;" top-map ui-scopename="jsdl_dlfx_dw_option" >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one bl">
+        <div class="panel panel-default bl1">
+          <div class="panel-heading">
+            人数统计（单位：人）
+          </div>
+          <div>
+            <div class="sbfx_cvs" id="dlfx_rq2" style="height: 340px; width: 80%;margin-left: auto;margin-right: auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-sbgl-sbfx-one row">
+        <div class="col-lg-3" style="min-width: 340px;" ng-repeat="item in inDeviceItems">
+          <div class="panel panel-default">
+            <p class="panel-heading panel-b-m" style="padding-left: 30px">{{item.title}}</p>
+            <div class="text-center" >
+              <div class="sbfx_cvs" id="{{item.dlfx}}" style="display: inline-block;text-align: center; width: 310px; height: 380px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+	</div>
+</div>

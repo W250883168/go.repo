@@ -1,0 +1,14 @@
+users模块开始初始化
+systemmodule模块开始初始化
+attentionrecord模块开始初始化
+campus模块开始初始化
+attentionrecord模块开始初始化
+campus模块开始初始化
+lives模块开始初始化
+初始化： dev.project/BackEndCode/devserver/viewmodel/videoview.init.1 /141
+users模块开始初始化
+systemmodule模块开始初始化
+初始化： dev.project/BackEndCode/devserver/Controllers/LiveControllers/vodControl.init.1 /215
+lives模块开始初始化
+初始化： dev.project/BackEndCode/devserver/videosrv.init.2 /157
+listen udp4 127.0.0.1:1616: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.

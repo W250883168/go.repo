@@ -1,0 +1,35 @@
+
+/*    模块管理       */
+.m-qxgl-mkgl{background-color: rgba(255,255,255,0.2);margin-top: 30px;}
+.m-qxgl-mkgl-h{position: relative; background-color: rgba(255,255,255,0.2);padding: 0 15px; height: 36px; line-height: 36px; color: #fff;}
+.m-qxgl-mkgl-h .mkgl-se{position: absolute;right: 20px; top: 3px;}
+.m-qxgl-mkgl-h .mkgl-se span{line-height: 30px;vertical-align: top;}
+.m-qxgl-mkgl-h .mkgl-se input{vertical-align: top;width: 100px; height: 30px; line-height: 30px;}
+.m-qxgl-mkgl-h .mkgl-se a{vertical-align: top;margin-left: 15px;}
+.m-qxgl-mkgl-add{margin: 10px 20px;}
+.m-qxgl-mkgl-tab{margin:0 20px;padding-bottom: 20px;}
+.m-qxgl-mkgl-tab table tr th{color: #fff;background-color: rgba(255,255,255,0.2);}
+.m-qxgl-mkgl-tab table tr td{color: #fff;}
+.m-qxgl-mkgl-tab table tr td .op-a{color: #A6BEF8;}
+.m-qxgl-mkgl-tab table tr td .op-a:hover{color: #69EDF7;}
+.m-qxgl-mkgl-tab table thead{border: solid 1px #fff;}
+.m-qxgl-mkgl-tab table thead th{white-space: nowrap;}
+.m-qxgl-mkgl-tab table tbody{border: solid 1px #fff;}
+.m-qxgl-mkgl-tab .footable-odd{background-color:rgba(255,255,255,0.1);}
+/*    权限分配       */
+.m-qxgl-qxfp{overflow: hidden;}
+.m-qxgl-qxfp .panel{background-color: rgba(255,255,255,0.2);margin-top: 30px;border-radius: 0;border: 0;}
+.m-qxgl-qxfp .panel-heading{background-color: rgba(255,255,255,0.2);border: 0; color: #fff;}
+.m-qxgl-qxfp .m-sbgl-table-1 tr td:first-child{color: #fff;}
+.m-qxgl-qxfp .m-sbgl-table-1 tr td .form-control{background-color: #315d9e;color: #fff;border: 0;border-radius: 0;outline: 0;}
+.m-qxgl-qxfp .m-sbgl-table-1 tr td{border-top:solid 1px rgba(255,255,255,0.1);color: #fff;}
+.m-qxgl-qxfp .m-qxgl-tree{background-color: transparent;}
+.m-qxgl-qxfp .m-qxgl-tree .qxgl-tree{background-color: transparent;border-radius: 0;}
+.m-qxgl-qxfp .m-qxgl-tree .qxgl-tree li span:first-child{background-color: transparent;border-bottom:solid 1px rgba(255,255,255,0.5);}
+.m-qxgl-qxfp .m-qxgl-tree .qxgl-tree li span{background-color: transparent;border-bottom:solid 1px rgba(255,255,255,0.5);}
+.m-qxgl-qxfp .m-qxgl-tree .qxgl-tree li span{}
+.m-qxgl-qxfp .m-qxgl-tree .qxgl-tree li span em.icon-key{position: relative;}
+.m-qxgl-qxfp .m-qxgl-tree .qxgl-tree li span em.icon-key:before{position:absolute;right: 1px;top: 11px;}
+.m-qxgl-qxfp .m-qxfp-gn{background-color: transparent;border-radius: 0;border:solid 1px rgba(255,255,255,0.5);}
+.m-qxgl-qxfp .m-qxgl-tree .m-qxfp-gn .i-checks{background-color: rgba(255,255,255,0.2);border-bottom:solid 1px rgba(255,255,255,0.5);border-top:solid 1px rgba(255,255,255,0.5);}
+.m-qxgl-qxfp .m-qxgl-tree .m-qxfp-gn .i-checks input + i {border-color: #23b7e5;}

@@ -1,0 +1,99 @@
+<div ui-view>
+	<div class="m-sbpz">
+		<!--  breadcrumb 面包屑  -->
+		<div class="m-sbjk-breadcrumb">
+			<ul class="breadcrumb" w-breadcrumb></ul>
+		</div>
+
+		<div class="wrapper-lg wrapper-tree">
+      <div class="app-aside">
+        <div class="content-left panel panel-default">
+          <div class="m-sbpz-tree show_level3">
+            <abn-tree
+                  tree-data         = "sbxh_data_tree"
+                  tree-control      = "sbxh_tree"
+                  on-select         = "sbxh_tree_handler(branch)"
+                  expand-level      = "1"
+                  initial-selection = "Granny Smith"
+                  icon-leaf         = "fa"
+                  icon-expand       = "fa fa-plus-square-o"
+                  icon-collapse     = "fa fa-minus-square-o"
+                  >
+                </abn-tree>
+          </div>
+        </div>
+      </div>
+			<div class="content-right panel panel-default">
+				<!--查询 添加-->
+        <div class="panel-heading">
+          <span class="title">已选定</span>
+          <b ng-if='sbxhRightData.item.label == null'>{{sbxh_data_tree[0].label}}</b>
+          <b ng-if='sbxhRightData.item.label != null'>{{sbxhRightData.item.label}}</b>
+          <div class="table-h-btn pull-right">
+            <button tabindex="1" class="btn b-w-rs w-xs btn-info pull-left" ng-disabled="sbxhRightData.item.level >= 2" ng-click="openModalAddXh()">添加</button>
+          </div>
+        </div>
+				<!--表单-->
+        <div>
+          <table class="table m-b-none" ui-jq="footable" data-page-size="5">
+            <thead>
+              <tr>
+              	<th width="30"></th>
+                <th data-toggle="true">名称</th>
+                <th data-hide="phone,tablet">描述</th>
+                <th data-hide="phone,tablet">类型</th>
+                <th ng-if="sbxhRightData.item.level == '1' && sbxhRightData.item.children.length < 1">控制页面</th>
+                <th ng-if="sbxhRightData.item.level == '1' && sbxhRightData.item.children.length < 1">展示图片</th>
+                <th ng-if="sbxhRightData.item.level == '1' && sbxhRightData.item.children.length < 1">展示图片2</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in sbxhRightData.list">
+              	<td>{{$index + 1 + (backPage.PageIndex - 1) * backPage.PageSize}}</td>
+                <td>{{item.Name}}</td>
+                <td>{{item.Description}}</td>
+                <td>{{item.TypeName}}</td>
+                <td ng-if="sbxhRightData.item.level == '1' && sbxhRightData.item.children.length < 1">{{item.PageFileName}}{{item.Type == '1' ? '-' : ''}}</td>
+                <td ng-if="sbxhRightData.item.level == '1' && sbxhRightData.item.children.length < 1">
+                  <span ng-if="item.Type == '1'">-</span>
+                  <span ng-if="item.Type == '2'"><img height="40" width="40" ng-src="{{deviceImg}}{{item.ImgFileName}}" /></span>
+                <td ng-if="sbxhRightData.item.level == '1' && sbxhRightData.item.children.length < 1">
+                  <span ng-if="item.Type == '1'">-</span>
+                  <span ng-if="item.Type == '2'"><img height="40" width="40" ng-src="{{deviceImg}}{{item.ImgFileName2}}" /></span>
+                </td>
+                <td>
+                  <div class="btn-group dropdown" dropdown="">
+                    <button class="btn btn-default" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">操作<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a ng-click="openModalAddXh(item,'see')">查看</a>
+                      </li>
+                      <li>
+                        <a ng-click="openModalAddXh(item,'edit')">修改</a>
+                      </li>
+                      <li>
+                        <a ng-click="deleteItem(item)">删除</a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            <tr ng-if="sbxhRightData.list.length < 1">
+              <td colspan="30" class="text-center" >无数据</td>
+            </tr>
+            </tbody>
+            <tfoot class="">
+              <tr>
+                <td colspan="30" class="text-center">
+                  <!--分页-->
+                  <div class="text-center" foo-pagination></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+			</div>
+		</div>
+	</div>
+</div>

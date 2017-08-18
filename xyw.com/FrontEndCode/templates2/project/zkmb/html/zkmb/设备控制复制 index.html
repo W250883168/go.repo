@@ -1,0 +1,196 @@
+<div class="m-zkmb-main">
+	<div class="zkmb-header pos-rlt box-shadow {{app.settings.navbarCollapseColor}} clearfix">
+		<div class="zkmb-header-left">
+			<a class="zkmb-logo" ng-click="aaab()"><img src="../project/zkmb/img/zkmb/logo_white.png" /></a>
+			<div class="index" ng-class="{'kqjz_top':!isZkmb}">
+				<span ng-class="{'hidden':!isZkmb}">&nbsp;&nbsp;{{app.serverTime * 1000 | date:'HH:mm'}}&nbsp;&nbsp;&nbsp;{{thisCourse.Curriculumname}}</span>
+			</div>
+			<div class="inheader" ng-class="{'hidden':isZkmb}">
+				<div class="back" ng-click="goback()"><i class="fa fa-angle-left"></i></div>
+				<div class="span">
+					<span ng-if="sbkz_title_show == true">
+						<span>{{zkmb_class_info.Campusname}}</span>
+						<span>{{zkmb_class_info.Buildingname}}</span>
+						<span>{{zkmb_class_info.Floorname}}</span>
+						<span>{{zkmb_class_info.Classroomsname}}</span>
+					</span>
+					<span ng-repeat="item in inClass" ng-if="sbkz_title_show != true"><span ng-if="$index > 0">，</span>{{item.Classesname}}</span>
+				</div>
+			</div>
+		</div>
+		<!-- nabar right -->
+		<div class="zkmb-header-right">
+			<div class="right-btn">
+				<a class="btn btn-info hidden" ng-click="classRecess()" ng-disabled="isTeacher != true">{{classRecessText}}</a>
+				<a class="btn btn-info" ng-click="outCourse()">退出</a>
+			</div>
+			<span class="lin pull-left">|</span>
+			<ul class="nav">
+				<li class="hidden pull-left">
+					<a ui-fullscreen></a>
+				</li>
+				<li class="dropdown pull-left" dropdown>
+					<a href class="dropdown-toggle clear" dropdown-toggle>	
+						<b class="caret"></b>
+						<span class="avatar">
+								<span>{{app.name}}</span>
+						<img ng-src="{{app.headimg}}" alt="...">
+
+						<i class="on md b-white bottom"></i>
+						</span>
+						<span class="lin">|</span>
+						<span class="hidden hidden">{{app.name}}</span>
+
+					</a>
+					<!-- dropdown -->
+					<div class="dropdown-menu animated fadeInRight w">
+						<i class="fa jiao"></i>
+						<div class="user-pic">
+							<a><img ng-src="{{app.headimg}}" /></a>
+						</div>
+						<div class="user-ke">
+							<h4>{{app.name}}</h4>
+							<div class="option">
+								<a class="btn btn-info" ng-click="zkmb_sys_option()">设置</a>
+							</div>
+							<p>
+								<span class="text-ellipsis">{{thisCourse.Curriculumname}}</span>
+								<a ng-click="zkmb_huanke()" class="btn btn-success hidden">换课</a>
+							</p>
+							<h4 class="hidden">上课班级</h4>
+							<ul class="hidden">
+								<li ng-repeat="item in inClass">
+									<a>{{item.Classesname}}</a>
+								</li>
+								<li ng-if="inClass.lenght < 1"><a>无</a></li>
+							</ul>
+						</div>
+
+						<!--<li>
+								<a ng-click="loginout()">退出</a>
+							</li>-->
+					</div>
+					<!-- / dropdown -->
+				</li>
+			</ul>
+		</div>
+		<!-- / navbar right -->
+	</div>
+	<div class="zkmb-body">
+		<div class="body-main clearfix" ui-view>
+			<div class="m-zkmb-check hidden">
+				<h4 class="m-zkmb-title">学生出勤</h4>
+				<div class="check-char">
+					<div class="check-left hidden">
+						<a>{{attendance.act}}</a><br/><span>实到</span>
+					</div>
+					<div class="check-body">
+						<div class="chart">
+							<div  e-chart ui-options='{{option_pie}}' style="width: 123px; height: 123px;"></div>
+							<div class="text">
+								<span>{{attendance.act}}&nbsp;/&nbsp;<span>{{attendance.all}}</span></span>
+							</div>
+						</div>
+					</div>
+					<div class="check-right hidden">
+						<a>{{attendance.all}}</a><br/><span>应到</span>
+					</div>
+				</div>
+				<div class="check-btn">
+					<div class="">
+						<a ui-sref="app.zkmb.kqjz" ng-disabled="isTeacher != true" class="btn btn-btn">纠正</a>
+					</div>
+					<div class="">
+						<a ui-sref="app.zkmb.kqtj" ng-disabled="isTeacher != true" class="btn btn-btn">出勤统计</a>
+					</div>
+				</div>
+			</div>
+			<div class="video-right hidden">
+				<div class="m-zkmb-video">
+					<h4 class="m-zkmb-title">视频录制</h4>
+					<div class="video row">
+						<div class="video-str col-xs-3">
+							<div class="btn"  ng-disabled="isTeacher != true" ng-class="{hidden:video.record}" ng-click="beginvideo()">
+								<a class="str btn">
+									<i class="fa"></i>
+								</a>
+								<span>开始录制</span>
+							</div>
+							<div class="btn"  ng-disabled="isTeacher != true" ng-class="{hidden:!video.record}" ng-click="endvideo()">
+								<a class="str btn">
+									<i class="fa stop"></i>
+								</a>
+								<span>停止录制</span>
+							</div>
+						</div>
+						<div class="video-li col-xs-9">
+							<div>
+								<span>开始录制时间</span>
+								<a>{{video.startTime | date:'yyyy-MM-dd HH:mm:ss'}}</a>
+							</div>
+							<div>
+								<span>结束录制时间</span>
+								<a>{{video.stopTime | date:'yyyy-MM-dd HH:mm:ss'}}<i></i></a>
+							</div>
+							<div>
+								<span>录制时长</span>
+								<a>{{video.time | FormatTime:(video.time)}}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="m-zkmb-device">
+				<h4 class="m-zkmb-title">教学设备</h4>
+				<div class="device-body">
+					<ul class="device-list clearfix">
+						<li ng-repeat="item in deviceData" ng-click="zkmb_sbkz(item)" ng-class="{true:'true',false:'false'}[item.DeviceSwitch=='on']">
+							<div class="tis">
+								<div>
+									<i class="icon-nswitch" ng-if="item.NodeSwitch=='offline'"></i>
+									<i class="icon-switch" ng-if="item.NodeSwitch!='offline'"></i>
+									<i class="icon-stop" ng-if="item.IsCanUse=='0'"></i>
+									<i class="icon-warning" ng-if="item.IsHaveAlert=='1'"></i>
+								</div>
+								<a class="por">
+									<img class="dev-off" ng-src="{{deviceimg}}{{item.DeviceImg}}" />
+									<img class="dev-on" ng-src="{{deviceimg}}{{item.DeviceImg2}}" />
+								</a>
+							</div>
+							<p class="text-ellipsis">{{item.DeviceName}}</p>
+						</li>
+					</ul>
+					<div class="device-btn">
+						<a class="btn btn-btn" ng-click="fnOpenDevice()">一键开启</a>
+						<a class="btn btn-btn" ng-click="fnCloseDevice()">一键关闭</a>
+					</div>
+					<div class="device-tis">
+						<span><b class="blue"></b>设备开</span>
+						<span><b></b>设备关</span>
+						<span><i class="icon-switch"></i>在线</span>
+						<span><i class="icon-stop"></i>停用</span>
+						<span><i class="icon-warning"></i>警告</span>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="zkmb-footer clearfix">
+		<div class="footer-left">
+			<span>校区：{{zkmb_class_info.Campusname}}</span>
+			<span>楼栋：{{zkmb_class_info.Buildingname}}</span>
+			<span>楼层：{{zkmb_class_info.Floorname}}</span>
+			<span>教室：{{zkmb_class_info.Classroomsname}}</span>
+		</div>
+		<div class="footer-right">
+			<span>联系电教管理员：0731-123456XX</span>
+		</div>
+	</div>
+
+
+</div>
+<!--全局提示框-->
+<alert-bar class="alert_bar fade in" message="tipService.message" type="tipService.type"></alert-bar>
+
+<!-- / navbar collapse -->

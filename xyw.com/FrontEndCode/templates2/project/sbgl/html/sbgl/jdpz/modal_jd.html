@@ -1,0 +1,68 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.operate == 'add'">节点添加</span>
+		<span ng-if="items.operate == 'look'">节点查看</span>
+		<span ng-if="items.operate == 'edit'">节点修改</span>
+		<div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+		<div class="m-modal-content">
+			<p class="title">基本信息</p>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>节点编号</span>
+				<input class="form-control" type="text" ng-model="form.Id" ng-blur="blurId()" ng-readonly="items.operate != 'add'" placeholder="输入节点编号" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>节点名称</span>
+				<input class="form-control" type="text" ng-model="form.Name" placeholder="输入节点名称" ng-readonly="items.operate == 'look'" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>节点型号</span>
+				<div class="form-select">
+					<ui-select ng-model="form.ModelItem" ng-disabled="items.operate=='look'?true:false" theme="bootstrap" ng-change="changeModelItem(form.ModelItem)">
+						<ui-select-match placeholder="选择节点型号">{{$select.selected.Name}}</ui-select-match>
+						<ui-select-choices repeat="item in form.ModelItems | filter: $select.search">
+							<div ng-bind-html="item.Name | highlight: $select.search"></div>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+		<div class="m-modal-content">
+			<p class="title">安装位置</p>
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required"></i>教室</span>
+				<input ng-if="items.operate != 'look'" class="form-control" type="text" ng-model="form.ClassRoomHtml" placeholder="选择教室位置" />
+				<button ng-if="items.operate != 'look'" class="btn m-b-xs w-xs btn-default" ng-click="modalOpenClassroom()">选择</button>
+				<input ng-if="items.operate == 'look'" class="form-control" type="text" ng-model="form.ClassRoomHtml" ng-readonly="items.operate != 'add'" />
+			</div>
+		</div>
+		<div class="m-modal-content" ng-if="items.operate !== 'add'">
+			<p class="title">网络信息</p>
+			<div class="content">
+				<span class="text">IP类型</span>
+				<input class="form-control" type="text" ng-model="form.IpType" ng-readonly="items.operate != 'add'" placeholder="IP类型" />
+			</div>
+			<div class="content">
+				<span class="text">Coap端口</span>
+				<input class="form-control" type="text" ng-model="form.NodeCoapPort" ng-readonly="items.operate != 'add'" placeholder="输入Coap端口" />
+			</div>
+			<div class="content">
+				<span class="text">路由IP</span>
+				<input class="form-control" type="text" ng-model="form.RouteIp" ng-readonly="items.operate != 'add'" placeholder="输入路由IP" />
+			</div>
+			<div class="content">
+				<span class="text">映射端口</span>
+				<input class="form-control" type="text" ng-model="form.InRouteMappingPort" ng-readonly="items.operate != 'add'" placeholder="输入映射端口" />
+			</div>
+			<div class="content">
+				<span class="text">上报时间</span>
+				<input class="form-control" type="text" ng-model="form.UploadTime" ng-readonly="items.operate != 'add'" placeholder="输入上报时间" />
+			</div>
+		</div>
+	</div>
+	<div class="g-modal-footer" ng-if="items.operate != 'look'">
+		<button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+		<button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+	</div>
+</div>

@@ -1,0 +1,74 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span>查看</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+	<div class="g-modal-body m-modal-classroom-body">
+		<table>
+			<tr>
+				<td>模块图标</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Curriculumicon}}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>模块ID</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Id}}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>模块名称</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Modulename}}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>模块代码</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Modulecode}}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>显示名称</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Moduledisplayname}}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>适用终端</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Moduledisplayterminal}}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>上级模块ID</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Superiormoduleid}}</span></div>
+				</td>
+			</tr>
+			<tr class="hidden">
+				<td>模块Url</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Moduleurl}}</span></div>
+				</td>
+			</tr>
+			<tr class="hidden">
+				<td>模块属性</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.Moduleattribute}}</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>模块排序</td>
+				<td>
+					<div class="modal-div-input"><span class="m-l-md">{{mkgl_details.ModuleIndex}}</span></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="g-modal-footer hidden">
+		<a class="btn" ng-click="cancel()">取消</a>
+		<a class="btn" ng-click="postAdd()" submit-timeout>确定</a>
+	</div>
+</div>

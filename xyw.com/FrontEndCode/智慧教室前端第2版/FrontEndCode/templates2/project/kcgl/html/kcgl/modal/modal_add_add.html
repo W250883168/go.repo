@@ -1,0 +1,102 @@
+<div class="g-modal m-modal-kcgl-add" modal-move>
+	<div class="g-modal-header">
+		<span>添加章节</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+	<div class="g-modal-body m-modal-classroom-body">
+		<table>
+			<tr>
+				<th colspan="2">章节信息</th>
+			</tr>
+			<tr>
+				<td>课程名称</td>
+				<td>
+					<div>
+						<input class="form-input" ng-model="from.section.courseName" type="text" placeholder="输入课程名称" readonly="readonly" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>章节名称</td>
+				<td>
+					<div>
+						<input class="form-input" ng-model="from.section.chapterName" type="text" placeholder="输入章节名称" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>顺序</td>
+				<td>
+					<div>
+						<input class="form-input" ng-model="from.section.order" type="text" placeholder="排序" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>章节图标</td>
+				<td>
+					<div class="clearfix">
+						<ul class="kcgl-ul">
+							<li ng-if="from.section.pic.length > 0">
+								<span class="form-img"><img ng-src="{{from.section.pic}}" /></span>
+								<i class="icon-close" ng-click="closePic()"></i>
+							</li>
+						</ul>
+						<span class="btn-up btn-kcgl-add upfile"><input type="file" id="fileInput_add_add" />上传</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>章节详情</td>
+				<td>
+					<div>
+						<textarea rows="5" class="form-input" ng-model="from.section.chapterDetails" placeholder="输入章节详情">线性代数方程组及其求解</textarea>
+					</div>
+				</td>
+			</tr>
+		</table>
+		
+		<table class="m-t-md text-center">
+			<tr>
+				<th colspan="11">
+					课堂信息
+					<a class="btn-kcgl-add pull-right" ng-click="modalOpenAddAdd()">添加</a>
+				</th>
+			</tr>
+			<tr class="header">
+				<td>班级</td>
+				<td>日期</td>
+				<td>上课时间</td>
+				<td>教室</td>
+				<td>上课老师</td>
+				<td>是否允许录制</td>
+				<td>是否允许点播</td>
+				<td>是否允许评论</td>
+				<td>是否允许直播</td>
+				<td>是否允许直播评论</td>
+				<td>操作</td>
+			</tr>
+			<tr ng-repeat="item in from.classRoom">
+				<td>{{item.className}}</td>
+				<td>{{item.date}}</td>
+				<td>{{item.time}}</td>
+				<td>{{item.classRoomName}}</td>
+				<td>{{item.teacherName}}</td>
+				<td><span ng-if="item.isVideo == 1">是</span><span ng-if="item.isVideo == 0">否</span></td>
+				<td><span ng-if="item.isPlay == 1">是</span><span ng-if="item.isPlay == 0">否</span></td>
+				<td><span ng-if="item.isPlayComment == 1">是</span><span ng-if="item.isPlayComment == 0">否</span></td>
+				<td><span ng-if="item.isLive == 1">是</span><span ng-if="item.isLive == 0">否</span></td>
+				<td><span ng-if="item.isLiveComment == 1">是</span><span ng-if="item.isLiveComment == 0">否</span></td>
+				<td>
+					<a ng-click="operationClick('details')" class="href">查看</a>
+					<a ng-click="operationClick('edit')" class="href">修改</a>
+					<a ng-click="operationClick('remove')" class="href">删除</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="g-modal-footer">
+		<a class="btn" ng-click="ok()">确定</a>
+		<a class="btn" ng-click="cancel()">取消</a>
+	</div>
+</div>

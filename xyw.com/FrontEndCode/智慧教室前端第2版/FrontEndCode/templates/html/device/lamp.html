@@ -1,0 +1,225 @@
+﻿<div class="m-lamp-p" ng-init="fnInit()">
+	<ion-slide-box>
+		<!--   1   -->
+		<ion-slide>
+	    	<div class="box">
+	    		<div class="col-xs-12">
+					<div class="m-kongtiao" ng-class="{true:'true',false:'false'}[deviceData.DeviceSwitch=='on']">
+						<div class="device-top row">
+							<div class="kt-icon">
+								<i class="icon-nswitch" ng-if="deviceData.NodeSwitch=='offline'"></i>
+								<i class="icon-switch" ng-if="deviceData.NodeSwitch!='offline'"></i>
+								<i class="icon-stop" ng-if="deviceData.IsCanUse=='0'"></i>
+								<i class="icon-warning" ng-if="deviceData.IsHaveAlert=='1'"></i>
+							</div>
+							<div class="device-pic">
+								<img ng-src="{{deviceimg}}{{deviceData.DeviceImg2}}" ng-if="true == (deviceData.DeviceSwitch=='on')" />
+								<img ng-src="{{deviceimg}}{{deviceData.DeviceImg}}" ng-if="false == (deviceData.DeviceSwitch=='on')" />
+							</div>
+						</div>
+						<div class="text-center">
+							<div class="device-btn">
+								<a class="btn btn-btn50" ng-click="fnOpenDevice()">开启</a>
+								<a class="btn btn-btn50 yellow" ng-click="fnCloseDevice()">关闭</a>
+							</div>
+						</div>
+					</div>
+				</div>
+	    	</div>
+		</ion-slide>
+		<!--   2   -->
+		<ion-slide>
+			<div class="box">
+				<div class="m-lamp-xq col-xs-12">
+					<div class="lamp-xq-title"><span>状态</span><i class="title-line"></i></div>
+					<table class="table">
+						<tr>
+							<th>状态</th>
+							<th>描述</th>
+						</tr>
+                        <tr>
+							<td>开关状态</td>
+							<td>
+                            	<span ng-if="true == (deviceData.DeviceSwitch=='on')">开启</span>
+                                <span ng-if="false == (deviceData.DeviceSwitch=='on')">关闭</span>
+                            </td>
+						</tr>
+						<tr>
+							<td>使用时长</td>
+							<td>{{DeviceStatus.ServiceTime | FormatTime:(DeviceStatus.ServiceTime)}}</td>
+						</tr>
+						<tr ng-repeat="item in DeviceStatus.Status">
+							<td>{{item.StatusName}}</td>
+							<td>{{item.StatusValueName}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</ion-slide>
+		<!--   3   -->
+		<ion-slide on-slide-changed="slideHasChanged(index)">
+			<div class="box">
+				<div class="m-lamp-xq col-xs-12">
+					<div class="lamp-xq-title"><span>预警</span><i class="title-line"></i></div>
+					<table class="table">
+						<tr>
+							<th>预警时间</th>
+							<th>预警提示</th>
+						</tr>
+						<tr ng-repeat="item in AlertInfoList">
+							<td>{{item.AlertTime}}</td>
+							<td>{{item.AlertDescription}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</ion-slide>
+		<!--   4   -->
+		<ion-slide on-slide-changed="slideHasChanged(index)">
+			<div class="box">
+				<div class="m-lamp-xq col-xs-12">
+					<div class="lamp-xq-title"><span>使用日志</span><i class="title-line"></i></div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>开始时间</th>
+								<th>结束时间</th>
+								<th class="text-center">时长</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in UseLogList">
+								<td>{{item.OnTime}}</td>
+								<td>{{item.OffTime}}</td>
+								<td class="text-center">{{item.timeLength}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="text-center" ng-if="backPage5.PageCount > 1">
+						<ul class="pagination clearfix">
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage5.PageIndex == 1}">
+								<a data-page="first" ng-click="pageClick(5,1)">«</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage5.PageIndex == 1}">
+								<a data-page="prev" ng-click="pageClick(5,backPage5.PageIndex -1)">‹</a>
+							</li>
+							<li class="footable-page" ng-repeat="item in backPage5.Number" ng-class="{'active':backPage5.PageIndex == item}">
+								<a data-page="1" ng-click="pageClick(5,item)">{{item}}</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage5.PageIndex == backPage5.PageCount}">
+								<a data-page="next" ng-click="pageClick(5,backPage5.PageIndex + 1)">›</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage5.PageIndex == backPage5.PageCount}">
+								<a data-page="last" ng-click="pageClick(5,backPage5.PageCount)">»</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</ion-slide>
+		<!--   5   -->
+		<ion-slide on-slide-changed="slideHasChanged(index)">
+			<div class="box">
+				<div class="m-lamp-xq col-xs-12">
+					<div class="lamp-xq-title"><span>操作日志</span><i class="title-line"></i></div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>操作时间</th>
+								<th class="text-center">操作人</th>
+								<th class="text-center">操作类型</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in OperateLogList">
+								<td>{{item.OperateTime}}</td>
+								<td class="text-center">{{item.UserName}}</td>
+								<td class="text-center">{{item.CmdName}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="text-center" ng-if="backPage5.PageCount > 1">
+						<ul class="pagination clearfix">
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage5.PageIndex == 1}">
+								<a data-page="first" ng-click="pageClick(5,1)">«</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage5.PageIndex == 1}">
+								<a data-page="prev" ng-click="pageClick(5,backPage5.PageIndex -1)">‹</a>
+							</li>
+							<li class="footable-page" ng-repeat="item in backPage5.Number" ng-class="{'active':backPage5.PageIndex == item}">
+								<a data-page="1" ng-click="pageClick(5,item)">{{item}}</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage5.PageIndex == backPage5.PageCount}">
+								<a data-page="next" ng-click="pageClick(5,backPage5.PageIndex + 1)">›</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage5.PageIndex == backPage5.PageCount}">
+								<a data-page="last" ng-click="pageClick(5,backPage5.PageCount)">»</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</ion-slide>
+		<!--   6   -->
+		<ion-slide on-slide-changed="slideHasChanged(index)">
+			<div class="box">
+				<div class="m-lamp-xq col-xs-12">
+					<div class="lamp-xq-title"><span>故障</span><i class="title-line"></i></div>
+					<div class="add-btn text-right">
+						<a class="btn btn-kcgl-add" ng-click="modalOpenAddFault(item,'add')">添加</a>
+					</div>
+					<div class="m-device-gz-list">
+						<ul>
+							<li ng-repeat="item in FaultInfoList">
+								<p class="xq-title space-one"><span>故障现象：</span>{{item.FaultSummary}}</p>
+								<div class="xq-mx"><span>描述：</span>{{item.FaultDescription}}</div>
+								<div class="xq-zt clearfix">
+									<div class="left">
+										<span class="label-btn label-btn-green">
+											<span ng-if="item.IsCanUse == 0">不可使用</span>
+											<span ng-if="item.IsCanUse == 1">可以使用</span>
+										</span>&nbsp;&nbsp;
+										<span class="label-btn label-btn-blue">
+											<span ng-if="item.Status == 0">草稿</span>
+											<span ng-if="item.Status == 1">待受理</span>
+											<span ng-if="item.Status == 2">维修中</span>
+											<span ng-if="item.Status == 3">已维修</span>
+										</span>
+									</div>
+									<span class="right">{{item.HappenTime}}</span>
+								</div>
+								<div class="xq-cz row">
+									<a class="col-xs-4" ng-click="modalOpenAddFault(item,'details')"><i class="icon-look"></i>查看</a>
+									<a class="col-xs-4" ng-click="modalOpenAddFault(item,'edit')"><i class="icon-edit"></i>修改</a>
+									<a class="col-xs-4" ng-click="modalOpenAddFault(item,'delete')"><i class="icon-del"></i>删除</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="text-center">
+						<ul class="pagination clearfix" ng-if="backPage3.PageCount > 1">
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage3.PageIndex == 1}">
+								<a data-page="first" ng-click="pageClick(3,1)">«</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage3.PageIndex == 1}">
+								<a data-page="prev" ng-click="pageClick(3,backPage3.PageIndex -1)">‹</a>
+							</li>
+							<li class="footable-page" ng-repeat="item in backPage3.Number" ng-class="{'active':backPage3.PageIndex == item}">
+								<a data-page="1" ng-click="pageClick(3,item)">{{item}}</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage3.PageIndex == backPage3.PageCount}">
+								<a data-page="next" ng-click="pageClick(3,backPage3.PageIndex + 1)">›</a>
+							</li>
+							<li class="footable-page-arrow" ng-class="{'disabled':backPage3.PageIndex == backPage3.PageCount}">
+								<a data-page="last" ng-click="pageClick(3,backPage3.PageCount)">»</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</ion-slide>
+	</ion-slide-box>
+	
+	
+</div>

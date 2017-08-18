@@ -1,0 +1,67 @@
+<div class="g-modal m-modal-classroom" modal-move>
+	<div class="g-modal-header">
+		<span ng-if="items.operate == 'add'">状态命令添加</span>
+		<span ng-if="items.operate == 'look'">状态命令查看</span>
+		<span ng-if="items.operate == 'edit'">状态命令修改</span>
+		<div class="modal-close" ng-click="cancel()"><i class="fa fa-times"></i></div>
+	</div>
+	<div class="g-modal-body">
+		<div class="m-modal-content">
+			<p class="title">基本信息</p>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>状态编码</span>
+				<input class="form-control" type="text" ng-model="form.StatusCode" ng-readonly="items.operate == 'look'" placeholder="输入状态编码" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>状态名称</span>
+				<input class="form-control" type="text" ng-model="form.StatusName" placeholder="输入状态名称" ng-readonly="items.operate == 'look'" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>状态序号</span>
+				<input class="form-control" type="text" ng-model="form.SeqNo" placeholder="输入状态序号" ng-readonly="items.operate == 'look'" />
+			</div>
+			
+			<div class="content modal-classroom">
+				<span class="text"><i class="fa f-required"></i>设备型号</span>
+				<input ng-if="items.operate != 'look'" class="form-control" type="text" ng-model="form.ModelName" placeholder="选择设备型号" />
+				<button ng-if="items.operate != 'look'" class="btn m-b-xs w-xs btn-default" ng-click="modalOpenDevice()">选择</button>
+				<input ng-if="items.operate == 'look'" class="form-control" type="text" ng-model="items.item.ModelName" readonly="readonly" />
+			</div>
+			
+		</div>
+		<div class="m-modal-content">
+			<p class="title">参数信息</p>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>命令负载</span>
+				<input class="form-control" type="text" ng-model="form.Payload" placeholder="输入命令负载" ng-readonly="items.operate == 'look'" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required"></i>状态匹配值</span>
+				<input class="form-control" type="text" ng-model="form.StatusValueMatchString" placeholder="输入状态值匹配串" ng-readonly="items.operate == 'look'" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>开关标志</span>
+				<input class="form-control" type="text" ng-model="form.SwitchStatusFlag" placeholder="输入开关状态标志" ng-readonly="items.operate == 'look'" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>开启状态值</span>
+				<input class="form-control" type="text" ng-model="form.OnValue" placeholder="输入开启状态值" ng-readonly="items.operate == 'look'" />
+			</div>
+			<div class="content">
+				<span class="text"><i class="fa f-required off"></i>关闭状态值</span>
+				<input class="form-control" type="text" ng-model="form.OffValue" placeholder="输入关闭状态值" ng-readonly="items.operate == 'look'" />
+			</div>
+			
+		</div>
+		
+	</div>
+	<div class="g-modal-footer" ng-if="items.operate != 'look'">
+		<button class="btn m-b-xs w-xs btn-default" ng-click="cancel()">取消</button>
+		<button class="btn m-b-xs w-xs btn-info" ng-click="ok()">保存</button>
+	</div>
+</div>
+
+
+
+
+

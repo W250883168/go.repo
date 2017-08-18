@@ -1,0 +1,2 @@
+basicsetDataAccess|AddLoginlog|添加登录日志Error 1292: Incorrect datetime value: '2017-04-19 13:57:55.2384029 +0800 CST' for column 'LoginDate' at row 1
+  2017-04-19 13:57:55 

@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FFmpegServer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ServerHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.0.201</Value>
+    </Setting>
+    <Setting Name="ServerPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1616</Value>
+    </Setting>
+    <Setting Name="HttpUrlPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/vod</Value>
+    </Setting>
+    <Setting Name="ThisHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.12.212</Value>
+    </Setting>
+    <Setting Name="ThisPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1514</Value>
+    </Setting>
+    <Setting Name="ThisMacAddr" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CameraFFmpegCmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CameraFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Workspace\web\nginx_v1.7.11.3_Gryphon\nginx-rtmp-module\tmp\rec</Value>
+    </Setting>
+    <Setting Name="RtmpAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rtmp://192.168.12.212:1935/vod2/</Value>
+    </Setting>
+    <Setting Name="ThisHostType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Client</Value>
+    </Setting>
+    <Setting Name="ScreenFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Z:\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

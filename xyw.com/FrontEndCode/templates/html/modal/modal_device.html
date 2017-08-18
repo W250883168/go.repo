@@ -1,0 +1,54 @@
+<div class="g-modal m-modal-classroom">
+	<div class="g-modal-header">
+		<span>选择设备型号</span>
+		<div class="modal-close" ng-click="cancel()"><i class="icon-close-modal"></i></div>
+	</div>
+	<div class="g-modal-body m-modal-device-body">
+		<div class="xhgl-table">
+			<ul class="table-header clearfix">
+				<li><span class="text-ellipsis">名称</span></li>
+				<li><span class="text-ellipsis">操作</span></li>
+			</ul>
+			<ul class="table-body">
+				<li ng-repeat="item in xhgl_list | filterNev:{PId:''}" class="tr" ng-class="{'active':item.bul}">
+					<ul class="body-header" ng-class="{'bg-color':!isLeaf(item.Id)}">
+						<li ng-click="isOpen(item)">
+							<a class="xhgl-tree" ng-class="{'active':item.bul}"><i class="fa" ng-class="{'bole':!isLeaf(item.Id),'leaf':isLeaf(item.Id)}"></i><span>{{item.Name}}</span></a>
+						</li>
+						<li>
+							<a ng-click="ok(item)" ng-if="item.showFilte">选择</a>
+						</li>
+					</ul>
+					<ul class="td-main">
+						<li ng-repeat="item2 in xhgl_list | filterNev:{PId:item.Id}" class="tr" ng-class="{'active':item2.bul}">
+							<ul class="body-header" ng-class="{'bg-color':!isLeaf(item2.Id)}">
+								<li ng-click="isOpen(item2)">
+									<a class="xhgl-tree"><em></em><i class="fa" ng-class="{'bole':!isLeaf(item2.Id),'leaf':isLeaf(item2.Id)}"></i><span>{{item2.Name}}</span></a>
+								</li>
+								<li>
+									<a ng-click="ok(item2)" ng-if="item2.showFilte">选择</a>
+								</li>
+							</ul>
+							<ul class="td-main">
+								<li ng-repeat="item3 in xhgl_list | filterNev:{PId:item2.Id}" class="tr" ng-class="{'active':item3.bul}">
+									<ul class="body-header" ng-class="{'bg-color':!isLeaf(item3.Id)}">
+										<li ng-click="isOpen(item3)">
+											<a class="xhgl-tree"><em></em><em></em><i class="fa" ng-class="{'bole':!isLeaf(item3.Id),'leaf':isLeaf(item3.Id)}"></i><span>{{item3.Name}}</span></a>
+										</li>
+										<li>
+											<a ng-click="ok(item3)" ng-if="item3.showFilte">选择</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="g-modal-footer">
+		<a class="btn" ng-click="cancel()">取消</a>
+		<a class="btn" ng-click="ok()">确定</a>
+	</div>
+</div>

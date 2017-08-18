@@ -1,0 +1,17 @@
+开发约定：
+操作系统：Windows7+
+数据库：MySQL v5.6+
+语言：	Golang v1.6+
+IDE：	LiteIDE v28+
+编码： 	UTF8
+
+Golang编码规范：参见（http://studygolang.com/articles/2108）
+MySQL数据库设计指导原则： 参见（http://chuansong.me/n/1574852446614;  http://www.jb51.net/article/47617.htm）
+
+
+技术框架选型：
+设备层通信协议：CoAP(github.com/zubairhamed/canopus)
+Web框架：GIN(github.com/gin-gonic/gin)
+ORM框架：GORP(gopkg.in/gorp.v1)
+消息列列：RabbitMQ(github.com/streadway/amqp)
+缓存：Redis(gopkg.in/redis.v5)

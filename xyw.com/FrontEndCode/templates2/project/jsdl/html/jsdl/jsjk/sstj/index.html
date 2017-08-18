@@ -1,0 +1,127 @@
+<div ui-view>
+	<div class="m-jsdl-jsfx">
+		<div class="m-breadcrumb">
+			<!--  w-breadcrumb 面包屑  -->
+			<ul class="breadcrumb">
+				<li>
+					<span>教室导流</span>
+				</li>
+				<li>
+					<a ui-sref="app.jsdl.jsjk">教室监控</a>
+				</li>
+				<li>
+					<span>
+						<span>{{ClassroomObject.Classroom.Campusname}}</span>
+						<span>{{ClassroomObject.Classroom.Buildingname}}</span>
+						<span>{{ClassroomObject.Classroom.Floorname}}</span>
+						<span>{{ClassroomObject.Classroom.Classroomsname}}</span>
+					</span>
+				</li>
+			</ul>
+		</div>
+		<div class="wrapper-lg row">
+			<div class="col-xs-4">
+				<div class="panel panel-default m-b-none">
+					<div class="panel-heading">
+						实时统计
+					</div>
+					<div class="sstj">
+						<div class="sum"><span class="label bg-info m-r-md">{{ClassroomObject.Classroom.ClassroomstateStr}}</span><span>总座位<span>{{ClassroomObject.Classroom.Seatsnumbers}}</span></span></div>
+						<div class="img">
+							<div class="img-cvs">
+								<div class="sstj_cvs" e-chart ui-options='{{jsdl_sstj.options}}' style="width: 120px; height: 120px;"></div>
+							</div>
+							<div class="img-yrz"><i></i><span>已入座<span>{{ClassroomObject.Classroom.Sumnumbers}}人</span></span></div>
+						</div>
+						<div class="rzl">
+							<div class="rzl-l">
+								<span>入座率</span>
+								<progressbar max="{{ClassroomObject.Classroom.Seatsnumbers}}" value="{{ClassroomObject.Classroom.Sumnumbers}}" type="info" class="progress-sm m-t-sm"></progressbar> 
+							</div>
+							<div class="rzl-n"><span>{{ClassroomObject.Classroom.Percentage}}</span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-8">
+				<div class="panel panel-default m-b-none">
+					<div class="panel-heading">
+						趋势图（单位：人）
+						<div class="table-h-date pull-right">
+							<span>查询日期</span>
+							<input type="text" ng-click="beginDate()" id="begindate" type="text" value="{{Begindatestr}}" class="form-control" readonly="readonly" placeholder="开始时间" />
+							<span>-</span>
+							<input type="text" ng-click="endDate()" id="enddate" type="text" value="{{Endatestr}}" class="form-control" readonly="readonly" placeholder="结束时间" />
+						</div>
+					</div>
+					<div class="qst">
+						<div class="qst-cvs">
+							<div class="sstj_cvs" e-chart ui-options='{{jsdl_qst.options}}' style="width: 100%;height: 400px;"></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		
+		
+		<div class="wrapper-lg" style="padding-top: 0;">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					数据明细
+				</div>
+				<div>
+					<table class="table m-b-none" ui-jq="footable" data-sorting="false" data-stop-propagation="false" data-paging="false">
+						<thead>
+							<tr>
+								<th data-toggle="true">名称</th>
+	                            <th>进入时间</th>
+	                            <th data-hide="phone,tablet">刷新时间</th>
+	                            <th>统计时长</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in ClassroomObject.ClassroomData">
+	                            <td>{{item.Truename}}</td>
+	                            <td>{{item.Createdate}}</td>
+	                            <td>{{item.Closedate}}</td>
+	                            <td>{{item.DateLength | FormatTime:(item.DateLength)}}</td>
+	                        </tr>
+	                        <tr ng-if="ClassroomObject.ClassroomData.length < 1">
+	                        	<td colspan="4" class="text-center">无数据</td>
+	                        </tr>
+							
+						</tbody>
+						<tfoot class="">
+							<tr>
+								<td colspan="30" class="text-center">
+									<!--分页-->
+									<div class="text-center" foo-pagination></div>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
