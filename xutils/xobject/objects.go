@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"xutils/xerr"
+	"go.repo/xutils/xerr"
 )
 
 // 测试obj必须为非nil, 否则引发panic

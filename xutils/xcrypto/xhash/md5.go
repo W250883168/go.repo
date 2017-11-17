@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"xutils/xapp"
+	"go.repo/xutils/xapp"
 )
 
 type MD5 struct {

@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"strings"
 
-	"xutils/xapp"
+	"go.repo/xutils/xapp"
 )
 
 // 测试是否为空字符串

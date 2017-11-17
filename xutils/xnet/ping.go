@@ -11,7 +11,7 @@ import (
 	"container/list"
 	"encoding/binary"
 
-	"xutils/xdebug"
+	"go.repo/xutils/xdebug"
 )
 
 type tagICMP struct {

@@ -8,8 +8,8 @@ import (
 
 	FilePath "path/filepath"
 
-	xutil "xutils/xapp"
-	"xutils/xdebug"
+	xutil "go.repo/xutils/xapp"
+	"go.repo/xutils/xdebug"
 )
 
 // 获取当前EXE执行文件路径

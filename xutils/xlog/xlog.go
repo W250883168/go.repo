@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"time"
 
-	xutil "xutils/xapp"
-	"xutils/xfile"
+	xutil "go.repo/xutils/xapp"
+	"go.repo/xutils/xfile"
 )
 
 var logFile string

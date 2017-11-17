@@ -4,7 +4,8 @@ import "fmt"
 import "log"
 import "runtime"
 import "runtime/debug"
-import "xutils/xapp"
+
+import "go.repo/xutils/xapp"
 
 // 输出错误所在文件/函数/行数信息
 func PrintErrFunc(ptr uintptr, file string, line int, err error) {

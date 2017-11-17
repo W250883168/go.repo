@@ -6,8 +6,8 @@ import (
 	"runtime"
 	"time"
 
-	xutil "xutils/xapp"
-	"xutils/xfile"
+	xutil "go.repo/xutils/xapp"
+	"go.repo/xutils/xfile"
 )
 
 const MaxFileSize = 10 * 1024 * 1024 // 10M

@@ -2,7 +2,8 @@ package xerr
 
 import (
 	"fmt"
-	"xutils/xdebug"
+
+	"go.repo/xutils/xdebug"
 )
 
 // 捕获异常

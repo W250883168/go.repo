@@ -7,7 +7,7 @@ import (
 
 	"github.com/beevik/guid"
 
-	"xutils/xapp"
+	"go.repo/xutils/xapp"
 )
 
 func foo() {
